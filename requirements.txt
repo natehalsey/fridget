@@ -2,6 +2,7 @@ aiosqlite
 alembic
 databases
 fastapi
+ormar
 requests
 SQLAlchemy
 uvicorn
