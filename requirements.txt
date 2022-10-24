@@ -1,11 +1,7 @@
 aiosqlite
 alembic
-authlib
 databases
 fastapi
-httpx
-ormar
-python-dotenv
+requests
 SQLAlchemy
-starlette
 uvicorn

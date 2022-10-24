@@ -1,9 +1,9 @@
 
 from fastapi import FastAPI
 
-from .recipes.views import router as RecipeRouter
+from .views import router
 
 
 app = FastAPI()
 
-app.include_router(RecipeRouter)
+app.include_router(router)

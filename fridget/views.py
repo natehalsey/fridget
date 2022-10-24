@@ -1,16 +1,17 @@
-import requests
 import json 
+import requests
+from fastapi import APIRouter
 
-from flask import Flask, request
-
-app = Flask(__name__)
+router = APIRouter(
+    prefix = ""
+)
 
 headers = {
     "X-RapidAPI-Key": "eb35fcf224msh909175e8c268c99p18336bjsn1e11ec2eeddf",
     "X-RapidAPI-Host": "themealdb.p.rapidapi.com"
 }
 
-@app.route('/')
+@router.get('/')
 def home():
     return """<h3>Endpoints</h3>
     <p>See <a href=https://rapidapi.com/thecocktaildb/api/themealdb/>The meal DB API Docs</a><p>
@@ -50,7 +51,7 @@ def home():
 
      
 
-@app.route('/filter')
+@router.get('/filter')
 def filter():
     key_str = 'c'
     value_str = 'seafood'
@@ -66,7 +67,7 @@ def filter():
     #print(json.dumps(response.json(), indent=2))
     return response.json()
 
-@app.route('/search')
+@router.get('/search')
 def search():
     key_str = 'f'
     value_str = 'a'
@@ -82,7 +83,7 @@ def search():
     #print(json.dumps(response.json(), indent=2))
     return response.json()
 
-@app.route('/lookup')
+@router.get('/lookup')
 def lookup():
     key_str = 'f'
     value_str = 'a'
@@ -103,7 +104,7 @@ def lookup():
     #print(json.dumps(response.json(), indent=2))
     return response.json()
 
-@app.route('/list')
+@router.get('/list')
 def list():
     key_str = 'f'
     value_str = 'a'
