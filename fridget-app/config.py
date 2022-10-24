@@ -8,7 +8,7 @@ class Settings:
     RECIPE_API_URL = "https://api.spoonacular.com/recipes/complexSearch"
     RECIPE_API_KEY =  "" # keep it secret, keep it safe
     RECIPE_HEADERS = {
-       "" : API_KEY
+       "" : RECIPE_API_KEY
     }
 
 settings = Settings()
