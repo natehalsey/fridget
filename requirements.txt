@@ -1,0 +1,10 @@
+aiosqlite
+alembic
+databases
+fastapi
+ormar
+pydantic
+requests
+SQLAlchemy
+startlette
+uvicorn
