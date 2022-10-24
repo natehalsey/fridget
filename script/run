@@ -1,1 +1,1 @@
-uvicorn src.fridget:app --reload
+uvicorn fridget-app.fridget:app --reload
