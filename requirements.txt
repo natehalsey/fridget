@@ -5,9 +5,7 @@ databases
 fastapi
 httpx
 ormar
-pydantic
 python-dotenv
-requests
 SQLAlchemy
 starlette
 uvicorn
