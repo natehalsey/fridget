@@ -2,17 +2,16 @@
 
 ## Starting the virtual environment
 
-Run the bootstrap script by running: ```. script/bootstrap```, this will install the required dependancies and put you in a python virtual environment. 
+```. script/bootstrap```, creates the virtual environment and installs the necessary dependancies.
 
 ## Database
 
-If making changes to the base.schema (will update tables in our database) run: ```alembic revision --autogenerate -m "update message goes here"```. Afterward run the migrations with ```alembic upgrade head```. If you're getting weird errors, you may need to run migrations.
+ Run: ```alembic revision --autogenerate -m "update message goes here"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
 
 ## Viewing database tables
 
-We can use the command line. Install sqlite3, and run it with ```sqlite3``` in your terminal. While in the ```fridget``` directory type: ```.open db.sqlite``` and to view tables: ```.tables```.
+Install sqlite3, and run it with ```sqlite3```. Type: ```.open db.sqlite``` to open the database, and to view tables: ```.tables```.
 
 ## Starting the app
 
-Run the script ```. script/run``` to start the app.
- 
+Run the script ```. script/run``` to start the app. Go to localhost:8000 in your web browser.
