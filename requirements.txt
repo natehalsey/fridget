@@ -1,7 +1,9 @@
 aiosqlite
 alembic
+authlib
 databases
 fastapi
+httpx
 ormar
 pydantic
 python-dotenv
