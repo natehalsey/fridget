@@ -10,7 +10,7 @@ If making changes to the base.schema (will update tables in our database) run: `
 
 ## Viewing database tables
 
-We can use the command line. Install sqlite3, and run it with ```sqlite3``` in your terminal. While in the ```fridget-app``` directory type: ```.open db.sqlite``` and to view tables: ```.tables```.
+We can use the command line. Install sqlite3, and run it with ```sqlite3``` in your terminal. While in the ```fridget``` directory type: ```.open db.sqlite``` and to view tables: ```.tables```.
 
 ## Starting the app
 
