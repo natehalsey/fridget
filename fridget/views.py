@@ -3,6 +3,8 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import HTMLResponse
 from .schema import Users
 from uuid import uuid4
+
+
 router = APIRouter(
     prefix = ""
 )

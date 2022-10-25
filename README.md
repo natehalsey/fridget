@@ -14,6 +14,12 @@ Install sqlite3, and run it with ```sqlite3```. Type: ```.open db.sqlite``` to o
 
 ## Starting the app
 
-Run the script ```. script/run``` to start the app. 
+Run the script ```. script/run``` to start the app.
+Server address: http://localhost:8000 in your web browser.
+Go to http://localhost:8000/docs for Sawgger docs.
+
+## Starting the UI
+Run ```npm install```
+Run ```npm run start``` 
 Go to http://localhost:8000 in your web browser.
 Go to http://localhost:8000/docs for API docs.
