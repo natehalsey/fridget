@@ -1,8 +1,9 @@
 import sqlalchemy
 import databases
 import ormar
+from .config import Settings
 
-DATABASE_URL = "sqlite:///db.sqlite"
+DATABASE_URL = Settings.DATABASE
 
 database = databases.Database(DATABASE_URL)
 metadata = sqlalchemy.MetaData()
