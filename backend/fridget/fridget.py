@@ -1,7 +1,8 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .views import router
+from .wrapper.views import router as WrapperRouter
+from .base.login import router as LoginRouter
 
 
 app = FastAPI()
@@ -12,4 +13,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(router)
+app.include_router(LoginRouter)
+app.include_router(WrapperRouter)

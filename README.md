@@ -20,6 +20,8 @@ Run the script ```. script/run``` to start the app.
 Server address: http://localhost:8000 in your web browser.
 Go to http://localhost:8000/docs for Sawgger docs.
 
+# Running the Frontend
+
 ## Starting the UI
 Go to frontend dir ```cd frontend```
 Run ```npm install```
