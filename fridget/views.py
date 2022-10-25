@@ -1,7 +1,8 @@
 from requests import request, RequestException 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import HTMLResponse
-
+from .schema import Users
+from uuid import uuid4
 router = APIRouter(
     prefix = ""
 )
@@ -221,12 +222,14 @@ def list_all_ingredients():
 
 
 ## User Endpoints - DB
+#
+@router.post('/new_user')
+async def new_user(user: Users):
+    print(user)
+    # user.password = hash(user.password) can this be add at ORM/DB level?
+    await user.save()
+    return HTMLResponse(content="<h3>OK</h3>", status_code=200)
 
-@router.get('/new_user')
-def new_user(user: str, pas: str):
-    pass
-
-
-@router.get('/login')
-def login(user: str, pas: str):
-    pass
+@router.post('/login')
+async def login(username: str, password: str ):
+    return await Users.objects.get(username=username, hashed_password=password)

@@ -14,4 +14,6 @@ Install sqlite3, and run it with ```sqlite3```. Type: ```.open db.sqlite``` to o
 
 ## Starting the app
 
-Run the script ```. script/run``` to start the app. Go to localhost:8000 in your web browser.
+Run the script ```. script/run``` to start the app. 
+Go to http://localhost:8000 in your web browser.
+Go to http://localhost:8000/docs for API docs.
