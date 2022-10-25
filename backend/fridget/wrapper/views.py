@@ -1,19 +1,14 @@
 from requests import request, RequestException 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import HTMLResponse
-from .schema import Users
+from ..base.config import Settings
 from uuid import uuid4
 
 
 router = APIRouter(
     prefix = ""
 )
-
-headers = {
-    "X-RapidAPI-Key": "eb35fcf224msh909175e8c268c99p18336bjsn1e11ec2eeddf",
-    "X-RapidAPI-Host": "themealdb.p.rapidapi.com"
-}
-
+headers = Settings.HEADERS
 html_content = """<h3>Endpoints</h3>
     <p>See <a href=https://rapidapi.com/thecocktaildb/api/themealdb/>The meal DB API Docs</a><p>
     <h4>1. Filter</h4>
@@ -221,17 +216,3 @@ def list_all_ingredients():
 
     except RequestException as e:
         raise HTTPException(status_code=500, detail="Server Error: " + str(e))
-
-
-## User Endpoints - DB
-#
-@router.post('/new_user')
-async def new_user(user: Users):
-    print(user)
-    # user.password = hash(user.password) can this be add at ORM/DB level?
-    await user.save()
-    return HTMLResponse(content="<h3>OK</h3>", status_code=200)
-
-@router.post('/login')
-async def login(username: str, password: str ):
-    return await Users.objects.get(username=username, hashed_password=password)
