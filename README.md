@@ -1,5 +1,7 @@
 # Running the Backend
 
+Go to backend dir ```cd backend```
+
 ## Starting the virtual environment
 
 ```. script/bootstrap```, creates the virtual environment and installs the necessary dependancies.
@@ -22,8 +24,10 @@ Go to http://localhost:8000/docs for Sawgger docs.
 
 # Running the Frontend
 
-## Starting the UI
 Go to frontend dir ```cd frontend```
+
+## Starting the UI
+
 Run ```npm install```
 Run ```npm start``` 
 
