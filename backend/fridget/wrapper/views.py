@@ -9,31 +9,6 @@ router = APIRouter(
     prefix = ""
 )
 headers = Settings.HEADERS
-html_content = """<h3>Endpoints</h3>
-    <p>See <a href=https://rapidapi.com/thecocktaildb/api/themealdb/>The meal DB API Docs</a><p>
-    <h4>1. Filter</h4>
-    <ul>
-        <li>filter_by_ingredient(ingred: str) <a href=/filter_by_ingredient/?ingred=chicken_breast>/filter_by_ingredient/?ingred=chicken_breast</a></li>
-        <li>filter_by_category(cat: str) <a href=/filter_by_category/?cat=seafood>/filter_by_category/?cat=seafood</a></li>
-        <li>filter_by_area(area: str) <a href=/filter_by_area/?area=Canadian>/filter_by_area/?area=Canadian</a></li>
-    </ul>
-    <p></p>
-
-    <h4>2. Search</h4>
-    <ul>
-        <li>search_by_name(name: str) <a href=/search_by_name/?name&Arrabiata>/search_by_name/?name=Arrabiata</a></li>
-        <li>search_by_first_letter(ltr: str) <a href=search_by_first_letter/?ltr=a>search_by_first_letter/?ltr=a</li>
-        <li>search_by_id(id: int)<a href=/search_by_id/?id=52772>/lookup/?id=52772</a></li>
-        <li>random_recipe()<a href=/random_recipe>/random_recipe</a></li>
-    </ul>
-
-    <h4>4. List</h4>
-    <ul>
-        <li>list_all_ingredients() <a href=/list_all_ingredients>/list_all_ingredients</a></li>
-        <li>list_all_areas() <a href=/list_all_areas>/list_all_areas</a></li>
-        <li>list_all_catagories() <a href=/list_all_catagories>/list_all_catagories</a></li>
-    </ul>
-    """
 
 @router.get('/')
 def home():
