@@ -13,11 +13,10 @@ class BaseMeta(ormar.ModelMeta):
     database = database
 
 
-class Users(ormar.Model):
+class Label(ormar.Model):
 
     class Meta(BaseMeta):
-        tablename="users"
+        pass
 
     id: int = ormar.Integer(primary_key=True)
-    username: str = ormar.String(max_length=20)
-    hashed_password: str = ormar.String(max_length=200)
+    name: str = ormar.String(max_length=20)
