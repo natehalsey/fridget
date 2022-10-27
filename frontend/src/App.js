@@ -1,56 +1,13 @@
-
 import React, { Component } from 'react';
-import axios from 'axios';
+import RandomRecipes from './components/RandomRecipes';
+import './App.css';
 
-class Recipe extends Component {
+export default class App extends Component {
   render() {
     return (
-        <div>
-            <div>Recipe id: {this.props.recipeId}</div>
-            <div>Recipe Name: {this.props.recipeName}</div>
-        </div>
+     <div>
+        <RandomRecipes/>   
+     </div>
     );
   }
 }
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fetchRecipe: {
-        recipeId: 'N/A',
-        recipeName: 'N/A'
-      }
-    }
-    this.fetchRecipe = this.fetchRecipe.bind(this);
-  }
-
-  fetchRecipe() {
-    axios.get('http://localhost:8000/random_recipe')
-      .then( (response) => {
-        this.setState({
-          fetchRecipe: {
-            recipeId: response.data.meals[0].idMeal, 
-            recipeName: response.data.meals[0].strMeal
-          }});
-      })
-      .catch( (error) => {
-        console.log(error);
-      });  
-  }
-
-
-  render() {
-    return (
-      <div>
-          <button onClick={this.fetchRecipe}>Get Random Recipe</button>
-          <Recipe
-            recipeId={this.state.fetchRecipe.recipeId} 
-            recipeName={this.state.fetchRecipe.recipeName} 
-          />
-      </div>
-    );
-  }
-}
-
-export default App;
