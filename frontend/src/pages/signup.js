@@ -1,16 +1,9 @@
 import React from 'react';
-  
+import styles from "./pages.css";
 const SignUp = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'Right',
-        alignItems: 'Right',
-        height: '100vh'
-      }}
-    >
-      <h1>Sign Up</h1>
+    <div className={styles.staticpage}>
+      <h1>SignUp</h1>
     </div>
   );
 };

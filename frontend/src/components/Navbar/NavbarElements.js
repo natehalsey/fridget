@@ -7,7 +7,7 @@ export const Nav = styled.nav`
   height: 85px;
   display: flex;
   justify-content: space-between;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
+  padding: 10px;
   z-index: 12;
   /* Third Nav */
   /* justify-content: flex-start; */
@@ -22,7 +22,7 @@ export const NavLink = styled(Link)`
   height: 100%;
   cursor: pointer;
   &.active {
-    color: #000000;
+    color: #16cdde;
   }
 `;
   
@@ -43,9 +43,9 @@ export const Bars = styled(FaBars)`
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
-  margin-right: -24px;
+  margin-right: -25px;
   /* Second Nav */
-  /* margin-right: 24px; */
+  /* margin-right: 0px; */
   /* Third Nav */
   /* width: 100vw;
   white-space: nowrap; */
@@ -57,7 +57,7 @@ export const NavMenu = styled.div`
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
-  margin-right: 24px;
+  margin-right: 20px;
   /* Third Nav */
   /* justify-content: flex-end;
   width: 100vw; */
@@ -68,9 +68,9 @@ export const NavBtn = styled.nav`
   
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  background: #808080;
+  background: #16cdde;
   padding: 10px 22px;
-  color: #000000;
+  color: #FFFFFF;
   outline: none;
   border: none;
   cursor: pointer;
