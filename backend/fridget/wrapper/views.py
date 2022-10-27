@@ -155,13 +155,16 @@ def random_recipe():
     """
 
     try:
-        response = request("GET", 
-                "https://themealdb.p.rapidapi.com/random.php", 
-                headers=headers,)
+        response = request(
+            "GET", 
+            "https://themealdb.p.rapidapi.com/random.php", 
+            headers=headers,
+        )
 
         return response.json()
 
     except RequestException as e:
+        print(e)
         raise HTTPException(status_code=500, detail="Server Error: " + str(e))
 
 ## List Endpoints - API

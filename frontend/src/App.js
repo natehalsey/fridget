@@ -1,57 +1,25 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-
-class Recipe extends Component {
-  render() {
-    return (
-        <div>
-            <div>Recipe id: {this.props.recipeId}</div>
-            <div>Recipe Name: {this.props.recipeName}</div>
-        </div>
-    );
-  }
+import React from 'react';
+import './App.css';
+import Navbar from './components/Navbar/Navbar';
+import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages';
+import About from './pages/about';
+import Teams from './pages/team';
+import SignUp from './pages/signup';
+  
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/team' element={<Teams />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/api' element={<Link to={{ pathname: 'https://www.themealdb.com/'}}/> }/>
+      </Routes>
+    </Router>
+  );
 }
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fetchRecipe: {
-        recipeId: 'N/A',
-        recipeName: 'N/A'
-      }
-    }
-    this.fetchRecipe = this.fetchRecipe.bind(this);
-  }
-
-  fetchRecipe() {
-    axios.get('http://localhost:8000/random_recipe')
-      .then( (response) => {
-        console.log("response", response);
-        this.setState({
-          fetchRecipe: {
-            recipeId: response.data.meals[0].idMeal, 
-            recipeName: response.data.meals[0].strMeal
-          }});
-        console.log("fetchRecipe", this.state.fetchRecipe);
-      })
-      .catch( (error) => {
-        console.log(error);
-      });  
-  }
-
-
-  render() {
-    return (
-      <div>
-          <button onClick={this.fetchRecipe}>Get Random Recipe</button>
-          <Recipe
-            recipeId={this.state.fetchRecipe.recipeId} 
-            recipeName={this.state.fetchRecipe.recipeName} 
-          />
-      </div>
-    );
-  }
-}
-
+  
 export default App;
