@@ -22,6 +22,7 @@ async def create_ingredient(ingredient_model: IngredientModel):
     except IntegrityError as e:
         raise HTTPException(status_code=400, detail=f"Ingredient already exists: {e}")
 
+
 @router.get("/search-by-ingredients")
 async def search_by_ingredients(ingredients: list[IngredientModel]):
     print(ingredients)
