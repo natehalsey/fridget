@@ -1,5 +1,3 @@
-__pycache__
 .vscode
 .env
-*/__pycache__
-__pyache__/*
+__pycache__/
