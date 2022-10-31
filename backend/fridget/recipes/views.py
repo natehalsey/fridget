@@ -10,15 +10,13 @@ router = APIRouter(
     
 @router.get("/get-recipes")
 async def get_recipes():
-    return await Recipe.objects.select_all().all()
+    return await Recipe.objects.select_related("area").select_related("category").all()
 
 @router.get("/get-recipes-by-name")
 async def get_recipes_by_name(recipe_model: RecipeModel):
-    recipe = await Recipe.objects.filter(
+    return await Recipe.objects.filter(
         name__contains=recipe_model.name
     ).all()
-
-    return recipe
 
 @router.post("/create-recipe")
 async def create_recipe(recipe: RecipeModel):

@@ -1,7 +1,7 @@
 from sqlite3 import IntegrityError
 from fastapi import APIRouter, HTTPException
-from fridget.base.schema import Ingredient
-from fridget.ingredients.models import IngredientModel
+from fridget.base.schema import Ingredient, RecipeIngredientMeasurement
+from fridget.ingredients.models import IngredientModel, IngredientQueryModel
 router = APIRouter(
     prefix = "/ingredients"
 )
@@ -24,6 +24,7 @@ async def create_ingredient(ingredient_model: IngredientModel):
 
 
 @router.get("/search-by-ingredients")
-async def search_by_ingredients(ingredients: list[IngredientModel]):
-    print(ingredients)
-
+async def search_by_ingredients(ingredients: IngredientQueryModel):
+    return await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
+        ingredient__name__in=ingredients.ingredients
+    ).select_related("recipe").all()

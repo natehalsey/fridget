@@ -8,9 +8,9 @@ class IngredientModel(BaseModel):
     description: str
     type: str
     
-
 class IngredientMeasurementModel(BaseModel):
     ingredient: IngredientModel
     measurement: MeasurementModel
     
-
+class IngredientQueryModel(BaseModel):
+    ingredients: list[str]
