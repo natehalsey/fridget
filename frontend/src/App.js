@@ -6,7 +6,6 @@ import Home from './pages';
 import About from './pages/about';
 import Teams from './pages/team';
 import SignUp from './pages/signup';
-import Search from './pages/search_page';
   
 function App() {
   return (
