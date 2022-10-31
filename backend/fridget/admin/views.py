@@ -7,4 +7,4 @@ router = APIRouter(
 
 @router.get("/reinit-db")
 async def reinit_db():
-    await download_db()
+    return await download_db()

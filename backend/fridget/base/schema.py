@@ -28,15 +28,13 @@ class Area(ormar.Model):
     class Meta(BaseMeta):
         tablename="areas"
     
-    id: int = ormar.Integer(primary_key=True)
-    name: str = ormar.String(max_length=30, unique=True)
+    name: str = ormar.String(max_length=30, unique=True, primary_key=True)
 
 class Category(ormar.Model):
     class Meta(BaseMeta):
         tablename="categories"
     
-    id: int = ormar.Integer(primary_key=True)
-    name: str = ormar.String(max_length=50, unique=True)
+    name: str = ormar.String(max_length=50, unique=True, primary_key=True)
     
 class Ingredient(ormar.Model):
     class Meta(BaseMeta):

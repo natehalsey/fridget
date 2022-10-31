@@ -62,7 +62,7 @@ async def download_db():
     response = response.json()
     meals = response["meals"]
     for meal in meals:
-        ingredients_measurements = {}
+        ingredients_measurements = []
         category = await Category.objects.get_or_create(
             name=meal["strCategory"]
         )
@@ -92,7 +92,7 @@ async def download_db():
                 ingredient=ingredient[0]
                 measurement=measurement[0]
 
-                ingredients_measurements |= {ingredient.name: measurement.measurement}                
+                ingredients_measurements.append({"ingredient": ingredient.name, "measurement": measurement.measurement})                
 
                 await RecipeIngredientMeasurement.objects.get_or_create(
                     ingredient=ingredient.id,
