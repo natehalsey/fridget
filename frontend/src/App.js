@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages';
 import About from './pages/about';
@@ -18,7 +18,6 @@ function App() {
         <Route path='/team' element={<Teams />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/api' element={<Link to={{ pathname: 'https://www.themealdb.com/'}}/> }/>
-        <Route path='/search' element={<Search/>}/>
       </Routes>
     </Router>
   );
