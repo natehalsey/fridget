@@ -16,4 +16,4 @@ async def login(user_info: LoginRequestModel):
         email= user_info.email
     )
 
-    return user.id
+    return user
