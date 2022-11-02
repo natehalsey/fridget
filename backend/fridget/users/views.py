@@ -9,11 +9,11 @@ router = APIRouter(
 
 @router.post('')
 async def login(user_info: LoginRequestModel):
-    await User.objects.get_or_create(
+    user, _ = await User.objects.get_or_create(
         given_name= user_info.given_name,
         family_name= user_info.family_name,
         picture= user_info.picture,
         email= user_info.email
     )
 
-    return True
+    return user.id
