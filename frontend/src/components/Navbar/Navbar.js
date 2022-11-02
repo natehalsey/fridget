@@ -41,6 +41,9 @@ const Navbar = () => {
         <Bars />
 
         <NavMenu>
+        <NavLink to="/home" activeStyle>
+            Home
+          </NavLink>
           <NavLink to="/about" activeStyle>
             About
           </NavLink>
@@ -55,7 +58,7 @@ const Navbar = () => {
           <div id="signInDiv" to="/signin" />
         </NavBtn>
         {Object.keys(user).length !== 0 && (
-          <NavLink activeStyle onClick={(e) => handleSignOut(e)}>
+          <NavLink to="/Home" activeStyle onClick={(e) => handleSignOut(e)}>
             Sign Out
           </NavLink>
         )}
