@@ -6,9 +6,15 @@ import jwt_decode from "jwt-decode";
 const Navbar = () => {
   const [user, setUser] = useState({});
 
+  function handleSignOut(event) {
+    setUser({});
+    document.getElementById("signInDiv").hidden = false;
+  }
+
   const handleCallbackResponse = useCallback((response) => {
     var userObject = jwt_decode(response.credential);
     setUser(userObject);
+    document.getElementById("signInDiv").hidden = true;
   });
 
   useEffect(() => {
@@ -45,11 +51,14 @@ const Navbar = () => {
             API
           </NavLink>
         </NavMenu>
-        <NavLink to="/signup" state={{ props: user }}>
-          <NavBtn>
-            <div id="signInDiv" to="/signin" />
-          </NavBtn>
-        </NavLink>
+        <NavBtn>
+          <div id="signInDiv" to="/signin" />
+        </NavBtn>
+        {Object.keys(user).length !== 0 && (
+          <NavLink activeStyle onClick={(e) => handleSignOut(e)}>
+            Sign Out
+          </NavLink>
+        )}
       </Nav>
     </div>
   );
