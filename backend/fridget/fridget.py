@@ -6,7 +6,7 @@ from fridget.areas.views import router as AreaRouter
 from fridget.categories.views import router as CategoryRouter
 from fridget.ingredients.views import router as IngredientRouter
 from fridget.recipes.views import router as RecipeRouter
-
+from fridget.users.views import router as UserRouter
 
 app = FastAPI()
 
@@ -27,3 +27,4 @@ app.include_router(AreaRouter)
 app.include_router(CategoryRouter)
 app.include_router(IngredientRouter)
 app.include_router(RecipeRouter)
+app.include_router(UserRouter)
