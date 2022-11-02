@@ -1,6 +1,6 @@
 #GENERAL
 .DS_STORE
-
+*.pyc
 
 # BE
 /.env
