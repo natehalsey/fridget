@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 import styles from "./pages.css";
+
 const SignUp = () => {
   return (
     <div className={styles.staticpage}>
@@ -7,5 +8,5 @@ const SignUp = () => {
     </div>
   );
 };
-  
+
 export default SignUp;
