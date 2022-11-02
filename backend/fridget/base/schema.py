@@ -21,8 +21,10 @@ class User(ormar.Model):
         tablename="users"
     
     id: int = ormar.Integer(primary_key=True)
-    username: str = ormar.String(max_length=20)
-    hashed_password: str = ormar.String(max_length=20)
+    given_name: str = ormar.String(max_length=100)
+    family_name: str = ormar.String(max_length=100)
+    picture: str = ormar.String(max_length=100)
+    email: str = ormar.String(max_length=100)
     
 class Area(ormar.Model):
     class Meta(BaseMeta):
