@@ -8,7 +8,7 @@ Go to backend dir ```cd backend```
 
 ## Database
 
-Run: ```alembic revision --autogenerate -m "update message goes here"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
+Run: ```. script/dbupgrade "upgrade message"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
 
 ## Viewing database tables
 
