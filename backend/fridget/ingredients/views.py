@@ -27,3 +27,11 @@ async def create_ingredient(ingredient_model: IngredientModel):
 @router.get("/search-by-ingredients")
 async def search_by_ingredients(ingredients: IngredientListModel) -> list[RecipeIngredientMeasurement]:
     return await ingredient_controller.search_by_ingredients(ingredients)
+
+
+@router.get("/get-ingredients-by-recipe")
+async def get_ingredients_by_recipe(recipe_id: int):
+    print("here")
+    return await RecipeIngredientMeasurement.objects.filter(
+        recipe__id=recipe_id
+    ).select_related("ingredient").select_related("measurement").all()

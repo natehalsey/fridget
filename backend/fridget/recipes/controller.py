@@ -6,9 +6,9 @@ from fridget.recipes.models import RecipeModel
 class RecipeController:
 
     async def create_recipe(self, recipe_model: RecipeModel):
-        ingredients_measurements = self._parse_ingredients(recipe_model)
+        ingredients_measurements = await self._parse_ingredients(recipe_model)
         recipe = await Recipe.objects.create(
-            **recipe.dict()
+            **recipe_model.dict()
         )
         
         recipes_ingredients_measurements: list[RecipeIngredientMeasurement] = []
