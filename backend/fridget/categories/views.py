@@ -8,7 +8,7 @@ router = APIRouter(
     prefix = "/categories"
 )
 
-@router.get("/get-all-categories")
+@router.get("/get-categories")
 async def get_categories() -> list[CategoryModel]:
     return await Category.objects.select_related("recipes").all()
 
