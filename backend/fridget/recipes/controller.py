@@ -7,6 +7,7 @@ class RecipeController:
 
     async def create_recipe(self, recipe_model: RecipeModel):
         ingredients_measurements = await self._parse_ingredients(recipe_model)
+        
         recipe = await Recipe.objects.create(
             **recipe_model.dict()
         )
@@ -14,6 +15,7 @@ class RecipeController:
         recipes_ingredients_measurements: list[RecipeIngredientMeasurement] = []
         
         for ingredient_measurement in ingredients_measurements:
+            
             ingredient, measurement = ingredient_measurement
             
             recipes_ingredients_measurements.append(
@@ -23,7 +25,7 @@ class RecipeController:
                     recipe=recipe
                 )
             )
-            
+                        
         await RecipeIngredientMeasurement.objects.bulk_create(
             recipes_ingredients_measurements
         )

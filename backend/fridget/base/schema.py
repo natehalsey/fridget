@@ -53,7 +53,7 @@ class Measurement(ormar.Model):
     
     id: int = ormar.Integer(primary_key=True)
     measurement: str = ormar.String(max_length=500, unique=True)
-     
+    
 class Recipe(ormar.Model):     
 
     class Meta(BaseMeta):
