@@ -1,32 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SearchBar.css";
-import { Users } from "./Users";
+import axios from "axios";
 
 const SearchBar = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
 
-  // Radio button for name, category, ingrediants
-  // Make query call based on that 
-  // How do we condition based query
+  useEffect(() => {
+    const loadQuery = async () => {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      setQuery(response.data);
+    };
 
-  // Real Question Collab
+    loadQuery();
+  }, []);
 
   return (
     <div className={styles.staticpage}>
+      <h1>Welcome to App!</h1>
       <input
         type="text"
         placeholder="Search..."
         className="search"
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => setSearchTitle(e.target.value)}
       />
       <ul className="list">
-        {Users.filter((user) =>
-          user.first_name.toLowerCase().includes(query.toLowerCase())
-        ).map((user) => (
-          <li key={user.id} className="listItem">
-            {user.first_name}
-          </li>
-        ))}
+        {query
+          .filter((value) => {
+            if (searchTitle === "") {
+              return value;
+            } else if (
+              value.title.toLowerCase().includes(searchTitle.toLowerCase())
+            ) {
+              return value;
+            }
+          })
+          .map((item) => (
+            <li key={item.id} className="listItem">
+              {item.title}
+            </li>
+          ))}
       </ul>
     </div>
   );
