@@ -1,16 +1,19 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class MeasurementModel(BaseModel):
+    id: int
     measurement: str
 
 class IngredientModel(BaseModel):
+    id: int
     name: str
-    description: str
-    type: str
+    description: Optional[str]
+    type: Optional[str]
     
 class IngredientMeasurementModel(BaseModel):
-    ingredient: IngredientModel
-    measurement: MeasurementModel
+    ingredient: str
+    measurement: str
     
-class IngredientQueryModel(BaseModel):
+class IngredientListModel(BaseModel):
     ingredients: list[str]

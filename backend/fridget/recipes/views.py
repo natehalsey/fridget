@@ -1,33 +1,35 @@
-import ormar
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Response
 from fridget.recipes.models import RecipeModel
 from fridget.base.schema import Recipe
 from fridget.recipes.models import RecipeModel
+from fridget.recipes.controller import RecipeController
 
+    
 router = APIRouter(
     prefix = "/recipes"
 )
-    
+
+recipe_controller = RecipeController()
+
 @router.get("/get-recipes")
-async def get_recipes():
-    return await Recipe.objects.select_related("area").select_related("category").all()
+async def get_recipes() -> list[Recipe]:
+    return await recipe_controller.get_all_recipes()
 
 @router.get("/get-recipes-by-name")
-async def get_recipes_by_name(recipe_model: RecipeModel):
-    return await Recipe.objects.filter(
-        name__contains=recipe_model.name
-    ).all()
+async def get_recipes_by_name(recipe_model: RecipeModel) -> list[Recipe]:
+    
+    return await recipe_controller.filter_recipe_by_name(recipe_model)
 
 @router.post("/create-recipe")
 async def create_recipe(recipe: RecipeModel):
+    
     try:
-        new_recipe = Recipe(**recipe.dict())
+        await recipe_controller.create_recipe(recipe)
         
     except TypeError as e:
         raise HTTPException(status_code=400, detail=e)
     
-    
-    return new_recipe
+    return Response(status_code=200)
     
     
     
