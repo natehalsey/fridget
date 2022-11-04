@@ -27,8 +27,3 @@ async def create_ingredient(ingredient_model: IngredientModel):
 @router.get("/get-recipes-by-ingredients")
 async def get_recipes_by_ingredients(ingredients: IngredientListModel) -> list[RecipeIngredientMeasurement]:
     return await ingredient_controller.get_recipes_by_ingredients(ingredients)
-
-
-@router.get("/get-ingredients-by-recipe")
-async def get_ingredients_by_recipe(recipe_id: int):
-    return await ingredient_controller.get_ingredients_by_recipe_id(recipe_id)
