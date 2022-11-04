@@ -5,6 +5,12 @@ import { Users } from "./Users";
 const SearchBar = () => {
   const [query, setQuery] = useState("");
 
+  // Radio button for name, category, ingrediants
+  // Make query call based on that 
+  // How do we condition based query
+
+  // Real Question Collab
+
   return (
     <div className={styles.staticpage}>
       <input
