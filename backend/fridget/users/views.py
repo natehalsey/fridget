@@ -7,7 +7,7 @@ router = APIRouter(
     prefix = "/login"
 )
 
-@router.post('')
+@router.post('/')
 async def login(user_info: LoginRequestModel):
     user, _ = await User.objects.get_or_create(
         given_name= user_info.given_name,
