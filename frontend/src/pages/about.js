@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./pages.css";
+import styles from "./Pages.css";
 const About = () => {
   return (
     <div className={styles.staticpage}>

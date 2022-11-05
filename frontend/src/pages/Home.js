@@ -1,12 +1,13 @@
-import React from 'react';
-import styles from "./pages.css";
+import React from "react";
+import SearchBar from "../components/SearchBar/SearchBar";
+import styles from "./Pages.css";
 
 const Home = () => {
   return (
     <div className={styles.staticpage}>
-      <h1>Home</h1>
+      <SearchBar></SearchBar>
     </div>
   );
 };
-  
+
 export default Home;
