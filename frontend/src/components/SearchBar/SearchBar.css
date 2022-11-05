@@ -1,0 +1,28 @@
+.staticpage {
+  color: black;
+  padding: 40px;
+  font-family: Arial;
+  text-align: left;
+}
+
+.search {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.listItem {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #444;
+  font-weight: 300;
+}
