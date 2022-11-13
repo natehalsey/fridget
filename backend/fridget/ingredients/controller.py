@@ -1,19 +1,10 @@
 import operator
 from collections import defaultdict
-from fridget.base.schema import Ingredient, RecipeIngredientMeasurement, Measurement
-from fridget.ingredients.models import IngredientModel, IngredientListModel, IngredientMeasurementModel, MeasurementModel
+from fridget.base.schema import Ingredient, RecipeIngredientMeasurement
+from fridget.ingredients.models import IngredientModel, IngredientListModel
 from fridget.recipes.models import RecipeModel
 
 class IngredientController:
-    async def get_all_ingredients(self) -> list[Ingredient]:
-        return await Ingredient.objects.all()
-        
-    async def create_ingredient(self, ingredient_model: IngredientModel) -> None:
-        await Ingredient.objects.create(
-            name=ingredient_model.name,
-            description=ingredient_model.description,
-            type=ingredient_model.type
-        )
         
     async def get_recipes_by_ingredients(self, ingredients: IngredientListModel) -> list[RecipeModel]:
         recipes = await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
@@ -32,20 +23,6 @@ class IngredientController:
         sorted_recipes = self._sort_dict_by_list_len(recipe_ingredients)
         return [recipe_id_recipe[sorted_recipe] for sorted_recipe in sorted_recipes]
         
-    
-    async def get_ingredients_by_recipe_id(self, recipe_id: int):
-        
-        recipes_ingredients_measurements = await RecipeIngredientMeasurement.objects.filter(
-            recipe__id=recipe_id
-        ).select_related("ingredient").select_related("measurement").all()
-        
-        return [
-            IngredientMeasurementModel(
-                ingredient=recipe_ingredient_measurement.ingredient.name,
-                measurement = recipe_ingredient_measurement.measurement.measurement,
-            )
-            for recipe_ingredient_measurement in recipes_ingredients_measurements
-        ]
     
     def _sort_dict_by_list_len(self, dictionary_with_list: dict[RecipeModel, list[str]]) -> dict[RecipeModel, list[str]]:
         dict_len: dict[str,str] = {key: len(value) for key, value in dictionary_with_list.items()}

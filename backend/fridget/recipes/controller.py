@@ -1,15 +1,32 @@
 
-from fridget.base.schema import Recipe, Ingredient, Measurement, RecipeIngredientMeasurement
+from fridget.base.schema import Recipe, Ingredient, Measurement, RecipeIngredientMeasurement, Area, Category
 from fridget.ingredients.models import IngredientMeasurementModel
 from fridget.recipes.models import RecipeModel
+from fridget.users.models import UserRecipeModel
 
 class RecipeController:
 
-    async def create_recipe(self, recipe_model: RecipeModel):
-        ingredients_measurements = await self._parse_ingredients(recipe_model)
+    async def create_recipe(self, recipe_model: UserRecipeModel):
+        ingredients_measurements = await self._parse_ingredients(recipe_model.recipe)
+        
+        area, _ = await Area.objects.get_or_create(
+            name=recipe_model.recipe.area.name
+        )
+        category, _ = await Category.objects.get_or_create(
+            name=recipe_model.recipe.area.name
+        )
         
         recipe = await Recipe.objects.create(
-            **recipe_model.dict()
+            name=recipe_model.recipe.name,
+            category=category,
+            area=area,
+            instructions=recipe_model.recipe.instructions,
+            image_url=recipe_model.recipe.image_url,
+            source=recipe_model.recipe.source,
+            created_by=recipe_model.user_id
+        )
+        recipe = await Recipe.objects.create(
+            **recipe_model.recipe.dict()
         )
         
         recipes_ingredients_measurements: list[RecipeIngredientMeasurement] = []
@@ -35,12 +52,7 @@ class RecipeController:
             name__contains=recipe_model.name
         ).all()
         
-    async def get_all_recipes(self) -> list[Recipe]:
-        return await Recipe.objects.select_related(
-            "area"
-        ).select_related("category").all()
         
-
     async def _parse_ingredients(self, recipe_model: RecipeModel) -> list[tuple[Ingredient, Measurement]]:
             ingredients_measurements: list[IngredientMeasurementModel] = recipe_model.ingredients_measurements
             
