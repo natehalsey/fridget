@@ -5,8 +5,8 @@ from fridget.areas.models import AreaModel
 from fridget.categories.models import CategoryModel
 
 class RecipeModel(BaseModel):
-    id: int
-    name: str
+    id: Optional[int]
+    name: Optional[str]
     category: Optional[CategoryModel]
     area: Optional[AreaModel]
     instructions: Optional[str]
