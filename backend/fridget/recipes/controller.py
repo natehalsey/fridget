@@ -47,9 +47,9 @@ class RecipeController:
             recipes_ingredients_measurements
         )
         
-    async def filter_recipe_by_name(self, recipe_model: RecipeModel) -> list[Recipe]:
+    async def filter_recipe_by_name(self, name: str) -> list[Recipe]:
         return await Recipe.objects.filter(
-            name__contains=recipe_model.name
+            name__contains=name
         ).all()
         
         
