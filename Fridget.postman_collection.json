@@ -10,11 +10,8 @@
 			"item": [
 				{
 					"name": "get-recipes-by-ingredient",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -111,11 +108,8 @@
 			"item": [
 				{
 					"name": "get-recipes-by-category",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -147,11 +141,8 @@
 			"item": [
 				{
 					"name": "get-recipes-by-area",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
