@@ -15,7 +15,7 @@ const Navbar = () => {
     var userObject = jwt_decode(response.credential);
     setUser(userObject);
     document.getElementById("signInDiv").hidden = true;
-  });
+  }, []);
 
   useEffect(() => {
     /* global google */
@@ -41,16 +41,16 @@ const Navbar = () => {
         <Bars />
 
         <NavMenu>
-        <NavLink to="/home" activeStyle>
+        <NavLink to="/home" >
             Home
           </NavLink>
-          <NavLink to="/about" activeStyle>
+          <NavLink to="/about" >
             About
           </NavLink>
-          <NavLink to="/team" activeStyle>
+          <NavLink to="/team" >
             Team
           </NavLink>
-          <NavLink to="/api" activeStyle>
+          <NavLink to="/api" >
             API
           </NavLink>
         </NavMenu>
@@ -58,7 +58,7 @@ const Navbar = () => {
           <div id="signInDiv" to="/signin" />
         </NavBtn>
         {Object.keys(user).length !== 0 && (
-          <NavLink to="/Home" activeStyle onClick={(e) => handleSignOut(e)}>
+          <NavLink to="/home"  onClick={(e) => handleSignOut(e)}>
             Sign Out
           </NavLink>
         )}
