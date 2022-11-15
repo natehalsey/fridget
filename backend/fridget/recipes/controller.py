@@ -1,11 +1,17 @@
-
+import ormar
 from random import randint
-from fridget.base.schema import (Area, Category, Ingredient, Measurement,
-                                 Recipe, RecipeIngredientMeasurement)
+from fastapi import Response
+from fridget.base.schema import (
+    Area, 
+    Category, 
+    Ingredient, 
+    Measurement,
+    Recipe, 
+    RecipeIngredientMeasurement
+)
 from fridget.ingredients.models import IngredientMeasurementModel
 from fridget.recipes.models import RecipeModel
 from fridget.users.models import UserRecipeModel
-
 
 class RecipeController:
 
@@ -56,9 +62,12 @@ class RecipeController:
         ).all()
 
     async def filter_recipe_by_id(self, id: int) -> Recipe:
-        return await Recipe.objects.get(
-            id=id
-        )
+        try:
+            return await Recipe.objects.get(
+                id=id
+            )
+        except ormar.NoMatch:
+            return Response(status_code=400, detail="Not found")
 
     async def filter_recipe_by_random(self, n: int) -> Recipe:
         random_offset = randint(0, await Recipe.objects.count() - n)
