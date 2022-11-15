@@ -6,7 +6,7 @@ from fridget.users.models import UserRecipeModel
 
 class RecipeController:
 
-    async def create_recipe(self, recipe_model: UserRecipeModel):
+    async def create_recipe(self, recipe_model: UserRecipeModel) -> None:
         ingredients_measurements = await self._parse_ingredients(recipe_model.recipe)
         
         area, _ = await Area.objects.get_or_create(
@@ -49,9 +49,13 @@ class RecipeController:
         
     async def filter_recipe_by_name(self, name: str) -> list[Recipe]:
         return await Recipe.objects.filter(
-            name__contains=name
+            name__icontains=name
         ).all()
-        
+
+    async def filter_recipe_by_id(self, id: int) -> Recipe:
+        return await Recipe.objects.get(
+            id=id
+        )
         
     async def _parse_ingredients(self, recipe_model: RecipeModel) -> list[tuple[Ingredient, Measurement]]:
             ingredients_measurements: list[IngredientMeasurementModel] = recipe_model.ingredients_measurements

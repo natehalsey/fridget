@@ -9,9 +9,12 @@
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
   display: block;
   padding: 10px;
   font-size: 20px;
+  width: -webkit-fill-available
+ 
 }
 
 .list {
