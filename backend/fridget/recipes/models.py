@@ -13,11 +13,7 @@ class RecipeModel(BaseModel):
     ingredients_measurements: Optional[list[IngredientMeasurementModel]]
     image_url: Optional[str]
     source: Optional[str]
-
-class RecipeName(BaseModel):
-    name: str
     
-
 class AreaRecipesModel(BaseModel):
     name: str # name of the area 
     recipes: list[RecipeModel] # list of recipes matching area

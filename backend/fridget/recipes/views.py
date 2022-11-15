@@ -1,7 +1,5 @@
 from fastapi import APIRouter, HTTPException, Response
-from fridget.recipes.models import RecipeModel
 from fridget.base.schema import Recipe
-from fridget.recipes.models import RecipeModel, RecipeName
 from fridget.users.models import UserRecipeModel
 from fridget.recipes.controller import RecipeController
 
