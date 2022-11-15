@@ -10,6 +10,6 @@ router = APIRouter(
 ingredient_controller = IngredientController()
 
 
-@router.post("/get-recipes-by-ingredients")
-async def get_recipes_by_ingredients(ingredients: IngredientListModel) -> list[RecipeIngredientMeasurement]:
-    return await ingredient_controller.get_recipes_by_ingredients(ingredients)
+@router.get("/get-recipes-by-ingredients")
+async def get_recipes_by_ingredients(ingredients: str) -> list[RecipeIngredientMeasurement]:
+    return await ingredient_controller.get_recipes_by_ingredients(ingredients.split(","))
