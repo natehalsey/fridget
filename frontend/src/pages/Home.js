@@ -4,7 +4,6 @@ import Search from "../components/Search";
 import SideMenu from "../components/SideMenu";
 
 const Home = () => {
-  // TODO: useCOnext get serach parms from side menu
   return (
     <div className="home">
       <Grid container spacing={2}>
