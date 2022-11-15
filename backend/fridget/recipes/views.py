@@ -18,6 +18,10 @@ async def get_recipes_by_name(name: str) -> list[Recipe]:
 async def get_recipes_by_id(id: int) -> Recipe:
     return await recipe_controller.filter_recipe_by_id(id)
 
+@router.get("/get-recipes-by-random")
+async def get_recipes_by_id(n: int) -> Recipe:
+    return await recipe_controller.filter_recipe_by_random(n)
+
 @router.post("/create-recipe")
 async def create_recipe(user_recipe: UserRecipeModel):
     
