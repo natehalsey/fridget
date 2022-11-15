@@ -1,22 +1,28 @@
+import asyncio
 import operator
 from collections import defaultdict
-from fridget.base.schema import Ingredient, RecipeIngredientMeasurement
-from fridget.ingredients.models import IngredientModel, IngredientListModel
+from fridget.base.schema import RecipeIngredientMeasurement
+from fridget.ingredients.models import IngredientListModel
 from fridget.recipes.models import RecipeModel
 
 class IngredientController:
         
     async def get_recipes_by_ingredients(self, ingredients: IngredientListModel) -> list[RecipeModel]:
-        recipes = await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
-            ingredient__name__in=ingredients.ingredients
-        ).select_related("recipe").all()
+        
+        
+        recipes = [ 
+            recipe for ingredient in ingredients.ingredients for recipe in 
+                await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
+                ingredient__name__iexact=ingredient
+            ).select_related("recipe").all()
+        ]
+        
         
         recipe_ingredients: dict[RecipeModel, list[str]] = defaultdict(list)
         recipe_id_recipe: dict[str, RecipeModel] = {}
         
         
         for recipe in recipes:
-
             recipe_ingredients[recipe.recipe.id].append(recipe.ingredient.name)
             recipe_id_recipe[recipe.recipe.id] = RecipeModel.parse_obj(recipe.recipe)
     
