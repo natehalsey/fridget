@@ -8,7 +8,7 @@ class IngredientController:
         
     async def get_recipes_by_ingredients(self, ingredients: IngredientListModel) -> list[RecipeModel]:
         recipes = await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
-            RecipeIngredientMeasurement.ingredient.name << ingredients.ingredients
+            RecipeIngredientMeasurement.ingredient.name << ingredients
         ).select_related("recipe").all()
         
         recipe_ingredients: dict[RecipeModel, list[str]] = defaultdict(list)

@@ -13,7 +13,7 @@ class RecipeController:
             name=recipe_model.recipe.area.name
         )
         category, _ = await Category.objects.get_or_create(
-            name=recipe_model.recipe.area.name
+            name=recipe_model.recipe.category.name
         )
         
         recipe = await Recipe.objects.create(
