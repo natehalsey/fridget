@@ -108,12 +108,15 @@
 			"item": [
 				{
 					"name": "get-recipes-by-category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"categories\": [\"Beef\"]\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -141,12 +144,15 @@
 			"item": [
 				{
 					"name": "get-recipes-by-area",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"areas\":[\"American\", \"French\"]\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -154,14 +160,21 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/areas/get-recipes-by-area",
+							"raw": "localhost:8000/areas/get-recipes-by-area/?area=india",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
 								"areas",
-								"get-recipes-by-area"
+								"get-recipes-by-area",
+								""
+							],
+							"query": [
+								{
+									"key": "area",
+									"value": "india"
+								}
 							]
 						}
 					},
