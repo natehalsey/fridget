@@ -6,9 +6,8 @@ from fridget.base.schema import Area
 router = APIRouter(
     prefix = "/areas"
 )
-@router.get("/get-recipes-by-area")
+@router.post("/get-recipes-by-area")
 async def get_recipes_by_area(area_list_model: AreaListModel):
-
     return await Area.objects.select_related("recipes").filter(
-        name__in=area_list_model.areas
+        name__icontains=area_list_model.areas[0]
     ).all()

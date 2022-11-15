@@ -6,8 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+
 export default function MediaCard({ data }) {
-    //console.log(data);
     return (
     <Card sx={{ maxWidth: 345 }}>
         <CardMedia
@@ -16,6 +16,7 @@ export default function MediaCard({ data }) {
         image={data?.image_url}
         alt="recipe img"
         />
+        
         <CardContent>
         <Typography gutterBottom variant="h5" component="div">
             Name: {data?.name}
@@ -23,13 +24,10 @@ export default function MediaCard({ data }) {
         <Typography variant="body2" color="text.secondary">
             Category: {data?.category?.name} | Area: {data?.area?.name}
         </Typography>
-        {/* <Typography variant="body2" color="text.secondary">
-            Main Ingredients: {data?.ingredients_measurements[0]?.ingredient}
-        </Typography> */}
         </CardContent>
+
         <CardActions>
-        <Button size="small">Save</Button>
-        <Button size="small">View</Button>
+            <Button size="small" onClick={() => {window.location.href = `/recipe/${data?.id}`}}>View</Button>
         </CardActions>
     </Card>
     );

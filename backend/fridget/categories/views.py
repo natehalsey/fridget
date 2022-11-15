@@ -12,7 +12,7 @@ router = APIRouter(
 async def get_recipes_by_category(category_list_model: CategoryListModel):
     try:
         recipes = await Category.objects.select_related("recipes").get(
-            name__in=category_list_model.categories
+            name__icontains=category_list_model.categories[0]
         )
     except ormar.NoMatch:
         return None

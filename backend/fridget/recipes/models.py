@@ -13,4 +13,7 @@ class RecipeModel(BaseModel):
     ingredients_measurements: Optional[list[IngredientMeasurementModel]]
     image_url: Optional[str]
     source: Optional[str]
+
+class RecipeName(BaseModel):
+    name: str
     

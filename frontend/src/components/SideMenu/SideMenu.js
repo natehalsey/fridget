@@ -16,7 +16,7 @@ const {searchParams, setSearchParams } = React.useContext(AppContext);
     return (
         <Paper className="sideMenu"> 
         <Typography gutterBottom variant="h5" component="div">
-            Side Menu
+            Search Parameters
         </Typography>
             <FormControl>
                 <RadioGroup
