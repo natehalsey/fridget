@@ -1,9 +1,12 @@
 
-from fridget.base.schema import Recipe, Ingredient, Measurement, RecipeIngredientMeasurement, Area, Category
+from random import randint
+from fridget.base.schema import (Area, Category, Ingredient, Measurement,
+                                 Recipe, RecipeIngredientMeasurement)
 from fridget.ingredients.models import IngredientMeasurementModel
 from fridget.recipes.models import RecipeModel
 from fridget.users.models import UserRecipeModel
-from random import randint
+
+
 class RecipeController:
 
     async def create_recipe(self, recipe_model: UserRecipeModel) -> None:
