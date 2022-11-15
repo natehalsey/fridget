@@ -10,6 +10,6 @@ router = APIRouter(
 @router.get("/get-recipes-by-category")
 async def get_recipes_by_category(category: str):
     return await Category.objects.select_related("recipes").filter(
-        name__contains=category
+        name__icontains=category
     ).all()
 
