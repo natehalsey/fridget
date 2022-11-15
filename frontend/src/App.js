@@ -26,6 +26,8 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/api' element={<Link to={{ pathname: 'https://www.themealdb.com/'}}/> }/>
           <Route path='/recipe/:id' element={<RecipeView />} />
+          <Route path='/create' element={<About />} />
+          <Route path='/fridget' element={<About />} />
         </Routes>
       </Router>
     </AppContext.Provider>

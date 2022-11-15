@@ -3,7 +3,7 @@ from fridget.base.schema import Recipe, Ingredient, Measurement, RecipeIngredien
 from fridget.ingredients.models import IngredientMeasurementModel
 from fridget.recipes.models import RecipeModel
 from fridget.users.models import UserRecipeModel
-
+from random import randint
 class RecipeController:
 
     async def create_recipe(self, recipe_model: UserRecipeModel) -> None:
@@ -56,6 +56,10 @@ class RecipeController:
         return await Recipe.objects.get(
             id=id
         )
+
+    async def filter_recipe_by_random(self, n: int) -> Recipe:
+        random_offset = randint(0, await Recipe.objects.count() - n)
+        return await Recipe.objects.offset(random_offset).limit(n).all()
         
     async def _parse_ingredients(self, recipe_model: RecipeModel) -> list[tuple[Ingredient, Measurement]]:
             ingredients_measurements: list[IngredientMeasurementModel] = recipe_model.ingredients_measurements

@@ -3,6 +3,7 @@ import { Nav, NavLink, Bars, NavMenu, NavBtn } from "./NavbarElements";
 import { useEffect, useContext } from "react";
 import jwt_decode from "jwt-decode";
 import { AppContext } from "../../constants"
+import UserAvatar from "../UserAvatar"
 
 const Navbar = () => {
   const {user, setUser} = useContext(AppContext);
@@ -64,7 +65,7 @@ const Navbar = () => {
         </NavBtn>
         {Object.keys(user).length !== 0 && (
           <NavLink to="/home"  onClick={(e) => handleSignOut(e)}>
-            Sign Out
+            <UserAvatar />
           </NavLink>
         )}
       </Nav>
