@@ -8,19 +8,19 @@ class IngredientController:
         
     async def get_recipes_by_ingredients(self, ingredients: IngredientListModel) -> list[RecipeModel]:
         recipes = await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
-            ingredient__name__in=ingredients.ingredients
+            RecipeIngredientMeasurement.ingredient.name << ingredients
         ).select_related("recipe").all()
         
         recipe_ingredients: dict[RecipeModel, list[str]] = defaultdict(list)
         recipe_id_recipe: dict[str, RecipeModel] = {}
-        
-        
+
         for recipe in recipes:
 
             recipe_ingredients[recipe.recipe.id].append(recipe.ingredient.name)
             recipe_id_recipe[recipe.recipe.id] = RecipeModel.parse_obj(recipe.recipe)
     
         sorted_recipes = self._sort_dict_by_list_len(recipe_ingredients)
+
         return [recipe_id_recipe[sorted_recipe] for sorted_recipe in sorted_recipes]
         
     
