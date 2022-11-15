@@ -14,7 +14,6 @@ class RecipeModel(BaseModel):
     image_url: Optional[str]
     source: Optional[str]
     
-
 class AreaRecipesModel(BaseModel):
     name: str # name of the area 
     recipes: list[RecipeModel] # list of recipes matching area
