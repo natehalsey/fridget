@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 from fridget.ingredients.models import IngredientMeasurementModel
 from fridget.areas.models import AreaModel
@@ -14,3 +14,11 @@ class RecipeModel(BaseModel):
     image_url: Optional[str]
     source: Optional[str]
     
+
+class AreaRecipesModel(BaseModel):
+    name: str # name of the area 
+    recipes: list[RecipeModel] # list of recipes matching area
+
+class CategoryRecipesModel(BaseModel):
+    name: str # name of the category
+    recipes: list[RecipeModel] # list of recipes matching category
