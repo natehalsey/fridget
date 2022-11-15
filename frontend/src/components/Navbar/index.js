@@ -1,10 +1,11 @@
 import React, { useCallback } from "react";
 import { Nav, NavLink, Bars, NavMenu, NavBtn } from "./NavbarElements";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import jwt_decode from "jwt-decode";
+import { AppContext } from "../../constants"
 
 const Navbar = () => {
-  const [user, setUser] = useState({});
+  const {user, setUser} = useContext(AppContext);
 
   function handleSignOut(event) {
     setUser({});
@@ -19,16 +20,20 @@ const Navbar = () => {
 
   useEffect(() => {
     /* global google */
-    google.accounts.id.initialize({
+    try {
+    google?.accounts.id.initialize({
       client_id:
         "982127523493-8rbf1c72sp24kadsbm7ku62feja2scqj.apps.googleusercontent.com",
       callback: handleCallbackResponse,
     });
 
-    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+    google?.accounts.id.renderButton(document.getElementById("signInDiv"), {
       theme: "Outline",
       size: "large",
     });
+  } catch (e) {
+    console.log("Google Auth Failed");
+  }
   }, [handleCallbackResponse]);
 
   // If we have no user, show sign in button

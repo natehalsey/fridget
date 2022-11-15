@@ -1,21 +1,21 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AppContext } from './AppContext';
+import { AppContext } from './constants';
 import Home from './pages/Home';
 import About from './pages/About';
 import Teams from './pages/Team';
 import SignUp from './pages/Signup';
-import RecipeView from './components/RecipeView/RecipeView';
+import RecipeView from './components/RecipeView';
 
 
 function App() {
-  const [userinfo, setUserInfo] = React.useState(null);
+  const [user, setUser] = React.useState({});
   const [searchParams, setSearchParams] = React.useState("name");
 
   return (
-    <AppContext.Provider value={{ userinfo, setUserInfo, searchParams, setSearchParams}}>
+    <AppContext.Provider value={{ user, setUser, searchParams, setSearchParams}}>
       <Router>
         <Navbar />
         <Routes>

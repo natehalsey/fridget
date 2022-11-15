@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from '@mui/material/Grid';
-import SearchBar from "../components/SearchBar/SearchBar";
-import SideMenu from "../components/SideMenu/SideMenu";
+import Search from "../components/Search";
+import SideMenu from "../components/SideMenu";
 
 const Home = () => {
   // TODO: useCOnext get serach parms from side menu
@@ -12,7 +12,7 @@ const Home = () => {
           <SideMenu/>
         </Grid>
         <Grid item xs={9}>
-          <SearchBar />
+          <Search />
         </Grid>
       </Grid>
     </div>

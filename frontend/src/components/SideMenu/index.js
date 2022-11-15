@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import { AppContext } from '../../AppContext';
+import { searchParamArea, searchParamCategory, searchParamIngredient, searchParamName, AppContext } from "../../constants";
 
 export default function SideMenu() {
 const {searchParams, setSearchParams } = React.useContext(AppContext);
@@ -25,13 +25,12 @@ const {searchParams, setSearchParams } = React.useContext(AppContext);
                     value={searchParams}
                     onChange={handleChange}
                 >
-                    <FormControlLabel value="name" control={<Radio />} label="Search By Name" />
-                    <FormControlLabel value="area" control={<Radio />} label="Search By Area" />
-                    <FormControlLabel value="category" control={<Radio />} label="Search By Category" />
-                    <FormControlLabel value="ingredient" control={<Radio />} label="Search By Ingredients" />
+                    <FormControlLabel value={searchParamName} control={<Radio />} label="Search By Name" />
+                    <FormControlLabel value={searchParamArea} control={<Radio />} label="Search By Area" />
+                    <FormControlLabel value={searchParamCategory} control={<Radio />} label="Search By Category" />
+                    <FormControlLabel value={searchParamIngredient} control={<Radio />} label="Search By Ingredients" />
                 </RadioGroup>
                 </FormControl>
         </Paper>
     );
-    //TODO add context to pass input to search bar
 }
