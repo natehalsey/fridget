@@ -6,10 +6,10 @@ from fridget.recipes.models import RecipeModel
 
 class IngredientController:
         
-    async def get_recipes_by_ingredients(self, ingredients: IngredientListModel) -> list[RecipeModel]:
+    async def get_recipes_by_ingredients(self, ingredients: list[str]) -> list[RecipeModel]:
         
         recipes = [ 
-            recipe for ingredient in ingredients.ingredients for recipe in 
+            recipe for ingredient in ingredients for recipe in 
                 await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
                 ingredient__name__iexact=ingredient
             ).select_related("recipe").all()
