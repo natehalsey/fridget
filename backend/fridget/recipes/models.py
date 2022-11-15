@@ -1,8 +1,12 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Optional
 from fridget.ingredients.models import IngredientMeasurementModel
-from fridget.areas.models import AreaModel
-from fridget.categories.models import CategoryModel
+
+class AreaModel(BaseModel):
+    name: str
+
+class CategoryModel(BaseModel):
+    name: str
 
 class RecipeModel(BaseModel):
     id: Optional[int]
