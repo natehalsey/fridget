@@ -21,7 +21,7 @@ class RecipeController:
         
         try:
             user = await User.objects.get(
-                
+                id=recipe_model.user_id
             )
         except ormar.NoMatch:
             return Response(status_code=403)
