@@ -1,4 +1,3 @@
-import asyncio
 import operator
 from collections import defaultdict
 from fridget.base.schema import RecipeIngredientMeasurement
