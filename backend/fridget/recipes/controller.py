@@ -25,17 +25,22 @@ class RecipeController:
             name=recipe_model.recipe.category.name
         )
         
+        try:
+            user = await User.objects.get(
+                id=recipe_model.user_id
+            )
+        except ormar.NoMatch:
+            return Response(status_code=403)
+            
         recipe = await Recipe.objects.create(
             name=recipe_model.recipe.name,
             category=category,
             area=area,
             instructions=recipe_model.recipe.instructions,
+            ingredients_measurements=recipe_model.recipe.dict()["ingredients_measurements"],
             image_url=recipe_model.recipe.image_url,
             source=recipe_model.recipe.source,
-            created_by=recipe_model.user_id
-        )
-        recipe = await Recipe.objects.create(
-            **recipe_model.recipe.dict()
+            created_by=user
         )
         
         recipes_ingredients_measurements: list[RecipeIngredientMeasurement] = []
