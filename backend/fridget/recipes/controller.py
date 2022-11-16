@@ -7,7 +7,8 @@ from fridget.base.schema import (
     Ingredient, 
     Measurement,
     Recipe, 
-    RecipeIngredientMeasurement
+    RecipeIngredientMeasurement,
+    User
 )
 from fridget.ingredients.models import IngredientMeasurementModel
 from fridget.recipes.models import RecipeModel
