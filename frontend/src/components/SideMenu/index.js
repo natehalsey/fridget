@@ -19,7 +19,7 @@ export default function SideMenu() {
     return (
         <Paper className="sideMenu"> 
         <Typography gutterBottom variant="h5" component="div">
-            Search Parameters
+            Search Parameters12345
         </Typography>
             <FormControl>
                 <RadioGroup
