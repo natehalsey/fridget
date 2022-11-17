@@ -2,6 +2,15 @@
 
 Go to backend dir ```cd backend```
 
+## Using Docker
+Install Docker
+On first run or after changes to the Dockerfile run
+```docker build -t backend-image .```
+To start the container run
+```docker run -d --name backend-container -p 80:80 backend-image```
+Backend will be available at http://localhost
+
+
 ## Starting the virtual environment
 
 ```. script/bootstrap```, creates the virtual environment and installs the necessary dependancies.
