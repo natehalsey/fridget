@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import PersonIcon from '@mui/icons-material/Person';
 import { AppContext } from '../../constants';
+import styles from "./styles.css"
 
 const UserAvatar = () => {
     const { user } = React.useContext(AppContext)

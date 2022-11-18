@@ -47,20 +47,30 @@ async def get_user_ingredients(user_id: int) -> IngredientListModel:
         ingredients=[ingredient.name for ingredient in user.ingredients]
     )
         
-        
-        
-
 @router.get("/get-saved-recipes")
 async def get_saved_recipes(user_id: int) -> list[Recipe]:
-    return await Recipe.objects.filter(
-        saved_by__id=user_id
-    ).all()
+    
+    try:
+        user = await User.objects.select_related("saved_recipes").get(
+            id=user_id
+        )
+    
+    except ormar.NoMatch:
+        return Response(status_code=404, detail="Not found")
+    
+    return user.saved_recipes
     
 @router.get("/get-created-recipes")
 async def get_created_recipes(user_id: int) -> list[Recipe]:
-    return await Recipe.objects.filter(
-        created_by__id=user_id
-    ).all()
+    
+    try:
+        user =  await User.objects.select_related("created_recipes").get(
+            id=user_id
+        )
+    except ormar.NoMatch:
+        return Response(status_code=404, detail="Not found")
+    
+    return user.created_recipes
 
 @router.post("/save-recipe")
 async def save_recipe(save_recipe: SaveRecipeModel) -> Response:
@@ -71,7 +81,7 @@ async def save_recipe(save_recipe: SaveRecipeModel) -> Response:
         user = await User.objects.get(
             id=save_recipe.user_id
         )
-        await recipe.saved_by.add(user)
+        await user.saved_recipes.add(recipe)
         
         return Response(status_code=200)
         
