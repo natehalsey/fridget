@@ -7,7 +7,6 @@ class LoginRequestModel(BaseModel):
     picture: str
     email: str
 
-
 class UserRecipeModel(BaseModel):
     user_id: int
     recipe: RecipeModel
@@ -15,3 +14,8 @@ class UserRecipeModel(BaseModel):
 class SaveRecipeModel(BaseModel):
     user_id: int
     recipe_id: int
+    
+    
+class UserIngredientModel(BaseModel):
+    user_id: int
+    ingredients: list[str]

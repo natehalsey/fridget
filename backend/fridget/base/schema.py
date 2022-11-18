@@ -15,16 +15,6 @@ class BaseMeta(ormar.ModelMeta):
     metadata = metadata
     database = database
 
-class User(ormar.Model):
-    class Meta(BaseMeta):
-        tablename="users"
-    
-    id: int = ormar.Integer(primary_key=True)
-    given_name: str = ormar.String(max_length=100)
-    family_name: str = ormar.String(max_length=100)
-    picture: str = ormar.String(max_length=100)
-    email: str = ormar.String(max_length=100)
-
 class Area(ormar.Model):
     class Meta(BaseMeta):
         tablename="areas"
@@ -66,9 +56,22 @@ class Recipe(ormar.Model):
     ingredients_measurements: json = ormar.JSON(nullable=True)
     image_url: Optional[str] = ormar.String(max_length=200, nullable=True)
     source: Optional[str] = ormar.String(max_length=500, nullable=True)
-    created_by: Optional[User] = ormar.ForeignKey(User, related_name="created_recipes")
-    saved_by: Optional[list[User]] = ormar.ManyToMany(User, related_name="saved_recipes")
+ 
+ 
+class User(ormar.Model):
+    class Meta(BaseMeta):
+        tablename="users"
     
+    id: int = ormar.Integer(primary_key=True)
+    given_name: str = ormar.String(max_length=100)
+    family_name: str = ormar.String(max_length=100)
+    picture: str = ormar.String(max_length=100)
+    email: str = ormar.String(max_length=100)
+    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
+    created_recipes: Optional[Recipe] = ormar.ForeignKey(Recipe, related_name="created_by")
+    saved_recipes: Optional[list[Recipe]] = ormar.ManyToMany(Recipe, related_name="saved_by") 
+    
+   
 class RecipeIngredientMeasurement(ormar.Model):
     class Meta(BaseMeta):
         tablename="recipes_ingredients_measurements"
