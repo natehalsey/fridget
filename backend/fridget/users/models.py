@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from fridget.recipes.models import RecipeModel
-from fridget.ingredients.models import IngredientListModel
 
 class LoginRequestModel(BaseModel):
     given_name: str
