@@ -1,7 +1,6 @@
 import operator
 from collections import defaultdict
 from fridget.base.schema import RecipeIngredientMeasurement
-from fridget.ingredients.models import IngredientListModel
 from fridget.recipes.models import RecipeModel
 
 class IngredientController:
@@ -10,7 +9,7 @@ class IngredientController:
         
         recipes = [ 
             recipe for ingredient in ingredients for recipe in 
-                await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
+            await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
                 ingredient__name__iexact=ingredient
             ).select_related("recipe").all()
         ]

@@ -37,7 +37,6 @@ async def create_recipe(user_recipe: UserRecipeModel):
     
 @router.get("/get-recipes-by-category")
 async def get_recipes_by_category(category: str) -> list[RecipeModel]:
-    print(category)
     return await Recipe.objects.filter(
         category__name__contains=category
     ).all()
@@ -46,7 +45,6 @@ async def get_recipes_by_category(category: str) -> list[RecipeModel]:
     
 @router.get("/get-recipes-by-area")
 async def get_recipes_by_area(area: str) -> list[RecipeModel]:
-    print(area)
     return await Recipe.objects.filter(
         area__name__contains=area
     ).all()
