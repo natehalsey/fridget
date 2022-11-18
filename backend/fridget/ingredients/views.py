@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from fridget.base.schema import RecipeIngredientMeasurement
-from fridget.ingredients.models import IngredientListModel
 from fridget.ingredients.controller import IngredientController
 
 router = APIRouter(

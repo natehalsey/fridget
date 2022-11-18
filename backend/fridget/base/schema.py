@@ -15,16 +15,6 @@ class BaseMeta(ormar.ModelMeta):
     metadata = metadata
     database = database
 
-class User(ormar.Model):
-    class Meta(BaseMeta):
-        tablename="users"
-    
-    id: int = ormar.Integer(primary_key=True)
-    given_name: str = ormar.String(max_length=100)
-    family_name: str = ormar.String(max_length=100)
-    picture: str = ormar.String(max_length=100)
-    email: str = ormar.String(max_length=100)
-
 class Area(ormar.Model):
     class Meta(BaseMeta):
         tablename="areas"
@@ -52,6 +42,17 @@ class Measurement(ormar.Model):
     
     id: int = ormar.Integer(primary_key=True)
     measurement: str = ormar.String(max_length=500, unique=True)
+
+class User(ormar.Model):
+    class Meta(BaseMeta):
+        tablename="users"
+    
+    id: int = ormar.Integer(primary_key=True)
+    given_name: str = ormar.String(max_length=100)
+    family_name: str = ormar.String(max_length=100)
+    picture: str = ormar.String(max_length=100)
+    email: str = ormar.String(max_length=100)
+    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
     
 class Recipe(ormar.Model):     
 

@@ -31,7 +31,7 @@ class RecipeController:
                 id=recipe_model.user_id
             )
         except ormar.NoMatch:
-            return Response(status_code=403)
+            return Response(status_code=404, detail="Not found")
             
         recipe = await Recipe.objects.create(
             name=recipe_model.recipe.name,
@@ -73,7 +73,7 @@ class RecipeController:
                 id=id
             )
         except ormar.NoMatch:
-            return Response(status_code=400, detail="Not found")
+            return Response(status_code=404, detail="Not found")
 
     async def filter_recipe_by_random(self, n: int) -> Recipe:
         random_offset = randint(0, await Recipe.objects.count() - n)

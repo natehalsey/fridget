@@ -4,6 +4,8 @@ import { useEffect, useContext } from "react";
 import jwt_decode from "jwt-decode";
 import { AppContext } from "../../constants"
 import UserAvatar from "../UserAvatar"
+import axios from "axios";
+import * as Constants from "../../constants"
 
 const Navbar = () => {
   const {user, setUser} = useContext(AppContext);
@@ -12,10 +14,28 @@ const Navbar = () => {
     setUser({});
     document.getElementById("signInDiv").hidden = false;
   }
+  
+  const sendUserFormData = ( (data) => {
+    axios.post(Constants.baseURL+Constants.postUserData, data)
+      .then( (response) => {
+        setUser(response.data);
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+    
+      console.log(user);
+  })
 
   const handleCallbackResponse = useCallback((response) => {
     var userObject = jwt_decode(response.credential);
-    setUser(userObject);
+    var data = {
+      "given_name": userObject.given_name,
+      "family_name": userObject.family_name,
+      "picture": userObject.picture,
+      "email": userObject.email
+    };
+    sendUserFormData(data);
     document.getElementById("signInDiv").hidden = true;
   }, []);
 
