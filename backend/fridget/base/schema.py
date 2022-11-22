@@ -29,20 +29,13 @@ class Category(ormar.Model):
     
 class Ingredient(ormar.Model):
     class Meta(BaseMeta):
-        tablenmae="ingredients"
+        tablename="ingredients"
     
     id: int = ormar.Integer(primary_key=True)
     name: str = ormar.String(max_length=500, unique=True)
     description: Optional[str] = ormar.Text(nullable=True)
     type: Optional[str] = ormar.String(max_length=50, nullable=True)
-
-class Measurement(ormar.Model):
-    class Meta(BaseMeta):
-        tablename="measurements"
-    
-    id: int = ormar.Integer(primary_key=True)
-    measurement: str = ormar.String(max_length=500, unique=True)
-    
+   
 class Recipe(ormar.Model):     
 
     class Meta(BaseMeta):
@@ -53,31 +46,25 @@ class Recipe(ormar.Model):
     category: Category = ormar.ForeignKey(Category)
     area: Area = ormar.ForeignKey(Area)
     instructions: Optional[str] = ormar.Text(nullable=True)
+    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient, related_name="recipes")
     ingredients_measurements: json = ormar.JSON(nullable=True)
     image_url: Optional[str] = ormar.String(max_length=200, nullable=True)
     source: Optional[str] = ormar.String(max_length=500, nullable=True)
- 
  
 class User(ormar.Model):
     class Meta(BaseMeta):
         tablename="users"
     
     id: int = ormar.Integer(primary_key=True)
-    given_name: str = ormar.String(max_length=100)
-    family_name: str = ormar.String(max_length=100)
-    picture: str = ormar.String(max_length=100)
+    username: str = ormar.String(max_length=100, nullable=True)
+    hashed_password: str = ormar.String(max_length=500, nullable=True)
+    jwt_token: str = ormar.String(max_length=500, nullable=True)
+    
+    given_name: Optional[str] = ormar.String(max_length=100, nullable=True)
+    family_name: Optional[str] = ormar.String(max_length=100, nullable=True)
+    picture: str = ormar.String(max_length=100, nullable=True)
     email: str = ormar.String(max_length=100)
-    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
-    created_recipes: Optional[Recipe] = ormar.ForeignKey(Recipe, related_name="created_by")
-    saved_recipes: Optional[list[Recipe]] = ormar.ManyToMany(Recipe, related_name="saved_by") 
     
-   
-class RecipeIngredientMeasurement(ormar.Model):
-    class Meta(BaseMeta):
-        tablename="recipes_ingredients_measurements"
-        constraints =[ormar.UniqueColumns("ingredient", "measurement", "recipe")]
+    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient, related_name="users")
+    created_recipes: list[Recipe] = ormar.ManyToMany(Recipe, related_name="created_by")
     
-    id: int = ormar.Integer(primary_key=True)
-    ingredient: Ingredient = ormar.ForeignKey(Ingredient)
-    measurement: Measurement = ormar.ForeignKey(Measurement)
-    recipe: Recipe = ormar.ForeignKey(Recipe)

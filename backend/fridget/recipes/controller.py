@@ -62,12 +62,13 @@ class RecipeController:
             recipes_ingredients_measurements
         )
         
-    async def filter_recipe_by_name(self, name: str) -> list[Recipe]:
+        
+    async def get_recipes_by_name(self, name: str) -> list[Recipe]:
         return await Recipe.objects.filter(
             name__icontains=name
         ).all()
 
-    async def filter_recipe_by_id(self, id: int) -> Recipe:
+    async def get_recipe_by_id(self, id: int) -> Recipe:
         try:
             return await Recipe.objects.get(
                 id=id
@@ -75,7 +76,7 @@ class RecipeController:
         except ormar.NoMatch:
             return Response(status_code=404, detail="Not found")
 
-    async def filter_recipe_by_random(self, n: int) -> Recipe:
+    async def get_recipes_by_random(self, n: int) -> Recipe:
         random_offset = randint(0, await Recipe.objects.count() - n)
         return await Recipe.objects.offset(random_offset).limit(n).all()
         

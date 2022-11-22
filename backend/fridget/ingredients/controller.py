@@ -1,19 +1,22 @@
 import operator
 from collections import defaultdict
-from fridget.base.schema import RecipeIngredientMeasurement
+from fridget.base.schema import Ingredient
 from fridget.recipes.models import RecipeModel
 
 class IngredientController:
         
     async def get_recipes_by_ingredients(self, ingredients: list[str]) -> list[RecipeModel]:
         
+        # for some reason __in is case sensitive when __contains seems to not be so we have to do this
+        # could implement asyncio in the future to improve performance
         recipes = [ 
             recipe for ingredient in ingredients for recipe in 
-            await RecipeIngredientMeasurement.objects.select_related("ingredient").filter(
+            await Ingredient.objects.select_related("recipe").fields("recipes").filter(
                 ingredient__name__iexact=ingredient
-            ).select_related("recipe").all()
+            ).all()
         ]
         
+        print(recipes)
         
         recipe_ingredients: dict[RecipeModel, list[str]] = defaultdict(list)
         recipe_id_recipe: dict[str, RecipeModel] = {}

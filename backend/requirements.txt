@@ -1,10 +1,28 @@
-aiosqlite
-alembic
-asyncio
-databases
+# FastAPI
 fastapi
-ormar
+asyncio
 pydantic
-requests
-SQLAlchemy
 uvicorn
+
+# orm/db
+alembic
+ormar
+databases
+SQLAlchemy
+
+# postgresql
+#asyncpg
+#psycopg2
+
+#sqlite
+aiosqlite
+
+
+# util
+requests
+
+# passwords
+passlib
+
+# jwt
+python-jose[cryptography]
