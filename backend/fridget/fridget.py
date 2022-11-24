@@ -1,9 +1,10 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fridget.ingredients.views import router as IngredientRouter
-from fridget.recipes.views import router as RecipeRouter
+from fridget.base.schema import database
 from fridget.users.views import router as UserRouter
+from fridget.recipes.views import router as RecipeRouter
+from fridget.ingredients.views import router as IngredientRouter
 
 app = FastAPI()
 
@@ -22,3 +23,14 @@ app.add_middleware(
 app.include_router(IngredientRouter)
 app.include_router(RecipeRouter)
 app.include_router(UserRouter)
+
+@app.on_event("startup")
+async def startup() -> None:
+    if not database.is_connected:
+        await database.connect()
+
+
+@app.on_event("shutdown")
+async def shutdown() -> None:
+    if database.is_connected:
+        await database.disconnect()

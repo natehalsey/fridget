@@ -6,7 +6,7 @@ from typing import Optional
 from pydantic import json
 from .config import Settings
 
-DATABASE_URL = Settings.DATABASE
+DATABASE_URL = Settings.DATABASE_URL
 
 database = databases.Database(DATABASE_URL)
 metadata = sqlalchemy.MetaData()
@@ -29,13 +29,13 @@ class Category(ormar.Model):
     
 class Ingredient(ormar.Model):
     class Meta(BaseMeta):
-        tablename="ingredients"
+        tablenmae="ingredients"
     
     id: int = ormar.Integer(primary_key=True)
     name: str = ormar.String(max_length=500, unique=True)
     description: Optional[str] = ormar.Text(nullable=True)
     type: Optional[str] = ormar.String(max_length=50, nullable=True)
-   
+
 class Recipe(ormar.Model):     
 
     class Meta(BaseMeta):
@@ -56,15 +56,25 @@ class User(ormar.Model):
         tablename="users"
     
     id: int = ormar.Integer(primary_key=True)
-    username: str = ormar.String(max_length=100, nullable=True)
-    hashed_password: str = ormar.String(max_length=500, nullable=True)
-    jwt_token: str = ormar.String(max_length=500, nullable=True)
-    
-    given_name: Optional[str] = ormar.String(max_length=100, nullable=True)
-    family_name: Optional[str] = ormar.String(max_length=100, nullable=True)
-    picture: str = ormar.String(max_length=100, nullable=True)
+    given_name: str = ormar.String(max_length=100)
+    family_name: str = ormar.String(max_length=100)
+    picture: str = ormar.String(max_length=100)
     email: str = ormar.String(max_length=100)
+    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
+
+
+class UserCreatedRecipe(ormar.Model):
+    class Meta(BaseMeta):
+        tablename="users_created_recipes"
+        
+    id: int = ormar.Integer(primary_key=True)    
+    user: User = ormar.ForeignKey(User, unique=True, related_name="created_recipes")
+    recipe: Recipe = ormar.ForeignKey(Recipe, skip_reverse=True)  
+ 
+class UserSavedRecipe(ormar.Model):
+    class Meta(BaseMeta):
+        tablename="users_saved_recipes"
     
-    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient, related_name="users")
-    created_recipes: list[Recipe] = ormar.ManyToMany(Recipe, related_name="created_by")
-    
+    id: int = ormar.Integer(primary_key=True)
+    user: User = ormar.ForeignKey(User, unique=True, related_name="saved_recipes")
+    recipe: Recipe = ormar.ForeignKey(Recipe, skip_reverse=True)  

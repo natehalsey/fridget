@@ -12,8 +12,11 @@ Run: ```. script/dbupgrade "upgrade message"``` to autogenerate a revision file.
 
 ## Viewing database tables
 
-Install sqlite3, and run it with ```sqlite3```. 
-Type: ```.open db.sqlite``` to open the database, and to view tables: ```.tables```.
+Download DBeaver and select "create new database", select postgres, it will download the drivers.
+
+for host put in 74.119.150.172 for database change to fridget, username: postgres, password: SRql605syVtnpUtP
+
+click finish.
 
 ## Starting the app
 
