@@ -11,8 +11,8 @@ databases
 SQLAlchemy
 
 # postgresql
-#asyncpg
-#psycopg2
+asyncpg
+psycopg2
 
 #sqlite
 aiosqlite

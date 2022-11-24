@@ -1,13 +1,13 @@
 import ormar
 from fastapi import Response
-from fridget.base.schema import User, Ingredient, Recipe
+from fridget.base.schema import User, Ingredient, Recipe, UserCreatedRecipe, UserSavedRecipe
 from fridget.users.models import LoginRequestModel, UserIngredientModel, SaveRecipeModel
 from fridget.ingredients.models import IngredientListModel
 
 class UserController:
 
 
-    async def login(user_info: LoginRequestModel) -> User:
+    async def login(self, user_info: LoginRequestModel) -> User:
         user, _ = await User.objects.get_or_create(
             given_name=user_info.given_name,
             family_name=user_info.family_name,
@@ -16,7 +16,7 @@ class UserController:
         )
         return user
 
-    async def add_user_ingredients(user_ingredients: UserIngredientModel) -> Response:
+    async def add_user_ingredients(self, user_ingredients: UserIngredientModel) -> Response:
         try:
             user = await User.objects.get(
                 id=user_ingredients.user_id
@@ -30,7 +30,7 @@ class UserController:
         
         return Response(status_code=200)
 
-    async def get_user_ingredients(user_id: int) -> IngredientListModel:
+    async def get_user_ingredients(self, user_id: int) -> IngredientListModel:
         try:
             user = await User.objects.select_related("ingredients").get(
                 id=user_id
@@ -38,34 +38,25 @@ class UserController:
         except ormar.NoMatch:
             return Response(status_code=404, detail="Not found")
 
-        return IngredientListModel(
-            ingredients=[ingredient.name for ingredient in user.ingredients]
-        )
+        return user.ingredients
             
-    async def get_saved_recipes(user_id: int) -> list[Recipe]:
+    async def get_saved_recipes(self, user_id: int) -> list[Recipe]:
         
-        try:
-            user = await User.objects.select_related("saved_recipes").get(
-                id=user_id
-            )
+        user_saved_recipes = await UserSavedRecipe.objects.select_related("recipe").filter(
+            user__id=user_id
+        ).all()
         
-        except ormar.NoMatch:
-            return Response(status_code=404, detail="Not found")
+        return [user_saved_recipe.recipe for user_saved_recipe in user_saved_recipes]
         
-        return user.saved_recipes
+    async def get_created_recipes(self, user_id: int) -> list[Recipe]:
         
-    async def get_created_recipes(user_id: int) -> list[Recipe]:
+        user_created_recipes = await UserCreatedRecipe.objects.select_related("recipe").filter(
+            user__id=user_id
+        ).all()
         
-        try:
-            user =  await User.objects.select_related("created_recipes").get(
-                id=user_id
-            )
-        except ormar.NoMatch:
-            return Response(status_code=404, detail="Not found")
-        
-        return user.created_recipes
+        return [user_created_recipe.recipe for user_created_recipe in user_created_recipes]
 
-    async def save_recipe(save_recipe: SaveRecipeModel) -> Response:
+    async def save_recipe(self, save_recipe: SaveRecipeModel) -> Response:
         try:
             recipe = await Recipe.objects.get(
                 id=save_recipe.recipe_id
@@ -73,7 +64,10 @@ class UserController:
             user = await User.objects.get(
                 id=save_recipe.user_id
             )
-            await user.saved_recipes.add(recipe)
+            await UserSavedRecipe.objects.create(
+                user=user,
+                recipe=recipe
+            )
             
             return Response(status_code=200)
             
@@ -81,5 +75,5 @@ class UserController:
             return Response(status_code=404, detail="Not found")
 
     # debugging only, remove before prod
-    async def get_users() -> list[User]:
+    async def get_users(self) -> list[User]:
         return await User.objects.select_related("created_recipes").all()
