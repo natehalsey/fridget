@@ -9,8 +9,6 @@ services:
     ports:
       - "81:81"
   nginx:
-    environment:
-      - REACT_APP_API_URL = "http://fridget.co:81"
     depends_on:
       - docker-fastapi
     container_name: proxy-app
