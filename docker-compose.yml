@@ -13,10 +13,10 @@ services:
       - docker-fastapi
     container_name: proxy-app
     build:
+      arg:
+        - REACT_APP_API_URL = "http://fridget.co:81"
       context: ./frontend/
       dockerfile: Dockerfile
     ports:
       - "80:80"
     restart: always
-    environment:
-      - REACT_APP_API_URL = "http://fridget.co:81"
