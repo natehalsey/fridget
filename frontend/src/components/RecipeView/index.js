@@ -13,19 +13,24 @@ export default function RecipeView() {
     const path = window.location.pathname.split('/');
     const [recipeData, setRecipeData] = React.useState();
 
-    const getRecipe = async () => {
-        const id = path[path.length - 1]
-
-        return await axios.get(
-            API_URL + getRecipeByIdURL, { params: { id: id }}
-            );
-    };
-
     React.useEffect(() => {
-        getRecipe().then(res => setRecipeData(res?.data));
+        var id = path[path.length - 1];
+        console.log(getRecipe(id))
+    },[]);
+
+    const getRecipe = ( (id) => {
+        axios.get(
+            API_URL + getRecipeByIdURL, { params: { id: id }}
+        ).then( (response) => {
+            setRecipeData(response.data)
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
     });
 
     return (
+
         <Card raised>
             <CardMedia
                 component="img"
