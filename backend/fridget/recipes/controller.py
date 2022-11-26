@@ -66,7 +66,7 @@ class RecipeController:
             return await Recipe.objects.get(
                 id=id
             )
-        except ormar.NoMatch:
+        except ormar.NoMatch as e:
             return Response(status_code=404, detail="Not found")
 
     async def get_recipes_by_random(self, n: int) -> Recipe:
