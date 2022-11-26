@@ -1,1 +1,1 @@
-uvicorn fridget.fridget:app --reload
+uvicorn fridget.fridget:app --port 8000 --reload
