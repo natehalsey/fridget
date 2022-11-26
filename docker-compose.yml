@@ -19,4 +19,4 @@ services:
       - "80:80"
     restart: always
     environment:
-      - API_URL = "http://fridget.co:81"
+      - REACT_APP_API_URL = "http://fridget.co:81"
