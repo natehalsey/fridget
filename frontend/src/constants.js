@@ -1,7 +1,6 @@
 import { createContext } from 'react'
-
 export const AppContext = createContext({})
-export const baseURL = "http://0.0.0.0:8000"; // if local 8000, if prod 81
+export const API_URL = "http://localhost:8000";
 export const getRecipeByNameURL = "/recipes/get-recipes-by-name";
 export const getRecipeByAreaURL = "/recipes/get-recipes-by-area";
 export const getRecipeByCategoryURL = "/recipes/get-recipes-by-category";
@@ -14,8 +13,8 @@ export const searchParamArea = "area";
 export const searchParamCategory = "category";
 export const searchParamIngredient = "ingredients";
 export const endpointMap = new Map([
-    [searchParamName, baseURL + getRecipeByNameURL],
-    [searchParamArea, baseURL + getRecipeByAreaURL],
-    [searchParamCategory, baseURL + getRecipeByCategoryURL],
-    [searchParamIngredient, baseURL + getRecipeByIngredientURL]
+    [searchParamName, API_URL + getRecipeByNameURL],
+    [searchParamArea, API_URL + getRecipeByAreaURL],
+    [searchParamCategory, API_URL + getRecipeByCategoryURL],
+    [searchParamIngredient, API_URL + getRecipeByIngredientURL]
   ]);
