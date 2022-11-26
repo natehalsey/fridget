@@ -1,6 +1,6 @@
 FROM node:alpine as build
 
-ENV REACT_APP_API_URL = "http://fridget.co:81"
+ENV REACT_APP_API_URL="http://fridget.co:81"
 
 WORKDIR /app
 RUN ["yarn", "install"]
