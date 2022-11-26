@@ -1,9 +1,10 @@
 FROM node:alpine as build
 ENV API_URL=$API_URL
 WORKDIR /app
-RUN yarn install
+RUN ["yarn", "install"]
 COPY . /app
-RUN yarn build
+RUN ["yarn", "build"]
+
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
