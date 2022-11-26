@@ -13,7 +13,7 @@ services:
       - docker-fastapi
     container_name: proxy-app
     build:
-      arg:
+      args:
         - REACT_APP_API_URL = "http://fridget.co:81"
       context: ./frontend/
       dockerfile: Dockerfile
