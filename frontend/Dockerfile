@@ -1,4 +1,5 @@
 FROM node:alpine as build
+ENV API_URL=$API_URL
 WORKDIR /app
 COPY . /app
 RUN yarn
