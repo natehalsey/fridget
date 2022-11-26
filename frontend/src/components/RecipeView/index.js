@@ -5,7 +5,7 @@ import axios from "axios";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { baseURL, getRecipeByIdURL } from "../../constants";
+import { API_URL, getRecipeByIdURL } from "../../constants";
 import Table from '../IngredientsTable';
 import Divider from '@mui/material/Divider';
 
@@ -17,7 +17,7 @@ export default function RecipeView() {
         const id = path[path.length - 1]
 
         return await axios.get(
-            baseURL + getRecipeByIdURL, { params: { id: id }}
+            API_URL + getRecipeByIdURL, { params: { id: id }}
             );
     };
 
