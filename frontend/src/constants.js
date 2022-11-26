@@ -1,6 +1,7 @@
 import { createContext } from 'react'
 import settings from './config'
 console.log(settings)
+console.log(process.env.REACT_APP_API_URL)
 export const AppContext = createContext({})
 export const API_URL = settings.defaultSettings.REACT_APP_API_URL;
 export const getRecipeByNameURL = "/recipes/get-recipes-by-name";
