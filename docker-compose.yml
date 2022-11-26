@@ -13,7 +13,7 @@ services:
       - docker-fastapi
     container_name: proxy-app
     build:
-      context: ./frontend
+      context: ./frontend/
       dockerfile: Dockerfile
     ports:
       - "80:80"
