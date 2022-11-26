@@ -3,7 +3,7 @@ import styles from "./styles.css";
 import axios from "axios";
 import RecipeCard from  "../RecipeCard";
 import Grid from '@mui/material/Grid';
-import { endpointMap, AppContext, baseURL, getRandomRecipes } from "../../constants";
+import { endpointMap, AppContext, API_URL, getRandomRecipes } from "../../constants";
 
 const Search = () => {
   const [query, setQuery] = useState([]);
@@ -23,7 +23,7 @@ const Search = () => {
         (res) => setQuery(res?.data ? res.data : [])
       );
     } else {
-      const url = baseURL + getRandomRecipes;
+      const url = API_URL + getRandomRecipes;
       const body = { n: 20 };
     
       loadQuery(url, body).then(

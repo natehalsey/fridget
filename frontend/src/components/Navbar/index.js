@@ -16,7 +16,7 @@ const Navbar = () => {
   }
   
   const sendUserFormData = ( (data) => {
-    axios.post(Constants.baseURL+Constants.postUserData, data)
+    axios.post(Constants.API_URL+Constants.postUserData, data)
       .then( (response) => {
         setUser(response.data);
       })
