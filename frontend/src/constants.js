@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 export const AppContext = createContext({})
-export const baseURL = "http://localhost:8000";
+export const baseURL = "http://localhost:81";
 export const getRecipeByNameURL = "/recipes/get-recipes-by-name";
 export const getRecipeByAreaURL = "/recipes/get-recipes-by-area";
 export const getRecipeByCategoryURL = "/recipes/get-recipes-by-category";
