@@ -1,6 +1,8 @@
 import { createContext } from 'react'
+import settings from './config'
+console.log(settings)
 export const AppContext = createContext({})
-export const API_URL = "http://localhost:8000";
+export const API_URL = settings.defaultSettings.REACT_APP_API_URL;
 export const getRecipeByNameURL = "/recipes/get-recipes-by-name";
 export const getRecipeByAreaURL = "/recipes/get-recipes-by-area";
 export const getRecipeByCategoryURL = "/recipes/get-recipes-by-category";
