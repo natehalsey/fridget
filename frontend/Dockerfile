@@ -1,5 +1,4 @@
 FROM node:alpine as build
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
 WORKDIR /app
 RUN ["yarn", "install"]
 COPY . /app
