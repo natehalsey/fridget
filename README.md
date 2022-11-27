@@ -1,3 +1,9 @@
+# Starting the dev environment
+## Frontend only
+Use ```REACT_APP_API_URL="http://fridget.co:81" npm start``` to run local frontend and use server backend
+
+
+## Deploying to the server environment
 # Running the Backend
 
 Go to backend dir ```cd backend```
