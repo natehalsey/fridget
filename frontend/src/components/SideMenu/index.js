@@ -10,7 +10,7 @@ import { searchParamArea, searchParamCategory, searchParamIngredient, searchPara
 import styles from "./styles.css"
 
 export default function SideMenu() {
-    const {searchParams, setSearchParams, user } = React.useContext(AppContext);
+    const {searchParams, setSearchParams, auth} = React.useContext(AppContext);
 
     const handleChange = (event) => {
         setSearchParams(event.target.value);
@@ -34,10 +34,9 @@ export default function SideMenu() {
                     <FormControlLabel value={searchParamIngredient} control={<Radio />} label="Search By Ingredients" />
                 </RadioGroup>
                 </FormControl>
-                {Object.keys(user).length !== 0 && ( 
+                {Object.keys(auth) == true && ( 
                     <>
                     <Button className="createBtn" variant="contained" onClick={() => {window.location.href = `/create`}}>Create Recipe</Button>
-                    <Button className="addBtn" variant="contained" onClick={() => {window.location.href = `/fridget`}}>Add Item to Fridget</Button>
                     </>
                 )}
         </Paper>
