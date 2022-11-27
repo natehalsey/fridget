@@ -40,10 +40,10 @@ export default function RecipeView() {
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Name: {recipeData?.name}
+                    {recipeData?.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Category: {recipeData?.category?.name} | Area: {recipeData?.area?.name}
+                    Category: {recipeData?.category?.name} | Cuisine: {recipeData?.area?.name}
                 </Typography>
                 <Table rows={recipeData?.ingredients_measurements} />
                 
@@ -51,7 +51,7 @@ export default function RecipeView() {
                 
                 <Paper>
                     <Typography variant="body1" color="text.primary">
-                        Instructions: {recipeData?.instructions}
+                        {recipeData?.instructions}
                     </Typography>
                 </Paper>
             </CardContent>
