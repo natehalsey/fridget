@@ -36,7 +36,7 @@ const Navbar = () => {
       "picture": userObject.picture,
       "email": userObject.email
     };
-    //sendUserFormData(data);
+    //sendUserFormData(data); TODO uncomment when BE auth is ready
     document.getElementById("signInDiv").hidden = true;
   }, []);
 
@@ -58,44 +58,9 @@ const Navbar = () => {
   }
   }, [handleCallbackResponse]);
 
-  // If we have no user, show sign in button
-
-  // If we have user, show log out button
-
   return (
     <ResponsiveAppBar></ResponsiveAppBar>
   );
-
-  /* return (
-    <div>
-      <Nav>
-        <Bars />
-
-        <NavMenu>
-        <NavLink to="/home" >
-            Home
-          </NavLink>
-          <NavLink to="/about" >
-            About
-          </NavLink>
-          <NavLink to="/team" >
-            Team
-          </NavLink>
-          <NavLink to="/api" >
-            API
-          </NavLink>
-        </NavMenu>
-        <NavBtn>
-          <div id="signInDiv" to="/signin" />
-        </NavBtn>
-        {Object.keys(user).length !== 0 && (
-          <NavLink to="/home"  onClick={(e) => handleSignOut(e)}>
-            <UserAvatar />
-          </NavLink>
-        )}
-      </Nav>
-    </div>
-  ); */
 };
 
 export default Navbar;
