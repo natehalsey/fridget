@@ -28,7 +28,7 @@ export default function SideMenu() {
                     value={searchParams}
                     onChange={handleChange}
                 >
-                    <FormControlLabel value={searchParamName} control={<Radio />} label="Search By Name" />
+                    <FormControlLabel value={searchParamName} control={<Radio />} label="Search By Name121" />
                     <FormControlLabel value={searchParamArea} control={<Radio />} label="Search By Area" />
                     <FormControlLabel value={searchParamCategory} control={<Radio />} label="Search By Category" />
                     <FormControlLabel value={searchParamIngredient} control={<Radio />} label="Search By Ingredients" />
