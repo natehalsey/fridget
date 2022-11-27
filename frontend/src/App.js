@@ -12,11 +12,11 @@ import UserRecipes from "./components/UserRecipes";
 
 
 function App() {
-  const [user, setUser] = React.useState({});
+  const [auth, setAuth] = React.useState(false);
   const [searchParams, setSearchParams] = React.useState("name");
 
   return (
-    <AppContext.Provider value={{ user, setUser, searchParams, setSearchParams}}>
+    <AppContext.Provider value={{ auth, setAuth, searchParams, setSearchParams}}>
       <ThemeProvider theme={theme}>
         <Router>
           <Navbar />

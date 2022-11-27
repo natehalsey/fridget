@@ -9,7 +9,7 @@ class CategoryModel(BaseModel):
     name: str
 
 class RecipeModel(BaseModel):
-    id: Optional[int]
+    id: Optional[str]
     name: Optional[str]
     category: Optional[CategoryModel]
     area: Optional[AreaModel]
@@ -18,10 +18,3 @@ class RecipeModel(BaseModel):
     image_url: Optional[str]
     source: Optional[str]
     
-class AreaRecipesModel(BaseModel):
-    name: str # name of the area 
-    recipes: list[RecipeModel] # list of recipes matching area
-
-class CategoryRecipesModel(BaseModel):
-    name: str # name of the category
-    recipes: list[RecipeModel] # list of recipes matching category

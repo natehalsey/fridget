@@ -14,7 +14,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/ingredients/get-recipes-by-ingredients/?ingredients=butter, eggs, soup",
+							"raw": "http://localhost:8000/ingredients/get-recipes-by-ingredients/?ingredients=butter,egg,flour",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -28,7 +28,7 @@
 							"query": [
 								{
 									"key": "ingredients",
-									"value": "butter, eggs, soup"
+									"value": "butter,egg,flour"
 								}
 							]
 						}
@@ -42,30 +42,25 @@
 			"item": [
 				{
 					"name": "get-recipes-by-name",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\":\"corba\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "localhost:8000/recipes/get-recipes-by-name",
+							"raw": "localhost:8000/recipes/get-recipes-by-name/?name=red lentil",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
 								"recipes",
-								"get-recipes-by-name"
+								"get-recipes-by-name",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "red lentil"
+								}
 							]
 						}
 					},
@@ -194,21 +189,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8000/areas/get-saved-recipes/?user_id=1",
+							"raw": "localhost:8000/users/get-saved-recipes/",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
-								"areas",
+								"users",
 								"get-saved-recipes",
 								""
-							],
-							"query": [
-								{
-									"key": "user_id",
-									"value": "1"
-								}
 							]
 						}
 					},
@@ -217,11 +206,37 @@
 				{
 					"name": "save-recipe",
 					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get-ingredients",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "add-ingredients",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuYXRlIiwiZXhwIjoxNjY5NTc2OTE5fQ.9R5K5zBsOXEuOl3ArTYS_dQh2Pm7iUhA5a3kdBLn5T8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user_id\": 1,\n    \"recipe_id\": 261\n}",
+							"raw": "{\n    \"ingredients\": [\"ham\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -229,33 +244,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8000/users/save-recipe",
+							"raw": "localhost:8000/users/add-ingredients/",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
 								"users",
-								"save-recipe"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-users (debugging only)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8000/users/get-users",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"users",
-								"get-users"
+								"add-ingredients",
+								""
 							]
 						}
 					},
@@ -265,62 +262,80 @@
 					"name": "get-created-recipes",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8000/users/get-created-recipes/?user_id=1",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"users",
-								"get-created-recipes",
-								""
-							],
-							"query": [
-								{
-									"key": "user_id",
-									"value": "1"
-								}
-							]
-						}
+						"header": []
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
 				{
-					"name": "add-ingredients",
+					"name": "sign-up",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"user_id\": 1,\n    \"ingredients\": [\n        \"ham\",\n        \"eggs\"\n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "nate",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "nater",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "http://localhost:8000/users/add-ingredients",
-							"protocol": "http",
+							"raw": "localhost:8000/auth/sign-up",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
-								"users",
-								"add-ingredients"
+								"auth",
+								"sign-up"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "get-ingredients",
+					"name": "login",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "nate",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "nater",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
