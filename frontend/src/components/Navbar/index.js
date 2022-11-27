@@ -1,11 +1,10 @@
 import React, { useCallback } from "react";
-import { Nav, NavLink, Bars, NavMenu, NavBtn } from "./NavbarElements";
 import { useEffect, useContext } from "react";
 import jwt_decode from "jwt-decode";
 import { AppContext } from "../../constants"
-import UserAvatar from "../UserAvatar"
 import axios from "axios";
 import * as Constants from "../../constants"
+import ResponsiveAppBar from "./AppBar"
 
 const Navbar = () => {
   const {user, setUser} = useContext(AppContext);
@@ -17,8 +16,8 @@ const Navbar = () => {
   
   const sendUserFormData = ( (data) => {
     axios.post(Constants.API_URL+Constants.postUserData, data)
-      .then( (response) => {
-        setUser(response.data);
+      .then( ({ data }) => {
+        setUser({...user, data });
       })
       .catch( (error) => {
         console.log(error);
@@ -29,13 +28,15 @@ const Navbar = () => {
 
   const handleCallbackResponse = useCallback((response) => {
     var userObject = jwt_decode(response.credential);
+
+    setUser({...user, ...userObject});
     var data = {
       "given_name": userObject.given_name,
       "family_name": userObject.family_name,
       "picture": userObject.picture,
       "email": userObject.email
     };
-    sendUserFormData(data);
+    //sendUserFormData(data); TODO uncomment when BE auth is ready
     document.getElementById("signInDiv").hidden = true;
   }, []);
 
@@ -57,39 +58,8 @@ const Navbar = () => {
   }
   }, [handleCallbackResponse]);
 
-  // If we have no user, show sign in button
-
-  // If we have user, show log out button
-
   return (
-    <div>
-      <Nav>
-        <Bars />
-
-        <NavMenu>
-        <NavLink to="/home" >
-            Home
-          </NavLink>
-          <NavLink to="/about" >
-            About
-          </NavLink>
-          <NavLink to="/team" >
-            Team
-          </NavLink>
-          <NavLink to="/api" >
-            API
-          </NavLink>
-        </NavMenu>
-        <NavBtn>
-          <div id="signInDiv" to="/signin" />
-        </NavBtn>
-        {Object.keys(user).length !== 0 && (
-          <NavLink to="/home"  onClick={(e) => handleSignOut(e)}>
-            <UserAvatar />
-          </NavLink>
-        )}
-      </Nav>
-    </div>
+    <ResponsiveAppBar></ResponsiveAppBar>
   );
 };
 
