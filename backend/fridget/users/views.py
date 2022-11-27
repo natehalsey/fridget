@@ -1,33 +1,38 @@
-from fridget.base.schema import User
-from fastapi import APIRouter, Depends
-from fridget.base.auth.models import Token
+import ormar
+from fastapi import APIRouter, Depends, status, HTTPException
 from fridget.users.controller import UserController
-from fastapi.security import OAuth2PasswordRequestForm
 from fridget.users.models import UserModel
 from fridget.base.auth.auth import get_current_active_user
+from fridget.base.schema import Recipe, User
+from fridget.ingredients.models import IngredientListModel
+from fridget.recipes.models import RecipeModel
 
 router = APIRouter(
     prefix="/users"
 )
 
 user_controller = UserController()
-
-@router.post("/login", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    return await user_controller.login_for_access_token(form_data)
-
-@router.post("/sign-up", response_model=Token)
-async def sign_up(form_data: OAuth2PasswordRequestForm = Depends()):
-    return await user_controller.sign_up(form_data)
+@router.post("/add-ingredients")
+async def add_user_ingredients(
+    ingredients: IngredientListModel, 
+    current_user: User = Depends(get_current_active_user)
+):
+    return await user_controller.add_user_ingredients(ingredients, current_user)
 
 
-@router.get("/get-user", response_model=UserModel)
-async def get_user(current_user: User = Depends(get_current_active_user)):
-    return current_user
+@router.get("/get-ingredients", response_model=IngredientListModel)
+async def get_user_ingredients(current_user: User = Depends(get_current_active_user)) -> IngredientListModel:
+    return await user_controller.get_user_ingredients(current_user)
+
+@router.get("/get-saved-recipes")
+async def get_saved_recipes(current_user: User = Depends(get_current_active_user)):
+    return await user_controller.get_saved_recipes(current_user)
+
+@router.get("/get-created-recipes", response_model=list[RecipeModel])
+async def get_created_recipes(current_user: User = Depends(get_current_active_user)) -> list[RecipeModel]:
+    return await user_controller.get_created_recipes(current_user)
     
-    
-# debugging only, remove before prod
-@router.get("/get-users", response_model=list[UserModel])
-async def get_users() -> list[User]:
-    return await user_controller.get_users()
+@router.post("/save-recipe")
+async def save_recipe(id: int, current_user: User = Depends(get_current_active_user)):
+    return await user_controller.save_recipe(id, current_user)
 

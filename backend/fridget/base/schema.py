@@ -67,13 +67,13 @@ class UserCreatedRecipe(ormar.Model):
         tablename="users_created_recipes"
         
     id: int = ormar.Integer(primary_key=True)    
-    user: User = ormar.ForeignKey(User, unique=True, related_name="created_recipes")
-    recipe: Recipe = ormar.ForeignKey(Recipe, skip_reverse=True)  
+    user: User = ormar.ForeignKey(User, related_name="created_recipes")
+    recipe: Recipe = ormar.ForeignKey(Recipe, unique=True, skip_reverse=True)  
  
 class UserSavedRecipe(ormar.Model):
     class Meta(BaseMeta):
         tablename="users_saved_recipes"
     
     id: int = ormar.Integer(primary_key=True)
-    user: User = ormar.ForeignKey(User, unique=True, related_name="saved_recipes")
-    recipe: Recipe = ormar.ForeignKey(Recipe, skip_reverse=True)  
+    user: User = ormar.ForeignKey(User, related_name="saved_recipes")
+    recipe: Recipe = ormar.ForeignKey(Recipe, unique=True, skip_reverse=True)  
