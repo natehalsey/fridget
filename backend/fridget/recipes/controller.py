@@ -14,8 +14,7 @@ from fridget.recipes.models import RecipeModel
 
 class RecipeController:
 
-    async def create_recipe(self, recipe_model: RecipeModel) -> None:
-        
+    async def create_recipe(self, recipe_model: RecipeModel, current_user: User) -> None:
         area, _ = await Area.objects.get_or_create(
             name=recipe_model.area.name
         )
@@ -32,11 +31,8 @@ class RecipeController:
             image_url=recipe_model.image_url,
             source=recipe_model.source,
         )
-        
-        # todo get user here
-        user=1
         await UserCreatedRecipe.objects.create(
-            user=user,
+            user=current_user,
             recipe=recipe
         )
         

@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Response
-from fridget.base.schema import Recipe
+from fastapi import APIRouter, Response, Depends
+from fridget.base.schema import Recipe, User
 from fridget.recipes.models import RecipeModel
 from fridget.recipes.controller import RecipeController
+from fridget.base.auth.auth import get_current_active_user
 
     
 router = APIRouter(
@@ -25,9 +26,9 @@ async def get_recipes_by_random(n: int) -> list[RecipeModel]:
     return await recipe_controller.get_recipes_by_random(n)
 
 @router.post("/create-recipe")
-async def create_recipe(recipe_model: RecipeModel):
+async def create_recipe(recipe_model: RecipeModel, current_user: User = Depends(get_current_active_user)):
     
-    await recipe_controller.create_recipe(recipe_model)
+    await recipe_controller.create_recipe(recipe_model, current_user)
     return Response(status_code=200)
         
 @router.get("/get-recipes-by-category", response_model=list[RecipeModel])
