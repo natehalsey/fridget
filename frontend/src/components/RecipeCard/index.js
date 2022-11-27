@@ -19,10 +19,10 @@ const RecipeCard = ({ data }) => {
             
             <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-                Name: {data?.name}
+                {data?.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-                Category: {data?.category?.name} | Area: {data?.area?.name}
+                Category: {data?.category?.name} | Cuisine: {data?.area?.name}
             </Typography>
             </CardContent>
 
