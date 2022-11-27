@@ -1,7 +1,19 @@
 import { createContext } from 'react'
 import settings from './config'
+import { createTheme } from '@mui/material/styles';
 
 export const AppContext = createContext({})
+export const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 500,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+});
 export const API_URL = settings.REACT_APP_API_URL;
 export const getRecipeByNameURL = "/recipes/get-recipes-by-name";
 export const getRecipeByAreaURL = "/recipes/get-recipes-by-area";
@@ -20,3 +32,8 @@ export const endpointMap = new Map([
     [searchParamCategory, API_URL + getRecipeByCategoryURL],
     [searchParamIngredient, API_URL + getRecipeByIngredientURL]
   ]);
+export const routes = {
+  home: "/home",
+  myrecipes: "/myrecipes",
+  about: "/about"
+};

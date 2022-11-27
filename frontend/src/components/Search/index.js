@@ -3,12 +3,33 @@ import styles from "./styles.css";
 import axios from "axios";
 import RecipeCard from  "../RecipeCard";
 import Grid from '@mui/material/Grid';
-import { endpointMap, AppContext, API_URL, getRandomRecipes } from "../../constants";
+import { 
+  searchParamArea, 
+  searchParamCategory, 
+  searchParamIngredient, 
+  searchParamName, 
+  endpointMap, 
+  AppContext, 
+  API_URL, 
+  getRandomRecipes 
+} from "../../constants";
+
+import FormControl from '@mui/material/FormControl';
+
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import SearchMenu from "../SearchMenu";
+
 
 const Search = () => {
   const [query, setQuery] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
-  const {searchParams} = React.useContext(AppContext)
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const {searchParams, setSearchParams} = React.useContext(AppContext);
+
   
   const loadQuery = async (url, params) => {
     return await axios.get(url, {params});
@@ -32,18 +53,45 @@ const Search = () => {
     }
   }, [searchTitle, searchParams]);
 
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (value) => {
+    setSearchParams(value);
+    setAnchorEl(null);
+  };
+
   return (
     <div className={styles.staticpage}>
-      <input
-        type="text"
-        placeholder="Search..."
-        className="search"
-        onChange={(e) => setSearchTitle(e.target.value)}
-      />
-      <Grid container spacing={2}>
+      <div className="input-div">
+        <FormControl fullWidth variant="standard">
+            <Input
+              id="search-input"
+              className="search"
+              value={searchTitle}
+              onChange={(e) => setSearchTitle(e.target.value)}
+              endAdornment={
+                <InputAdornment onClick={handleOpen} position="end">
+                  <IconButton edge="end">
+                    {<ManageSearchIcon/>}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+        </FormControl>
+        <SearchMenu
+          selectedValue={searchParams}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        />
+      </div>
+
+      <Grid container disableGutters={true} spacing={1}>
         {query
           .map((row) => (
-              <Grid key={row?.id} item xs={3}>
+              <Grid key={row?.id} item xs={8} sm={4} md={3} lg={3}>
                 <RecipeCard data={row} className="list"></RecipeCard>
               </Grid>
           ))}

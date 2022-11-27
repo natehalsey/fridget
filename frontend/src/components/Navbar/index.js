@@ -1,11 +1,10 @@
 import React, { useCallback } from "react";
-import { Nav, NavLink, Bars, NavMenu, NavBtn } from "./NavbarElements";
 import { useEffect, useContext } from "react";
 import jwt_decode from "jwt-decode";
 import { AppContext } from "../../constants"
-import UserAvatar from "../UserAvatar"
 import axios from "axios";
 import * as Constants from "../../constants"
+import ResponsiveAppBar from "./AppBar"
 
 const Navbar = () => {
   const {user, setUser} = useContext(AppContext);
@@ -17,8 +16,8 @@ const Navbar = () => {
   
   const sendUserFormData = ( (data) => {
     axios.post(Constants.API_URL+Constants.postUserData, data)
-      .then( (response) => {
-        setUser(response.data);
+      .then( ({ data }) => {
+        setUser({...user, data });
       })
       .catch( (error) => {
         console.log(error);
@@ -29,13 +28,15 @@ const Navbar = () => {
 
   const handleCallbackResponse = useCallback((response) => {
     var userObject = jwt_decode(response.credential);
+
+    setUser({...user, ...userObject});
     var data = {
       "given_name": userObject.given_name,
       "family_name": userObject.family_name,
       "picture": userObject.picture,
       "email": userObject.email
     };
-    sendUserFormData(data);
+    //sendUserFormData(data);
     document.getElementById("signInDiv").hidden = true;
   }, []);
 
@@ -62,6 +63,10 @@ const Navbar = () => {
   // If we have user, show log out button
 
   return (
+    <ResponsiveAppBar></ResponsiveAppBar>
+  );
+
+  /* return (
     <div>
       <Nav>
         <Bars />
@@ -90,7 +95,7 @@ const Navbar = () => {
         )}
       </Nav>
     </div>
-  );
+  ); */
 };
 
 export default Navbar;
