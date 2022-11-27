@@ -34,15 +34,6 @@ export default function SearchMenu(props) {
             <MenuItem button onClick={() => handleMenuItemClick(searchParamIngredient)}>
                 Search by Ingredient
             </MenuItem>
-            {1 !== 0 && ( 
-                <>
-                    <MenuItem button onClick={() => {window.location.href = `/create`}}>
-                        Create Recipe
-                    </MenuItem>
-                    <MenuItem button onClick={() => {window.location.href = `/fridget`}}>
-                        Add Item to Fridget
-                    </MenuItem>
-                </>)}
         </Menu>
     );
   }

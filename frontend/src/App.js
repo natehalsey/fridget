@@ -8,6 +8,8 @@ import About from './pages/About';
 import SignUp from './pages/Signup';
 import RecipeView from './components/RecipeView';
 import { ThemeProvider, styled } from '@mui/material/styles';
+import UserRecipes from "./components/UserRecipes";
+
 
 function App() {
   const [user, setUser] = React.useState({});
@@ -21,7 +23,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path={routes.home} element={<Home />} />
-            <Route path={routes.home} element={<About />} />
+            <Route path={routes.about} element={<About />} />
+            <Route path={routes.myrecipes} element={<UserRecipes />}/>
             <Route path='/recipe/:id' element={<RecipeView />} />
             <Route path='/create' element={<About />} />
             <Route path='/fridget' element={<About />} />
