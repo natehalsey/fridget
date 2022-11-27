@@ -1,7 +1,7 @@
 import ormar
 import databases
 import sqlalchemy
-
+from enum import Enum
 from typing import Optional
 from pydantic import json
 from .config import Settings
@@ -51,15 +51,14 @@ class Recipe(ormar.Model):
     image_url: Optional[str] = ormar.String(max_length=200, nullable=True)
     source: Optional[str] = ormar.String(max_length=500, nullable=True)
  
+
 class User(ormar.Model):
     class Meta(BaseMeta):
         tablename="users"
-    
+        
     id: int = ormar.Integer(primary_key=True)
-    given_name: str = ormar.String(max_length=100)
-    family_name: str = ormar.String(max_length=100)
-    picture: str = ormar.String(max_length=100)
-    email: str = ormar.String(max_length=100)
+    username: str = ormar.String(max_length=200, unique=True)
+    hashed_password: str = ormar.String(max_length=200)
     ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
 
 
