@@ -10,12 +10,11 @@ import RecipeView from './components/RecipeView';
 
 
 function App() {
-  const [isClick, setClick] = React.useState(false);
   const [auth, setAuth] = React.useState(false);
   const [searchParams, setSearchParams] = React.useState("name");
 
   return (
-    <AppContext.Provider value={{ auth, setAuth, searchParams, setSearchParams, isClick, setClick}}>
+    <AppContext.Provider value={{ auth, setAuth, searchParams, setSearchParams}}>
       <Router>
         <Navbar />
         <Routes>
