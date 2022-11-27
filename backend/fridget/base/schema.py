@@ -1,7 +1,6 @@
 import ormar
 import databases
 import sqlalchemy
-
 from typing import Optional
 from pydantic import json
 from .config import Settings
@@ -51,15 +50,14 @@ class Recipe(ormar.Model):
     image_url: Optional[str] = ormar.String(max_length=200, nullable=True)
     source: Optional[str] = ormar.String(max_length=500, nullable=True)
  
+
 class User(ormar.Model):
     class Meta(BaseMeta):
         tablename="users"
-    
+        
     id: int = ormar.Integer(primary_key=True)
-    given_name: str = ormar.String(max_length=100)
-    family_name: str = ormar.String(max_length=100)
-    picture: str = ormar.String(max_length=100)
-    email: str = ormar.String(max_length=100)
+    username: str = ormar.String(max_length=200, unique=True)
+    hashed_password: str = ormar.String(max_length=200)
     ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
 
 
@@ -68,13 +66,13 @@ class UserCreatedRecipe(ormar.Model):
         tablename="users_created_recipes"
         
     id: int = ormar.Integer(primary_key=True)    
-    user: User = ormar.ForeignKey(User, unique=True, related_name="created_recipes")
-    recipe: Recipe = ormar.ForeignKey(Recipe, skip_reverse=True)  
+    user: User = ormar.ForeignKey(User, related_name="created_recipes")
+    recipe: Recipe = ormar.ForeignKey(Recipe, unique=True, skip_reverse=True)  
  
 class UserSavedRecipe(ormar.Model):
     class Meta(BaseMeta):
         tablename="users_saved_recipes"
     
     id: int = ormar.Integer(primary_key=True)
-    user: User = ormar.ForeignKey(User, unique=True, related_name="saved_recipes")
-    recipe: Recipe = ormar.ForeignKey(Recipe, skip_reverse=True)  
+    user: User = ormar.ForeignKey(User, related_name="saved_recipes")
+    recipe: Recipe = ormar.ForeignKey(Recipe, unique=True, skip_reverse=True)  

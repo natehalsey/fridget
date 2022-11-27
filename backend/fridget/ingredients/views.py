@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from fridget.base.schema import Recipe
+from fridget.recipes.models import RecipeModel
 from fridget.ingredients.controller import IngredientController
 
 router = APIRouter(
@@ -8,6 +8,6 @@ router = APIRouter(
 
 ingredient_controller = IngredientController()
 
-@router.get("/get-recipes-by-ingredients")
-async def get_recipes_by_ingredients(ingredients: str) -> list[Recipe]:
+@router.get("/get-recipes-by-ingredients", response_model=list[RecipeModel])
+async def get_recipes_by_ingredients(ingredients: str) -> list[RecipeModel]:
     return await ingredient_controller.get_recipes_by_ingredients(ingredients.split(","))

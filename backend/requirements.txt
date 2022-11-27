@@ -23,6 +23,7 @@ requests
 
 # passwords
 passlib
+python-multipart
 
 # jwt
 python-jose[cryptography]
