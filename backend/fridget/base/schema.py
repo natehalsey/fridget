@@ -1,7 +1,6 @@
 import ormar
 import databases
 import sqlalchemy
-from enum import Enum
 from typing import Optional
 from pydantic import json
 from .config import Settings
