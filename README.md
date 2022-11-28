@@ -7,7 +7,7 @@ Use ```REACT_APP_API_URL="http://fridget.co:81" npm start``` to run local fronte
 
 ssh into the ubuntu server and cd in the fridget directory, pull the latest from main.
 
-run `docker compose build && docker compose down && docker compose run -d`
+run `docker compose build && docker compose down && docker compose up -d`
 
 # Running the Backend
 
