@@ -101,3 +101,9 @@
 .loginButtonSecondary:hover {
   background: #a8c787;
 }
+
+.MyRecipesPage {
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}

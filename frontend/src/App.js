@@ -8,18 +8,18 @@ import About from './pages/About';
 import SignUp from './pages/Signup';
 import RecipeView from './components/RecipeView';
 import { ThemeProvider, styled } from '@mui/material/styles';
-import UserRecipes from "./components/UserRecipes";
 import Login from './pages/Login';
 import axios from 'axios'
+import MyRecipes from './pages/MyRecipes';
 
 axios.defaults.withCredentials = true
 
 function App() {
-  const [auth, setAuth] = React.useState(false);
+  const [saved, setSaved] = React.useState({})
   const [searchParams, setSearchParams] = React.useState("name");
 
   return (
-    <AppContext.Provider value={{auth, setAuth, searchParams, setSearchParams}}>
+    <AppContext.Provider value={{ saved, setSaved, searchParams, setSearchParams}}>
       <ThemeProvider theme={theme}>
         <Router>
           <Navbar />
@@ -27,7 +27,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path={routes.home} element={<Home />} />
             <Route path={routes.about} element={<About />} />
-            <Route path={routes.myrecipes} element={<UserRecipes />}/>
+            <Route path={routes.myrecipes} element={<MyRecipes />}/>
             <Route path='/recipe/:id' element={<RecipeView />} />
             <Route path='/create' element={<About />} />
             <Route path='/fridget' element={<About />} />
