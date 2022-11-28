@@ -9,6 +9,7 @@ import SignUp from './pages/Signup';
 import RecipeView from './components/RecipeView';
 import { ThemeProvider, styled } from '@mui/material/styles';
 import UserRecipes from "./components/UserRecipes";
+import Login from './pages/Login';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
   const [searchParams, setSearchParams] = React.useState("name");
 
   return (
-    <AppContext.Provider value={{ auth, setAuth, searchParams, setSearchParams}}>
+    <AppContext.Provider value={{auth, setAuth, searchParams, setSearchParams}}>
       <ThemeProvider theme={theme}>
         <Router>
           <Navbar />
@@ -28,6 +29,7 @@ function App() {
             <Route path='/recipe/:id' element={<RecipeView />} />
             <Route path='/create' element={<About />} />
             <Route path='/fridget' element={<About />} />
+            <Route path='/login' element={<Login/>} />
           </Routes>
         </Router>
       </ThemeProvider>

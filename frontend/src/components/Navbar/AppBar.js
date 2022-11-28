@@ -37,10 +37,9 @@ const navbarElements = [
 ];
 
 function ResponsiveAppBar() {  
-  const {user} = React.useContext(AppContext)
+  const {auth} = React.useContext(AppContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  console.log(user);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -114,7 +113,7 @@ function ResponsiveAppBar() {
                 <MenuItem key={1} onClick={() => {window.location.href = routes.home }}>
                   <Typography textAlign="center">Search</Typography>
                 </MenuItem>
-                {Object.keys(user).length > 0 && <MenuItem key={2} onClick={() => {window.location.href = routes.myrecipes }}>
+                {Object.keys(auth) == true && <MenuItem key={2} onClick={() => {window.location.href = routes.myrecipes }}>
                   <Typography textAlign="center">My Recipes</Typography>
                 </MenuItem>}
                 <MenuItem key={3} onClick={() => {window.location.href = routes.about }}>
@@ -149,7 +148,7 @@ function ResponsiveAppBar() {
               >
                 Search
               </Button>
-              {Object.keys(user).length > 0 && <Button
+              {Object.keys(auth) == true && <Button
                 key={1}
                 onClick={() => {window.location.href = `/home`}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -165,16 +164,23 @@ function ResponsiveAppBar() {
               </Button>
 
           </Box>
-          {Object.keys(user).length == 0 ?
-          <div id="signInDiv" to="/signin" /> : (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="User">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User" src={user?.picture} />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          )}
+          {Object.keys(auth) == false ?
+              <>
+            <MenuItem key={1} onClick={() => {window.location.href = routes.login }}>
+              <Typography textAlign="center">SIGN UP</Typography>
+            </MenuItem>
+            <MenuItem key={2} onClick={() => {window.location.href = routes.login }}>
+              <Typography textAlign="center">LOG IN</Typography>
+            </MenuItem>
+            </>
+
+            : 
+            <MenuItem key={3} onClick={() => {window.location.href = routes.login }}>
+              <Typography textAlign="center">LOG OUT</Typography>
+            </MenuItem>
+            
+          }
+
         </Toolbar>
       </Container>
     </AppBar>

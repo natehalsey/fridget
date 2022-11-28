@@ -32,7 +32,7 @@ export default function SearchMenu(props) {
                 Search by Category
             </MenuItem>
             <MenuItem button onClick={() => handleMenuItemClick(searchParamIngredient)}>
-                Search by Ingredient
+                Search by Ingredients
             </MenuItem>
         </Menu>
     );
