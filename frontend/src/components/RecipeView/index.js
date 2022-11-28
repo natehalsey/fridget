@@ -18,13 +18,13 @@ export default function RecipeView() {
     const [recipeData, setRecipeData] = React.useState();
     const { auth } = React.useContext(AppContext);
     const [saved, setSaved] = React.useState();
+    const id = path[path.length - 1];
+
 
     React.useEffect(() => {
-        var id = path[path.length - 1];
         getRecipe(id);
         if (auth) {
-            const saved_recipes = getSavedRecipes();
-            saved_recipes.find((recipe) => recipe?.id === id) ? setSaved(true) : setSaved(false);
+            getSavedRecipes();
         }
     },[auth]);
 
@@ -36,10 +36,12 @@ export default function RecipeView() {
     const getSavedRecipes = () => { 
         axios({
             method: "get",
-            url: API_URL + "/users/get-created-recipes",
+            url: API_URL + "/users/get-saved-recipes",
             headers: {"Content-Type": 'application/json'},
         }).then( (response) => {
-            return response.data;
+            console.log(response.data);
+            console.log(response.data.find((recipe) => recipe?.id == id));
+            response.data.find((recipe) => recipe?.id == id) ? setSaved(true) : setSaved(false);
         })
         .catch( (error) => {
             console.log(error);
@@ -48,13 +50,10 @@ export default function RecipeView() {
     };
 
     const saveRecipe = () => {
-        var bodyFormData = new FormData();
-        bodyFormData.append('id',  path[path.length - 1]);
         axios({
             method: "post",
-            url: API_URL + "/users/save-recipe",
-            data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data" },
+            url: API_URL + `/users/save-recipe?id=${id}`,
+            headers: { "Content-Type": "application/json" },
         })
         .then( (response) => {
             console.log(response.status)

@@ -32,6 +32,7 @@ const Login = () => {
         })
         .then( (response) => {
             console.log(response.status)
+            setAuth(true);
             
         })
         .catch( (error) => {
@@ -41,13 +42,9 @@ const Login = () => {
     };
 
     useEffect(() => {
-        
-        setAuth(true);
-
         if (auth) { 
             navigate("/home"); 
         }
-
     },[handleSubmit])
     
 
