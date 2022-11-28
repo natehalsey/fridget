@@ -37,10 +37,10 @@ const navbarElements = [
 ];
 
 function ResponsiveAppBar() {  
-  const {user} = React.useContext(AppContext)
+  const {auth} = React.useContext(AppContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  console.log(user);
+  console.log(auth);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -85,7 +85,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="account of current auth"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -114,7 +114,7 @@ function ResponsiveAppBar() {
                 <MenuItem key={1} onClick={() => {window.location.href = routes.home }}>
                   <Typography textAlign="center">Search</Typography>
                 </MenuItem>
-                {Object.keys(user).length > 0 && <MenuItem key={2} onClick={() => {window.location.href = routes.myrecipes }}>
+                {Object.keys(auth).length > 0 && <MenuItem key={2} onClick={() => {window.location.href = routes.myrecipes }}>
                   <Typography textAlign="center">My Recipes</Typography>
                 </MenuItem>}
                 <MenuItem key={3} onClick={() => {window.location.href = routes.about }}>
@@ -149,7 +149,7 @@ function ResponsiveAppBar() {
               >
                 Search
               </Button>
-              {Object.keys(user).length > 0 && <Button
+              {Object.keys(auth).length > 0 && <Button
                 key={1}
                 onClick={() => {window.location.href = `/home`}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -165,12 +165,12 @@ function ResponsiveAppBar() {
               </Button>
 
           </Box>
-          {Object.keys(user).length == 0 ?
+          {Object.keys(auth).length == 0 ?
           <div id="signInDiv" to="/signin" /> : (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="User">
+              <Tooltip title="auth">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User" src={user?.picture} />
+                  <Avatar alt="auth" src={auth?.picture} />
                 </IconButton>
               </Tooltip>
             </Box>

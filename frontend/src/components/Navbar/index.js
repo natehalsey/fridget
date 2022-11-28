@@ -7,29 +7,29 @@ import * as Constants from "../../constants"
 import ResponsiveAppBar from "./AppBar"
 
 const Navbar = () => {
-  const {user, setUser} = useContext(AppContext);
+  const {auth, setAuth} = useContext(AppContext);
 
   function handleSignOut(event) {
-    setUser({});
+    setAuth({});
     document.getElementById("signInDiv").hidden = false;
   }
   
   const sendUserFormData = ( (data) => {
     axios.post(Constants.API_URL+Constants.postUserData, data)
       .then( ({ data }) => {
-        setUser({...user, data });
+        setAuth({...auth, data });
       })
       .catch( (error) => {
         console.log(error);
       });
     
-      console.log(user);
+      console.log(auth);
   })
 
   const handleCallbackResponse = useCallback((response) => {
     var userObject = jwt_decode(response.credential);
 
-    setUser({...user, ...userObject});
+    setAuth({...auth, ...userObject});
     var data = {
       "given_name": userObject.given_name,
       "family_name": userObject.family_name,
