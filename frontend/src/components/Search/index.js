@@ -88,10 +88,10 @@ const Search = () => {
         />
       </div>
 
-      <Grid container disableGutters={true} spacing={1}>
+      <Grid container spacing={1}>
         {query
           .map((row) => (
-              <Grid key={row?.id} item xs={8} sm={4} md={3} lg={3}>
+              <Grid key={row?.id} item xs={12} sm={4} md={3} lg={3}>
                 <RecipeCard data={row} className="list"></RecipeCard>
               </Grid>
           ))}
