@@ -39,13 +39,10 @@ export default function RecipeView() {
             url: API_URL + "/users/get-saved-recipes",
             headers: {"Content-Type": 'application/json'},
         }).then( (response) => {
-            console.log(response.data);
-            console.log(response.data.find((recipe) => recipe?.id == id));
             response.data.find((recipe) => recipe?.id == id) ? setSaved(true) : setSaved(false);
         })
         .catch( (error) => {
             console.log(error);
-            return [];
         });
     };
 
@@ -61,6 +58,7 @@ export default function RecipeView() {
         })
         .catch( (error) => {
             console.log(error)
+            setSaved(false);
         });
     };
 
