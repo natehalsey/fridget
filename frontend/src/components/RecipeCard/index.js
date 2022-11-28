@@ -5,9 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import { useNavigate } from 'react-router-dom';
 
 const RecipeCard = ({ data }) => {
+    const navigate = useNavigate();
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
@@ -27,7 +28,7 @@ const RecipeCard = ({ data }) => {
             </CardContent>
 
             <CardActions>
-                <Button size="small" onClick={() => {window.location.href = `/recipe/${data?.id}`}}>View</Button>
+                <Button size="small" onClick={() => navigate(`/recipe/${data?.id}`)}>View</Button>
             </CardActions>
         </Card>
     );
