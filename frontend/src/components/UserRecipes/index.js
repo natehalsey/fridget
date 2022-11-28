@@ -10,8 +10,8 @@ const UserRecipes = () => {
     <a href="/fridget">
       Add Item to Fridget
     </a>
-    <p>list of user saved recipe</p>
-    <p>list of user created recipe</p>
+    <p>list of auth saved recipe</p>
+    <p>list of auth created recipe</p>
   </div>
   );
 };
