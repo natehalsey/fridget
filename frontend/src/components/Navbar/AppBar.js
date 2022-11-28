@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { AppContext, routes } from "../../constants";
-
+import { useNavigate } from "react-router-dom";
 
 const navbarElements = [
   {
@@ -37,24 +37,20 @@ const navbarElements = [
 ];
 
 function ResponsiveAppBar() {  
-  const {auth} = React.useContext(AppContext)
+  const {auth, setAuth} = React.useContext(AppContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  let navigate = useNavigate();
+  console.log(auth);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
     <AppBar position="static">
@@ -84,7 +80,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="account of current auth"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -110,13 +106,13 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-                <MenuItem key={1} onClick={() => {window.location.href = routes.home }}>
+                <MenuItem key={1} onClick={() => navigate(routes.home)}>
                   <Typography textAlign="center">Search</Typography>
                 </MenuItem>
-                {Object.keys(auth) == true && <MenuItem key={2} onClick={() => {window.location.href = routes.myrecipes }}>
+                {auth == true && <MenuItem key={2} onClick={() => navigate(routes.myrecipes)}>
                   <Typography textAlign="center">My Recipes</Typography>
                 </MenuItem>}
-                <MenuItem key={3} onClick={() => {window.location.href = routes.about }}>
+                <MenuItem key={3} onClick={() => navigate(routes.about)}>
                   <Typography textAlign="center">About</Typography>
                 </MenuItem>
             </Menu>
@@ -143,40 +139,40 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button
                 key={0}
-                onClick={() => {window.location.href = `/home`}}
+                onClick={() => navigate(`/home`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Search
               </Button>
-              {Object.keys(auth) == true && <Button
+              {auth == true && <Button
                 key={1}
-                onClick={() => {window.location.href = `/home`}}
+                onClick={() => navigate( `/home`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 My Recipe
               </Button>}
               <Button
                 key={2}
-                onClick={() => {window.location.href = `/about`}}
+                onClick={() => navigate(`/about`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 About
               </Button>
 
           </Box>
-          {Object.keys(auth) == false ?
+          {auth == false ?
               <>
-            <MenuItem key={1} onClick={() => {window.location.href = routes.login }}>
-              <Typography textAlign="center">SIGN UP</Typography>
+            <MenuItem key={1} onClick={() => navigate(routes.login)}>
+              <Typography textAlign="center">Sign Up</Typography>
             </MenuItem>
-            <MenuItem key={2} onClick={() => {window.location.href = routes.login }}>
-              <Typography textAlign="center">LOG IN</Typography>
+            <MenuItem key={2} onClick={() => navigate(routes.login)}>
+              <Typography textAlign="center">Log In</Typography>
             </MenuItem>
             </>
 
             : 
-            <MenuItem key={3} onClick={() => {window.location.href = routes.login }}>
-              <Typography textAlign="center">LOG OUT</Typography>
+            <MenuItem key={3} onClick={() => { setAuth(false); navigate(routes.home); }}>
+              <Typography textAlign="center">Log Out</Typography>
             </MenuItem>
             
           }

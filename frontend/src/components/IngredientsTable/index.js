@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 export default function BasicTable({rows}) {
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} size="small">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>

@@ -2,3 +2,11 @@
     height: 200px;
     width: 200px;
 }
+
+.heart {
+    padding-top: 0px !important;
+}
+
+.recipe-header{
+    display: flex !important;
+}

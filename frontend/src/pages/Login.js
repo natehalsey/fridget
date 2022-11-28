@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Pages.css";
 import axios from "axios";
 import { API_URL, loginURL } from "../constants";
@@ -6,7 +7,8 @@ import { AppContext } from "../constants";
 
 const Login = () => {
     const {auth, setAuth} = React.useContext(AppContext);
-    console.log(auth+" a")
+    let navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -30,15 +32,21 @@ const Login = () => {
         })
         .then( (response) => {
             console.log(response.status)
+            setAuth(true);
+            
         })
         .catch( (error) => {
             console.log(error)
         });
 
     };
+
     useEffect(() => {
-        setAuth(true)
+        if (auth) { 
+            navigate("/home"); 
+        }
     },[handleSubmit])
+    
 
     return (
         <div className="LoginPage">
@@ -55,7 +63,9 @@ const Login = () => {
             <button className="loginButtonPrimary">Login</button>
         </form>
         </div>
+        <a href="/home"></a>
         </div>
+        
     );
 }
 
