@@ -1,6 +1,6 @@
 from fridget.base.schema import User
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Response
 from fridget.base.auth.auth import (
     authenticate_user, 
     create_access_token,
