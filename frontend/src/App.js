@@ -10,7 +10,9 @@ import RecipeView from './components/RecipeView';
 import { ThemeProvider, styled } from '@mui/material/styles';
 import UserRecipes from "./components/UserRecipes";
 import Login from './pages/Login';
+import axios from 'axios'
 
+axios.defaults.withCredentials = true
 
 function App() {
   const [auth, setAuth] = React.useState(false);
