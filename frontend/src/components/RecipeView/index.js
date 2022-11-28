@@ -5,18 +5,20 @@ import axios from "axios";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { API_URL, getRecipeByIdURL } from "../../constants";
+import { API_URL, getRecipeByIdURL, AppContext } from "../../constants";
 import Table from '../IngredientsTable';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import styles from "./styles.css";
 
 export default function RecipeView() {
     const path = window.location.pathname.split('/');
     const [recipeData, setRecipeData] = React.useState();
+    const { auth } = React.useContext(AppContext);
 
     React.useEffect(() => {
         var id = path[path.length - 1];
@@ -60,9 +62,11 @@ export default function RecipeView() {
                                                 {recipeData?.name}
                                             </Typography>
                                             
-                                            <IconButton className="heart">
-                                                <FavoriteBorderIcon />
-                                            </IconButton>
+                                            {
+                                                auth && <IconButton className="heart">
+                                                    <FavoriteBorderIcon />
+                                                </IconButton>
+                                            }
                                         </div>
                                         <Typography variant="body2" color="text.secondary">
                                             Category: {recipeData?.category?.name} | Cuisine: {recipeData?.area?.name}

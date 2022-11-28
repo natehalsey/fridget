@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { AppContext, routes } from "../../constants";
-
+import { useNavigate } from "react-router-dom";
 
 const navbarElements = [
   {
@@ -40,7 +40,14 @@ function ResponsiveAppBar() {
   const {auth} = React.useContext(AppContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(null);
+  let navigate = useNavigate();
   console.log(auth);
+
+  React.useEffect(() => {
+    console.log("auth: ", auth)
+    setIsLoggedIn(auth);
+  }, [auth])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -111,13 +118,13 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-                <MenuItem key={1} onClick={() => {window.location.href = routes.home }}>
+                <MenuItem key={1} onClick={() => navigate(routes.home)}>
                   <Typography textAlign="center">Search</Typography>
                 </MenuItem>
-                {Object.keys(auth).length > 0 && <MenuItem key={2} onClick={() => {window.location.href = routes.myrecipes }}>
+                {isLoggedIn == true && <MenuItem key={2} onClick={() => navigate(routes.myrecipes)}>
                   <Typography textAlign="center">My Recipes</Typography>
                 </MenuItem>}
-                <MenuItem key={3} onClick={() => {window.location.href = routes.about }}>
+                <MenuItem key={3} onClick={() => navigate(routes.about)}>
                   <Typography textAlign="center">About</Typography>
                 </MenuItem>
             </Menu>
@@ -144,37 +151,44 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button
                 key={0}
-                onClick={() => {window.location.href = `/home`}}
+                onClick={() => navigate(`/home`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Search
               </Button>
-              {Object.keys(auth).length > 0 && <Button
+              {isLoggedIn == true && <Button
                 key={1}
-                onClick={() => {window.location.href = `/home`}}
+                onClick={() => navigate( `/home`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 My Recipe
               </Button>}
               <Button
                 key={2}
-                onClick={() => {window.location.href = `/about`}}
+                onClick={() => navigate(`/about`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 About
               </Button>
 
           </Box>
-          {Object.keys(auth).length == 0 ?
-          <div id="signInDiv" to="/signin" /> : (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="auth">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="auth" src={auth?.picture} />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          )}
+          {isLoggedIn == false ?
+              <>
+            <MenuItem key={1} onClick={() => navigate(routes.login)}>
+              <Typography textAlign="center">Sign Up</Typography>
+            </MenuItem>
+            <MenuItem key={2} onClick={() => navigate(routes.login)}>
+              <Typography textAlign="center">Log In</Typography>
+            </MenuItem>
+            </>
+
+            : 
+            <MenuItem key={3} onClick={() => navigate(routes.home)}>
+              <Typography textAlign="center">Log Out</Typography>
+            </MenuItem>
+            
+          }
+
         </Toolbar>
       </Container>
     </AppBar>
