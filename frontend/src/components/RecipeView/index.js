@@ -19,11 +19,16 @@ export default function RecipeView() {
     const path = window.location.pathname.split('/');
     const [recipeData, setRecipeData] = React.useState();
     const { auth } = React.useContext(AppContext);
+    const [saved, setSaved] = React.useState();
 
     React.useEffect(() => {
         var id = path[path.length - 1];
         console.log(getRecipe(id))
     },[]);
+
+    const onSave = () => {
+        setSaved(true);
+    };
 
     const getRecipe = ( (id) => {
         axios.get(
@@ -63,8 +68,8 @@ export default function RecipeView() {
                                             </Typography>
                                             
                                             {
-                                                auth && <IconButton className="heart">
-                                                    <FavoriteBorderIcon />
+                                                auth && <IconButton className="heart" onClick={onSave}>
+                                                   { saved ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
                                                 </IconButton>
                                             }
                                         </div>
