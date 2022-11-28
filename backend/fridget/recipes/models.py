@@ -1,12 +1,18 @@
 from pydantic import BaseModel
 from typing import Optional
-from fridget.ingredients.models import IngredientMeasurementModel
 
 class AreaModel(BaseModel):
     name: str
 
 class CategoryModel(BaseModel):
     name: str
+    
+class IngredientMeasurementModel(BaseModel):
+    ingredient: str
+    measurement: str
+
+class IngredientListModel(BaseModel):
+    ingredients: list[str]
 
 class RecipeModel(BaseModel):
     id: Optional[str]

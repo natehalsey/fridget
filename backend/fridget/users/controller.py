@@ -1,6 +1,6 @@
 import ormar
 from fastapi import status, HTTPException, Response
-from fridget.ingredients.models import IngredientListModel
+from fridget.recipes.models import IngredientListModel
 from fridget.base.schema import Recipe, User, UserSavedRecipe, UserCreatedRecipe, Ingredient
 
 class UserController:

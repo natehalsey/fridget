@@ -1,6 +1,7 @@
 import ormar
 from random import randint
 from fastapi import Response
+from collections import Counter
 from fridget.base.schema import (
     Area, 
     Category, 
@@ -8,9 +9,9 @@ from fridget.base.schema import (
     Recipe, 
     User,
     UserCreatedRecipe,
+    Ingredient
 )
-from fridget.ingredients.models import IngredientMeasurementModel
-from fridget.recipes.models import RecipeModel
+from fridget.recipes.models import RecipeModel, IngredientMeasurementModel
 
 class RecipeController:
 
@@ -62,4 +63,21 @@ class RecipeController:
     async def get_recipes_by_random(self, n: int) -> Recipe:
         random_offset = randint(0, await Recipe.objects.count() - n)
         return await Recipe.objects.offset(random_offset).limit(n).all()
+
+    async def get_recipes_by_ingredients(self, input_ingredients: list[str]) -> list[RecipeModel]:
+        
+        recipes = [
+            recipes for ingredient_name in input_ingredients for recipe in
+            await Ingredient.objects.select_related("recipes").filter(
+                name__iexact=ingredient_name
+            ).all()
+            for recipes in recipe.recipes
+        ]
+        counts = Counter([recipe.id for recipe in recipes])
+        sorted_recipes = sorted(
+            recipes,
+            key=lambda recipe: counts[recipe.id],
+            reverse=True
+        )
+        return sorted_recipes
         
