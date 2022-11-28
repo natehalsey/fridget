@@ -9,3 +9,94 @@
   padding-left: 30px;
   padding-top: 10px;
 }
+.LoginPage {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+.LoginContainer {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 615px;
+  padding-bottom: 66px;
+  padding-top: 46px;
+  text-align: center;
+  width: 90%;
+}
+.Login > .form {
+  margin-bottom: 98px;
+  margin-top: 41px;
+}
+
+.input-group {
+  margin-bottom: 26px;
+}
+.input-group:nth-last-child(-n + 2) {
+  margin-bottom: 50px;
+}
+.input-group > label,
+.input-group > input {
+  font-family: "Roboto", sans-serif;
+  max-width: 420px;
+  text-align: left;
+  width: 80%;
+}
+.input-group > label {
+  color: #676767;
+  display: inline-block;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.input-group > input {
+  background: #f2f2f5;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  color: #676767;
+  font-size: 16px;
+  height: 40px;
+  outline: 0;
+  padding: 0 15px;
+  transition: all 0.3s;
+}
+.input-group > input:focus {
+  background: #fff;
+  border-color: #c4c4c4;
+}
+.input-group > input::placeholder {
+  color: #c4c4c4;
+  font-size: 16px;
+}
+
+.loginButtonPrimary, .loginButtonSecondary, .loginButtonPrimary:hover, .loginButtonSecondary:hover {
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  max-width: 350px;
+  outline: 0;
+  padding: 10px;
+  transition: background 0.3s;
+  width: 100%;
+}
+
+.loginButtonPrimary {
+  background: #4163ad;
+}
+
+.loginButtonPrimary:hover {
+  background: #596a91;
+}
+
+.loginButtonSecondary {
+  background: #76bd2a;
+}
+
+.loginButtonSecondary:hover {
+  background: #a8c787;
+}

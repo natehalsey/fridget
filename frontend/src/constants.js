@@ -29,6 +29,8 @@ export const theme = createTheme({
   },
 });
 export const API_URL = settings.REACT_APP_API_URL;
+export const loginURL = "/auth/login"
+export const signupURL = "/auth/sign-up"
 export const getRecipeByNameURL = "/recipes/get-recipes-by-name";
 export const getRecipeByAreaURL = "/recipes/get-recipes-by-area";
 export const getRecipeByCategoryURL = "/recipes/get-recipes-by-category";
@@ -49,5 +51,7 @@ export const endpointMap = new Map([
 export const routes = {
   home: "/home",
   myrecipes: "/myrecipes",
-  about: "/about"
+  about: "/about",
+  login: "/login",
+  logout: "/logout"
 };
