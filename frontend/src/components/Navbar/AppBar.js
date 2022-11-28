@@ -37,17 +37,11 @@ const navbarElements = [
 ];
 
 function ResponsiveAppBar() {  
-  const {auth} = React.useContext(AppContext)
+  const {auth, setAuth} = React.useContext(AppContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(null);
   let navigate = useNavigate();
   console.log(auth);
-
-  React.useEffect(() => {
-    console.log("auth: ", auth)
-    setIsLoggedIn(auth);
-  }, [auth])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -121,7 +115,7 @@ function ResponsiveAppBar() {
                 <MenuItem key={1} onClick={() => navigate(routes.home)}>
                   <Typography textAlign="center">Search</Typography>
                 </MenuItem>
-                {isLoggedIn == true && <MenuItem key={2} onClick={() => navigate(routes.myrecipes)}>
+                {auth == true && <MenuItem key={2} onClick={() => navigate(routes.myrecipes)}>
                   <Typography textAlign="center">My Recipes</Typography>
                 </MenuItem>}
                 <MenuItem key={3} onClick={() => navigate(routes.about)}>
@@ -156,7 +150,7 @@ function ResponsiveAppBar() {
               >
                 Search
               </Button>
-              {isLoggedIn == true && <Button
+              {auth == true && <Button
                 key={1}
                 onClick={() => navigate( `/home`)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -172,7 +166,7 @@ function ResponsiveAppBar() {
               </Button>
 
           </Box>
-          {isLoggedIn == false ?
+          {auth == false ?
               <>
             <MenuItem key={1} onClick={() => navigate(routes.login)}>
               <Typography textAlign="center">Sign Up</Typography>
@@ -183,7 +177,7 @@ function ResponsiveAppBar() {
             </>
 
             : 
-            <MenuItem key={3} onClick={() => navigate(routes.home)}>
+            <MenuItem key={3} onClick={() => { setAuth(false); navigate(routes.home); }}>
               <Typography textAlign="center">Log Out</Typography>
             </MenuItem>
             
