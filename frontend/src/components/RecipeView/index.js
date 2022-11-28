@@ -1,13 +1,11 @@
 import React from "react";
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import axios from "axios";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { API_URL, getRecipeByIdURL, AppContext } from "../../constants";
 import Table from '../IngredientsTable';
-import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -23,11 +21,48 @@ export default function RecipeView() {
 
     React.useEffect(() => {
         var id = path[path.length - 1];
-        console.log(getRecipe(id))
-    },[]);
+        getRecipe(id);
+        if (auth) {
+            const saved_recipes = getSavedRecipes();
+            saved_recipes.find((recipe) => recipe?.id === id) ? setSaved(true) : setSaved(false);
+        }
+    },[auth]);
 
     const onSave = () => {
         setSaved(true);
+        saveRecipe();
+    };
+
+    const getSavedRecipes = () => { 
+        axios({
+            method: "get",
+            url: API_URL + "/users/get-created-recipes",
+            headers: {"Content-Type": 'application/json'},
+        }).then( (response) => {
+            return response.data;
+        })
+        .catch( (error) => {
+            console.log(error);
+            return [];
+        });
+    };
+
+    const saveRecipe = () => {
+        var bodyFormData = new FormData();
+        bodyFormData.append('id',  path[path.length - 1]);
+        axios({
+            method: "post",
+            url: API_URL + "/users/save-recipe",
+            data: bodyFormData,
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then( (response) => {
+            console.log(response.status)
+            
+        })
+        .catch( (error) => {
+            console.log(error)
+        });
     };
 
     const getRecipe = ( (id) => {
