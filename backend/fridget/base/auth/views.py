@@ -13,7 +13,7 @@ auth_controller = AuthController()
 async def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestForm = Depends()):
     token = await auth_controller.login_for_access_token(form_data)
     access_token = token["access_token"]
-    response.set_cookie(key="access_token",value=f"Bearer {access_token}", httponly=True)  #set HttpOnly cookie in response
+    response.set_cookie(key="access_token",value=f"Bearer {access_token}", httponly=True, secure=True, samesite=None)  #set HttpOnly cookie in response
     return token
 
 @router.post("/sign-up", response_model=Token)
