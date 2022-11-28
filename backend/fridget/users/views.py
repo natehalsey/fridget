@@ -4,8 +4,7 @@ from fridget.users.controller import UserController
 from fridget.users.models import UserModel
 from fridget.base.auth.auth import get_current_active_user
 from fridget.base.schema import Recipe, User
-from fridget.ingredients.models import IngredientListModel
-from fridget.recipes.models import RecipeModel
+from fridget.recipes.models import RecipeModel, IngredientListModel
 
 router = APIRouter(
     prefix="/users"
