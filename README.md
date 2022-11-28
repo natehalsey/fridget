@@ -4,6 +4,11 @@ Use ```REACT_APP_API_URL="http://fridget.co:81" npm start``` to run local fronte
 
 
 ## Deploying to the server environment
+
+ssh into the ubuntu server and cd in the fridget directory, pull the latest from main.
+
+run `docker compose build && docker compose down && docker compose run -d`
+
 # Running the Backend
 
 Go to backend dir ```cd backend```
