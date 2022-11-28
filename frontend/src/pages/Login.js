@@ -6,7 +6,6 @@ import { API_URL, loginURL } from "../constants";
 import { AppContext } from "../constants";
 
 const Login = () => {
-    const {auth, setAuth} = React.useContext(AppContext);
     let navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -32,20 +31,16 @@ const Login = () => {
         })
         .then( (response) => {
             console.log(response.status)
-            setAuth(true);
+            localStorage.setItem("auth", true)
+            navigate("/home"); 
             
         })
         .catch( (error) => {
             console.log(error)
+            localStorage.setItem("auth", false)
         });
 
     };
-
-    useEffect(() => {
-        if (auth) { 
-            navigate("/home"); 
-        }
-    },[handleSubmit])
     
 
     return (
@@ -63,7 +58,7 @@ const Login = () => {
             <button className="loginButtonPrimary">Login</button>
         </form>
         </div>
-        <a href="/home"></a>
+         <a href="/home"></a>
         </div>
         
     );
