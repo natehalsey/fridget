@@ -19,3 +19,7 @@ async def login_for_access_token(response: Response, form_data: OAuth2PasswordRe
 @router.post("/sign-up", response_model=Token)
 async def sign_up(form_data: OAuth2PasswordRequestForm = Depends()):
     return await auth_controller.sign_up(form_data)
+
+@router.post("/logout")
+async def logout(response: Response):
+    response.set_cookie(key="access_token", value="")
