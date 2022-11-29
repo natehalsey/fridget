@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Response
 from fridget.base.auth.models import Token
 from fastapi.security import OAuth2PasswordRequestForm
+from fridget.base.auth.models import OAuth2EmailPasswordRequestForm
 from fridget.base.auth.controller import AuthController
 
 router = APIRouter(
@@ -17,8 +18,11 @@ async def login_for_access_token(response: Response, form_data: OAuth2PasswordRe
     return token
 
 @router.post("/sign-up", response_model=Token)
-async def sign_up(form_data: OAuth2PasswordRequestForm = Depends()):
-    return await auth_controller.sign_up(form_data)
+async def sign_up(response: Response, form_data: OAuth2EmailPasswordRequestForm = Depends()):
+    token = await auth_controller.sign_up(form_data)
+    access_token = token["access_token"]
+    response.set_cookie(key="access_token",value=f"Bearer {access_token}", httponly=True, samesite=None)  #set HttpOnly cookie in response
+    return token
 
 @router.post("/logout")
 async def logout(response: Response):
