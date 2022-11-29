@@ -11,18 +11,38 @@ import { ThemeProvider, styled } from '@mui/material/styles';
 import Login from './pages/Login';
 import axios from 'axios'
 import MyRecipes from './pages/MyRecipes';
+import MenuTray from "./components/MenuTray"
+import { Box } from '@mui/material';
 
 axios.defaults.withCredentials = true
 
 function App() {
   const [saved, setSaved] = React.useState({})
   const [searchParams, setSearchParams] = React.useState("name");
+  const [showMenu, setShowMenu] = React.useState(false);
+  const [menuItems, setMenuItems] = React.useState([]);
+
+  if (localStorage.getItem("auth") === null){
+    localStorage.setItem("auth", false)
+  };
+  
+  window.addEventListener("resize", (event) => {
+    setShowMenu(false);
+  })
 
   return (
-    <AppContext.Provider value={{ saved, setSaved, searchParams, setSearchParams}}>
+    <AppContext.Provider value={{ 
+        menuItems, setMenuItems, 
+        showMenu, setShowMenu, 
+        saved, setSaved, 
+        searchParams, setSearchParams
+      }}>
       <ThemeProvider theme={theme}>
         <Router>
           <Navbar />
+          <Box className="traycontainer">
+            <MenuTray className="tray"/>
+          </Box>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path={routes.home} element={<Home />} />
@@ -32,6 +52,7 @@ function App() {
             <Route path='/create' element={<About />} />
             <Route path='/fridget' element={<About />} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/signup' element={<SignUp/>} />
           </Routes>
         </Router>
       </ThemeProvider>

@@ -37,7 +37,9 @@ async def get_recipes_by_category(category: str) -> list[RecipeModel]:
         category__name__icontains=category
     ).all()
 
-
+@router.get("/get-recipes-by-ingredients", response_model=list[RecipeModel])
+async def get_recipes_by_ingredients(ingredients: str) -> list[RecipeModel]:
+    return await recipe_controller.get_recipes_by_ingredients(ingredients.split(","))
     
 @router.get("/get-recipes-by-area", response_model=list[RecipeModel])
 async def get_recipes_by_area(area: str) -> list[RecipeModel]:

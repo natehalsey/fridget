@@ -1,6 +1,6 @@
 import ormar
 from fastapi import status, HTTPException, Response
-from fridget.ingredients.models import IngredientListModel
+from fridget.recipes.models import IngredientListModel
 from fridget.base.schema import Recipe, User, UserSavedRecipe, UserCreatedRecipe, Ingredient
 
 class UserController:
@@ -46,4 +46,41 @@ class UserController:
             user=current_user,
             recipe=recipe,
         )
+        return Response(status_code=status.HTTP_200_OK)
+    
+    async def remove_saved_recipe(self, recipe_id: int, current_user: User):
+        try:
+            recipe = await Recipe.objects.get(
+                id=recipe_id
+            )
+        except ormar.NoMatch:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
+        
+        await UserSavedRecipe.objects.delete(
+            user=current_user,
+            recipe=recipe,
+        )
+        return Response(status_code=status.HTTP_200_OK)
+    
+    async def remove_created_recipe(self, recipe_id: int, current_user: User):
+        try:
+            recipe = await Recipe.objects.select_related("created_by").get(
+                id=recipe_id
+            )
+        except ormar.NoMatch:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
+        
+        
+        if not recipe.created_by == current_user.id:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+        
+        await UserCreatedRecipe.objects.delete(
+            user=current_user,
+            recipe=recipe,
+        )
+        
+        await Recipe.objects.delete(
+            id=recipe_id
+        )
+        
         return Response(status_code=status.HTTP_200_OK)
