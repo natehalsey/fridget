@@ -57,9 +57,9 @@ class User(ormar.Model):
         
     id: int = ormar.Integer(primary_key=True)
     username: str = ormar.String(max_length=200, unique=True)
+    email: str = ormar.String(max_length=200, unique=True)
     hashed_password: str = ormar.String(max_length=200)
     ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
-
 
 class UserCreatedRecipe(ormar.Model):
     class Meta(BaseMeta):
