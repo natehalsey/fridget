@@ -11,7 +11,6 @@ const UserCreatedRecipes = () => {
 
   
   React.useEffect(() => {
-   
           getSavedRecipes();
     },[]);
 

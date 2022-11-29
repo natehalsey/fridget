@@ -11,28 +11,67 @@ import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
-import styles from "./styles.css";
+import "./styles.css";
+import { Button } from "@mui/material";
 
 export default function RecipeView() {
     const path = window.location.pathname.split('/');
     const [recipeData, setRecipeData] = React.useState();
-    const { auth } = React.useContext(AppContext);
     const [saved, setSaved] = React.useState();
+    const [created, setCreated] = React.useState();
     const id = path[path.length - 1];
 
 
     React.useEffect(() => {
         getRecipe(id);
-        if (auth) {
+        if (localStorage.getItem("auth") === "true") {
             getSavedRecipes();
         }
-    },[auth]);
+    },[localStorage.getItem("auth")]);
 
+    React.useEffect(() => {
+        getCreatedRecipes()
+    },[]);
+
+    const getRecipe = ( (id) => {
+        axios.get(
+            API_URL + getRecipeByIdURL, { params: { id: id }}
+        ).then( (response) => {
+            setRecipeData(response.data)
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
+    });
+
+    const handleDelete = () => {
+        
+    }
+    
+    
     const onSave = () => {
-        setSaved(true);
-        saveRecipe();
+        if (saved){
+            setSaved(false);
+            removeSavedRecipe();
+            
+        } else {
+            setSaved(true);
+            saveRecipe();
+        }
     };
-
+    
+    const getCreatedRecipes = () => { 
+        axios({
+            method: "get",
+            url: API_URL + "/users/get-created-recipes",
+            headers: {"Content-Type": 'application/json'},
+        }).then( (response) => {
+            response.data.find((recipe) => recipe.id == id) ? setCreated(true) : setCreated(false);
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
+    };
     const getSavedRecipes = () => { 
         axios({
             method: "get",
@@ -52,26 +91,34 @@ export default function RecipeView() {
             url: API_URL + `/users/save-recipe?id=${id}`,
             headers: { "Content-Type": "application/json" },
         })
-        .then( (response) => {
-            console.log(response.status)
-            
-        })
         .catch( (error) => {
             console.log(error)
             setSaved(false);
         });
     };
 
-    const getRecipe = ( (id) => {
-        axios.get(
-            API_URL + getRecipeByIdURL, { params: { id: id }}
-        ).then( (response) => {
-            setRecipeData(response.data)
+    const removeSavedRecipe = () => {
+        axios({
+            method: "delete",
+            url: API_URL + `/users/remove-saved-recipe?id=${id}`,
+            headers: { "Content-Type": "application/json" },
         })
         .catch( (error) => {
-            console.log(error);
+            console.log(error)
+            setSaved(false);
         });
-    });
+    };
+    const removeCreatedRecipe = () => {
+        axios({
+            method: "delete",
+            url: API_URL + `/users/remove-created-recipe?id=${id}`,
+            headers: { "Content-Type": "application/json" },
+        })
+        .catch( (error) => {
+            console.log(error)
+            setSaved(false);
+        });
+    };
 
     return (
         <div className="recipe-view">
@@ -85,7 +132,7 @@ export default function RecipeView() {
                                 alt="green iguana"
                                 height="500"
                                 image={recipeData?.image_url}
-                            />
+                                />
                         </Card>
                     </Grid>
 
@@ -100,10 +147,12 @@ export default function RecipeView() {
                                             </Typography>
                                             
                                             {
-                                                auth && <IconButton className="heart" onClick={onSave}>
+                                                localStorage.getItem("auth") === "true" && <IconButton className="heart" onClick={onSave}>
                                                    { saved ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
                                                 </IconButton>
                                             }
+                                            {created && <Button>Edit Recipe</Button>}
+                                            {created && <Button>Delete Recipe</Button>}
                                         </div>
                                         <Typography variant="body2" color="text.secondary">
                                             Category: {recipeData?.category?.name} | Cuisine: {recipeData?.area?.name}

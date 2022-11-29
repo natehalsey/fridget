@@ -5,7 +5,6 @@ from fastapi import FastAPI
 # Routers
 from fridget.users.views import router as UserRouter
 from fridget.recipes.views import router as RecipeRouter
-from fridget.ingredients.views import router as IngredientRouter
 from fridget.base.auth.views import router as AuthRouter
 
 # Middleware
@@ -23,7 +22,6 @@ app = FastAPI()
 
 
 # Routers ############################
-app.include_router(IngredientRouter)
 app.include_router(RecipeRouter)
 app.include_router(UserRouter)
 app.include_router(AuthRouter)
