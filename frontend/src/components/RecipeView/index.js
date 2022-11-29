@@ -46,8 +46,6 @@ export default function RecipeView() {
     });
 
     const handleDelete = () => {
-        removeCreatedRecipe();
-        navigate(routes.home);
         
     }
     
@@ -96,7 +94,7 @@ export default function RecipeView() {
         })
         .catch( (error) => {
             console.log(error)
-            localStorage.setItem("auth", false)
+            setSaved(false);
         });
     };
 
@@ -111,7 +109,7 @@ export default function RecipeView() {
         })
         .catch( (error) => {
             console.log(error)
-            localStorage.setItem("auth", false)
+            setSaved(false);
         });
     };
     const removeCreatedRecipe = () => {
@@ -122,7 +120,7 @@ export default function RecipeView() {
         })
         .catch( (error) => {
             console.log(error)
-            localStorage.setItem("auth", false)
+            setSaved(false);
         });
     };
 
@@ -157,8 +155,8 @@ export default function RecipeView() {
                                                    { saved ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
                                                 </IconButton>
                                             }
-                                            {created && <Button onClick={() => {navigate(routes.edit)}}>Edit Recipe</Button>}
-                                            {created && <Button onClick={handleDelete}>Delete Recipe</Button>}
+                                            {created && <Button>Edit Recipe</Button>}
+                                            {created && <Button>Delete Recipe</Button>}
                                         </div>
                                         <Typography variant="body2" color="text.secondary">
                                             Category: {recipeData?.category?.name} | Cuisine: {recipeData?.area?.name}
