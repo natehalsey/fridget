@@ -1,13 +1,16 @@
 # Starting the dev environment
-## Frontend only
-Use ```REACT_APP_API_URL="http://fridget.co:81" npm start``` to run local frontend and use server backend
+## Frontend Development Only
+Use ```REACT_APP_API_URL="http://fridget.co:81" yarn start``` to run local frontend and use server backend
 
+## Frontend and Backend
 
-## Deploying to the server environment
+Follow the instructions in `Running the Backend`, then  follow the instructions in `running the frontend`.
 
-ssh into the ubuntu server and cd in the fridget directory, pull the latest from main.
+# Deployment
 
-run `docker compose build && docker compose down && docker compose up -d`
+ssh into the deployment server and cd in the fridget directory, pull the latest from main.
+
+run `docker compose build && docker compose up -d`
 
 # Running the Backend
 
@@ -17,24 +20,12 @@ Go to backend dir ```cd backend```
 
 ```. script/bootstrap```, creates the virtual environment and installs the necessary dependancies.
 
-## Database
-
-Run: ```. script/dbupgrade "upgrade message"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
-
-## Viewing database tables
-
-Download DBeaver and select "create new database", select postgres, it will download the drivers.
-
-for host put in 74.119.150.172 for database change to fridget, username: postgres, password: SRql605syVtnpUtP
-
-click finish.
-
-## Starting the app
+## Starting the backend
 
 Run the script ```. script/run``` to start the app.
 
 Server address: http://localhost:8000 in your web browser.
-Go to http://localhost:8000/docs for Sawgger docs.
+Go to http://localhost:8000/docs for Swagger docs.
 
 # Running the Frontend
 
@@ -42,7 +33,20 @@ Go to frontend dir ```cd frontend```
 
 ## Starting the UI
 
-Run ```npm install```
-Run ```npm start``` 
+Run ```yarn install```
+Run ```yarn start``` 
 
 Go to http://localhost:3000 in your web browser.
+
+
+# Database
+cd into the `backend` folder.
+
+## Migrations 
+
+### WARNING WE ARE EDITING OUR LIVE DATABASE DURING LOCAL ONLY RUN AFTER SCHEMA CHANGES ###
+Run: ```. script/dbupgrade "upgrade message"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
+
+## Viewing database tables
+
+Download DBeaver, contact for database access. 
