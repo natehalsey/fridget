@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Pages.css";
 import axios from "axios";
-import { API_URL, loginURL, signupURL } from "../constants";
-import { AppContext } from "../constants";
+import { API_URL, signupURL } from "../constants";
 import { useState } from "react";
 
 const SignUp = () => {
@@ -73,12 +72,11 @@ const SignUp = () => {
             <button className="signupButton">Register</button>
         </form>
         {error &&
-            <div className="errorString" color="red">
+            <div className="errorString">
                 {errorString}
             </div>
         }   
         </div>
-         <a href="/home"></a>
         </div>
         
     );
