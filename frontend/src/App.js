@@ -18,6 +18,10 @@ function App() {
   const [saved, setSaved] = React.useState({})
   const [searchParams, setSearchParams] = React.useState("name");
 
+  if (localStorage.getItem("auth") === null){
+    localStorage.setItem("auth", false)
+  }
+
   return (
     <AppContext.Provider value={{ saved, setSaved, searchParams, setSearchParams}}>
       <ThemeProvider theme={theme}>
