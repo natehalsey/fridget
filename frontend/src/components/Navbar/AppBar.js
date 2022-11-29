@@ -120,8 +120,8 @@ function ResponsiveAppBar() {
             </MenuItem>
           }
 
-          {localStorage.getItem("auth") === "false" && <MenuItem key={1} onClick={() => navigate(routes.login)}>
-              <Typography textAlign="center">Sign Up</Typography>
+          {localStorage.getItem("auth") === "false" && <MenuItem key={1} onClick={() => navigate(routes.signup)}>
+              <Typography textAlign="center">Register</Typography>
             </MenuItem>
           }
           {localStorage.getItem("auth") === "false" && <MenuItem key={2} onClick={() => navigate(routes.login)}>

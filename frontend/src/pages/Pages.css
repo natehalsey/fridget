@@ -70,7 +70,7 @@
   font-size: 16px;
 }
 
-.loginButtonPrimary, .loginButtonSecondary, .loginButtonPrimary:hover, .loginButtonSecondary:hover {
+.loginButton, .signupButton, .loginButton:hover, .signupButton:hover {
   border-radius: 5px;
   border: none;
   color: #fff;
@@ -86,19 +86,19 @@
   width: 100%;
 }
 
-.loginButtonPrimary {
+.loginButton {
   background: #4163ad;
 }
 
-.loginButtonPrimary:hover {
+.loginButton:hover {
   background: #596a91;
 }
 
-.loginButtonSecondary {
+.signupButton{
   background: #76bd2a;
 }
 
-.loginButtonSecondary:hover {
+.signupButton:hover {
   background: #a8c787;
 }
 
@@ -106,4 +106,8 @@
   align-items: center;
   height: 100%;
   justify-content: center;
+}
+
+.errorString {
+  color:#ff0000
 }

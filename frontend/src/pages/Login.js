@@ -4,21 +4,30 @@ import "./Pages.css";
 import axios from "axios";
 import { API_URL, loginURL } from "../constants";
 import { AppContext } from "../constants";
+import { useState } from "react";
 
 const Login = () => {
     let navigate = useNavigate();
-
+    const [error, setError] = useState(false);
+    const [errorString, setErrorString] = useState();
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (!e.target.username.value) {
-            alert("username required");
+            setError(true)
+            setErrorString("Username required.")
             return
-
         } else if (!e.target.password.value) {
-            alert("Password is required");
+            setError(true)
+            setErrorString("Password is required.")
             return
         }
+
+        if (e.nativeEvent.submitter.className === "loginButton") {
+            console.log("sign up")
+        } else {
+            console.log("log in")
+        }
+
 
         var bodyFormData = new FormData();
         bodyFormData.append('username', e.target.username.value);
@@ -30,7 +39,6 @@ const Login = () => {
             headers: { "Content-Type": "multipart/form-data" },
         })
         .then( (response) => {
-            console.log(response.status)
             localStorage.setItem("auth", true)
             navigate("/home"); 
             
@@ -55,8 +63,14 @@ const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" />
             </div>
-            <button className="loginButtonPrimary">Login</button>
+            <button className="loginButton">Login</button>
         </form>
+        Don't have an account? <a href="/signup"> Register</a>
+        {error &&
+            <div className="errorString" color="red">
+                {errorString}
+            </div>
+        }   
         </div>
          <a href="/home"></a>
         </div>
