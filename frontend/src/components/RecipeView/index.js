@@ -4,7 +4,7 @@ import axios from "axios";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { API_URL, getRecipeByIdURL, AppContext, routes } from "../../constants";
+import { API_URL, getRecipeByIdURL, AppContext } from "../../constants";
 import Table from '../IngredientsTable';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
