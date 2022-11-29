@@ -28,8 +28,14 @@ export default function RecipeView() {
     },[localStorage.getItem("auth")]);
 
     const onSave = () => {
-        setSaved(true);
-        saveRecipe();
+        if (saved){
+            setSaved(false);
+            removeRecipe();
+
+        } else {
+            setSaved(true);
+            saveRecipe();
+        }
     };
 
     const getSavedRecipes = () => { 
@@ -49,6 +55,22 @@ export default function RecipeView() {
         axios({
             method: "post",
             url: API_URL + `/users/save-recipe?id=${id}`,
+            headers: { "Content-Type": "application/json" },
+        })
+        .then( (response) => {
+            console.log(response.status)
+            
+        })
+        .catch( (error) => {
+            console.log(error)
+            setSaved(false);
+        });
+    };
+
+    const removeRecipe = () => {
+        axios({
+            method: "post",
+            url: API_URL + `/users/remove-recipe?id=${id}`,
             headers: { "Content-Type": "application/json" },
         })
         .then( (response) => {

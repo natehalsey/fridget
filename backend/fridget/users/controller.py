@@ -47,3 +47,17 @@ class UserController:
             recipe=recipe,
         )
         return Response(status_code=status.HTTP_200_OK)
+    
+    async def remove_recipe(self, recipe_id: int, current_user: User):
+        try:
+            recipe = await Recipe.objects.get(
+                id=recipe_id
+            )
+        except ormar.NoMatch:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
+        
+        await UserSavedRecipe.objects.delete(
+            user=current_user,
+            recipe=recipe,
+        )
+        return Response(status_code=status.HTTP_200_OK)
