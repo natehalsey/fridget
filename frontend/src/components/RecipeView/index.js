@@ -21,7 +21,6 @@ export default function RecipeView() {
     const [created, setCreated] = React.useState();
     const id = path[path.length - 1];
 
-
     React.useEffect(() => {
         getRecipe(id);
         if (localStorage.getItem("auth") === "true") {
@@ -167,8 +166,13 @@ export default function RecipeView() {
                 <Grid spacing={2}>
                     <Card>
                         <CardContent>
-                            <Typography variant="h6" color="text.primary">
-                                {recipeData?.instructions}
+                            <Typography  variant='inherit' color="text.primary">
+                                <pre className="instructions">
+
+                                    {recipeData?.instructions}
+
+                                </pre>
+                                {console.log(recipeData?.instructions)}
                             </Typography>
                         </CardContent>
                     </Card>
