@@ -1,4 +1,5 @@
 import React from "react";
+import MenuTray from "../components/MenuTray";
 import Search from "../components/Search";
 
 

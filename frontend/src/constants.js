@@ -54,5 +54,5 @@ export const routes = {
   myrecipes: "/myrecipes",
   about: "/about",
   login: "/login",
-  signup: "/signup"
+  signup: "/signup",
 };
