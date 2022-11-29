@@ -13,7 +13,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import "./styles.css";
 import { Button } from "@mui/material";
-import { useNavigate  } from "react-router-dom";
 
 export default function RecipeView() {
     const path = window.location.pathname.split('/');
