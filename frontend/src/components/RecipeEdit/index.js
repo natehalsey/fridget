@@ -16,7 +16,7 @@ import IngredientsForm from './ingredients';
 import Instructions from './instructions';
 import Review from './review';
 import axios from 'axios';
-import { API_URL, createRecipeURL, loginURL } from "../../constants";
+import { API_URL, createRecipeURL, loginURL, getRecipeByIdURL } from "../../constants";
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -34,13 +34,10 @@ const steps = ['Enter Details', 'Enter Instructions', 'Review'];
 
   
 
-
-
-
 const theme = createTheme();
 
-export default function RecipeCreate() {
-
+export default function RecipeEdit(props) {
+  
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [recipe, setRecipe ] = React.useState({
@@ -52,6 +49,24 @@ export default function RecipeCreate() {
     image_url: '',
     source: ''
   });
+  const id = props.id;
+  React.useEffect( () =>{
+    getRecipe(id);
+  }, []);
+  const getRecipe = ( (id) => {
+    axios.get(
+        API_URL + getRecipeByIdURL, { params: { id: id }}
+    ).then( (response) => {
+      response.data.ingredients_measurements = response.data.ingredients_measurements.map((element) => {
+        return element['ingredient'];
+      })
+      response.data.category = response.data.category['name'];
+      response.data.area = response.data.area['name'];
+      setRecipe(response.data)
+    })
+    .catch( (error) => {
+        console.log(error);
+    })});
 
   axios.post(API_URL + loginURL, {username: 'nate', password: 'nater'});
   const getStepContent = () => {
@@ -167,4 +182,3 @@ export default function RecipeCreate() {
     </ThemeProvider>
   );
 }
-

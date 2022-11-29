@@ -1,9 +1,11 @@
 import React from 'react';
-import RecipeCreate from '../components/RecipeCreate';
+import RecipeEdit from '../components/RecipeEdit';
 //import styles from "./Pages.css";
+
+const inp = 100;
 const About = () => {
   return (
-    <RecipeCreate />
+    <RecipeEdit id={inp} />
   );
 };
 export default About;
