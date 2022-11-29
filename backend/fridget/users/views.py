@@ -34,3 +34,8 @@ async def get_created_recipes(current_user: User = Depends(get_current_active_us
 @router.post("/save-recipe")
 async def save_recipe(id: int, current_user: User = Depends(get_current_active_user)):
     return await user_controller.save_recipe(id, current_user)
+
+
+@router.post("/remove-recipe")
+async def remove_recipe(id: int, current_user: User = Depends(get_current_active_user)):
+    return await user_controller.remove_recipe(id, current_user)
