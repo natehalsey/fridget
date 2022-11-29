@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
+import DropDownMenu from "../DropDownMenu"
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
@@ -63,9 +64,9 @@ function ResponsiveAppBar() {
       console.log(error);
     });
     return 
-
+    
   };
-
+  
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -73,6 +74,7 @@ function ResponsiveAppBar() {
         {/* placeholder */}
         <Toolbar disableGutters>
           <Icon icon="mdi:fridge" href="/" style={{ fontSize: '36px' }}/>
+          <Box sx={{ flexGrow: 1, display: { xs: 1, md: 'flex' } }}>
           <Typography
             variant="h6"
             noWrap
@@ -80,55 +82,92 @@ function ResponsiveAppBar() {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 1, md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
-          >
+            >
             Fridget
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <MenuItem
-                key={0}
-                onClick={() => navigate(`/home`)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Search
-              </MenuItem>
-              <MenuItem
-                key={2}
-                onClick={() => navigate(`/about`)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                About
-              </MenuItem>
-
           </Box>
-          {localStorage.getItem("auth") === "true" && <MenuItem
-                key={1}
-                onClick={() => navigate( `/myrecipes`)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+          {localStorage.getItem("auth") === "false" ? 
+            
+            <Box className="dropdownbox" sx={{ flexGrow: 0, display: { xs: 1, md: 'none' } }}>
+              <DropDownMenu menu_items={[
+                {item:'Register', click:routes.signup}, 
+                {item:'Log In', click:routes.login}
+              ]}
+              />
+            </Box>
+            :
+            <Box className="dropdownbox" sx={{ flexGrow: 0, display: { xs: 1, md: 'none' } }}>
+              <DropDownMenu menu_items={[
+                {item:'My Recipes', click:'/myrecipes'}, 
+                {item:'Log Out', click: null}
+              ]}
+              />
+            </Box>
+          }
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+            
+            <MenuItem
+              key={0}
+              onClick={() => navigate(`/home`)}
+              sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Typography textAlign="center">My Recipes</Typography>
-              </MenuItem>
-          }
-          {localStorage.getItem("auth") === "true" && <MenuItem key={3} onClick={handleLogout}>
-              <Typography textAlign="center">Log Out</Typography>
+              Search
             </MenuItem>
-          }
-
-          {localStorage.getItem("auth") === "false" && <MenuItem key={1} onClick={() => navigate(routes.signup)}>
-              <Typography textAlign="center">Register</Typography>
+            <MenuItem
+              key={1}
+              onClick={() => navigate(`/about`)}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+              About
             </MenuItem>
-          }
-          {localStorage.getItem("auth") === "false" && <MenuItem key={2} onClick={() => navigate(routes.login)}>
-              <Typography textAlign="center">Log In</Typography>
+          </Box>
+          {localStorage.getItem("auth") === "true" && 
+          <Box 
+          sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+          
+            <MenuItem
+              key={2}
+              onClick={() => navigate( `/myrecipes`)}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+              My Recipes
             </MenuItem>
+            <MenuItem key={3} onClick={handleLogout}>
+              Log Out
+            </MenuItem>
+          </Box>
+          
           }
-
+          
+          {localStorage.getItem("auth") === "false" && 
+          <>
+          <Box
+          sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}
+          >
+            
+            <MenuItem 
+              key={2} 
+              onClick={() => navigate(routes.signup)}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Register
+            </MenuItem>
+            <MenuItem 
+              key={3} 
+              onClick={() => navigate(routes.login)}
+            >
+              Log In
+            </MenuItem>
+          </Box>
+          </>
+          }
         </Toolbar>
       </Container>
     </AppBar>
