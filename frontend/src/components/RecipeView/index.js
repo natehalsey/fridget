@@ -21,7 +21,6 @@ export default function RecipeView() {
     const [saved, setSaved] = React.useState();
     const [created, setCreated] = React.useState();
     const id = path[path.length - 1];
-    let navigate = useNavigate()
 
     React.useEffect(() => {
         getRecipe(id);
@@ -103,9 +102,6 @@ export default function RecipeView() {
             method: "delete",
             url: API_URL + `/users/remove-saved-recipe?id=${id}`,
             headers: { "Content-Type": "application/json" },
-        })
-        .then(() =>{
-            setSaved(false);
         })
         .catch( (error) => {
             console.log(error)
