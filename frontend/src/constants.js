@@ -56,4 +56,6 @@ export const routes = {
   about: "/about",
   login: "/login",
   signup: "/signup",
+  create: "/create",
+  edit: "/edit"
 };

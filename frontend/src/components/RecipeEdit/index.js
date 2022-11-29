@@ -9,7 +9,6 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-//import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import IngredientsForm from './ingredients';
@@ -53,6 +52,7 @@ export default function RecipeEdit(props) {
   React.useEffect( () =>{
     getRecipe(id);
   }, []);
+
   const getRecipe = ( (id) => {
     axios.get(
         API_URL + getRecipeByIdURL, { params: { id: id }}
@@ -68,7 +68,6 @@ export default function RecipeEdit(props) {
         console.log(error);
     })});
 
-  axios.post(API_URL + loginURL, {username: 'nate', password: 'nater'});
   const getStepContent = () => {
     switch (activeStep) {
       case 0:

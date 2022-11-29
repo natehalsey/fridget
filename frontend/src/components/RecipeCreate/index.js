@@ -52,8 +52,6 @@ export default function RecipeCreate() {
     image_url: '',
     source: ''
   });
-
-  axios.post(API_URL + loginURL, {username: 'nate', password: 'nater'});
   const getStepContent = () => {
     switch (activeStep) {
       case 0:
@@ -84,7 +82,6 @@ export default function RecipeCreate() {
       }).catch(err =>{
         console.log(err.response.data);
       });
-      alert("DONE");
       console.log(recipe)
     }
   };
