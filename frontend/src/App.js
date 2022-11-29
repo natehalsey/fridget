@@ -32,6 +32,7 @@ function App() {
             <Route path='/create' element={<About />} />
             <Route path='/fridget' element={<About />} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/signup' element={<SignUp/>} />
           </Routes>
         </Router>
       </ThemeProvider>
