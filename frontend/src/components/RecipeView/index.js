@@ -16,17 +16,16 @@ import styles from "./styles.css";
 export default function RecipeView() {
     const path = window.location.pathname.split('/');
     const [recipeData, setRecipeData] = React.useState();
-    const { auth } = React.useContext(AppContext);
     const [saved, setSaved] = React.useState();
     const id = path[path.length - 1];
 
 
     React.useEffect(() => {
         getRecipe(id);
-        if (auth) {
+        if (localStorage.getItem("auth") === "true") {
             getSavedRecipes();
         }
-    },[auth]);
+    },[localStorage.getItem("auth")]);
 
     const onSave = () => {
         setSaved(true);
@@ -100,7 +99,7 @@ export default function RecipeView() {
                                             </Typography>
                                             
                                             {
-                                                auth && <IconButton className="heart" onClick={onSave}>
+                                                localStorage.getItem("auth") === "true" && <IconButton className="heart" onClick={onSave}>
                                                    { saved ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
                                                 </IconButton>
                                             }
