@@ -18,14 +18,12 @@ Go to backend dir ```cd backend```
 ```. script/bootstrap```, creates the virtual environment and installs the necessary dependancies.
 
 ## Database
-
+### WARNING WE ARE EDITING OUR LIVE DATABASE DURING LOCAL ONLY RUN AFTER SCHEMA CHANGES ###
 Run: ```. script/dbupgrade "upgrade message"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
 
 ## Viewing database tables
 
-Download DBeaver and select "create new database", select postgres, it will download the drivers.
-
-for host put in 74.119.150.172 for database change to fridget, username: postgres, password: SRql605syVtnpUtP
+Download DBeaver, contact for database access. 
 
 click finish.
 
