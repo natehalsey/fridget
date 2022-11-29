@@ -13,6 +13,8 @@ import axios from 'axios'
 import MyRecipes from './pages/MyRecipes';
 import MenuTray from "./components/MenuTray"
 import { Box } from '@mui/material';
+import Create from './pages/Create';
+import Edit from './pages/Edit';
 
 axios.defaults.withCredentials = true
 
@@ -49,10 +51,11 @@ function App() {
             <Route path={routes.about} element={<About />} />
             <Route path={routes.myrecipes} element={<MyRecipes />}/>
             <Route path='/recipe/:id' element={<RecipeView />} />
-            <Route path='/create' element={<About />} />
             <Route path='/fridget' element={<About />} />
             <Route path='/login' element={<Login/>} />
             <Route path='/signup' element={<SignUp/>} />
+            <Route path={routes.create} element={<Create/>} />
+            <Route path={routes.edit} element={<Edit/>} />
           </Routes>
         </Router>
       </ThemeProvider>

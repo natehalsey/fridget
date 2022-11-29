@@ -6,7 +6,7 @@ import Search from "../components/Search";
 const Home = () => {
   return (
     <div className="home">
-      <Search />
+      <Search/>
     </div>
   );
 };
