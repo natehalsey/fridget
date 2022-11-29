@@ -24,7 +24,11 @@ function App() {
 
   if (localStorage.getItem("auth") === null){
     localStorage.setItem("auth", false)
-  }
+  };
+  
+  window.addEventListener("resize", (event) => {
+    setShowMenu(false);
+  })
 
   return (
     <AppContext.Provider value={{ 

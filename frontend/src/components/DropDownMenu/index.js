@@ -3,6 +3,7 @@ import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import { AppContext } from '../../constants';
+import "./styles.css"
 
 
 const DropDownMenu = (menu_items) => {
@@ -14,7 +15,7 @@ const DropDownMenu = (menu_items) => {
     return ( 
         <Box>
             <div>
-            <button onClick={toggleMenu}>
+            <button className="tray-button"onClick={toggleMenu}>
              <MenuIcon></MenuIcon>
             </button>
             </div>

@@ -26,6 +26,12 @@ const MenuTray = () => {
     return (
         <div className="tray">
             {showMenu && 
+                <MenuItem onClick={() => {navigate(routes.home)}}>Search</MenuItem>
+            }
+            {showMenu && 
+                <MenuItem onClick={() => {navigate(routes.about)}}>About</MenuItem>
+            }
+            {showMenu && 
                 menuItems.menu_items.map((menu_item) => {
                     return <MenuItem onClick={() => {
                         menu_item.click ? navigate(menu_item.click) : handleLogout(); 
