@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
-import styles from "./styles.css";
+import "./styles.css";
 import { Button } from "@mui/material";
 
 export default function RecipeView() {
