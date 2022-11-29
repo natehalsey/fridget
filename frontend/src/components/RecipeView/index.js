@@ -4,7 +4,7 @@ import axios from "axios";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { API_URL, getRecipeByIdURL, AppContext } from "../../constants";
+import { API_URL, getRecipeByIdURL, AppContext, routes } from "../../constants";
 import Table from '../IngredientsTable';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -13,6 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import "./styles.css";
 import { Button } from "@mui/material";
+import { useNavigate  } from "react-router-dom";
 
 export default function RecipeView() {
     const path = window.location.pathname.split('/');
@@ -20,7 +21,7 @@ export default function RecipeView() {
     const [saved, setSaved] = React.useState();
     const [created, setCreated] = React.useState();
     const id = path[path.length - 1];
-
+    let navigate = useNavigate()
 
     React.useEffect(() => {
         getRecipe(id);
@@ -45,6 +46,8 @@ export default function RecipeView() {
     });
 
     const handleDelete = () => {
+        removeCreatedRecipe();
+        navigate(routes.home);
         
     }
     
@@ -93,7 +96,7 @@ export default function RecipeView() {
         })
         .catch( (error) => {
             console.log(error)
-            setSaved(false);
+            localStorage.setItem("auth", false)
         });
     };
 
@@ -103,9 +106,12 @@ export default function RecipeView() {
             url: API_URL + `/users/remove-saved-recipe?id=${id}`,
             headers: { "Content-Type": "application/json" },
         })
+        .then(() =>{
+            setSaved(false);
+        })
         .catch( (error) => {
             console.log(error)
-            setSaved(false);
+            localStorage.setItem("auth", false)
         });
     };
     const removeCreatedRecipe = () => {
@@ -116,7 +122,7 @@ export default function RecipeView() {
         })
         .catch( (error) => {
             console.log(error)
-            setSaved(false);
+            localStorage.setItem("auth", false)
         });
     };
 
@@ -151,8 +157,8 @@ export default function RecipeView() {
                                                    { saved ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
                                                 </IconButton>
                                             }
-                                            {created && <Button>Edit Recipe</Button>}
-                                            {created && <Button>Delete Recipe</Button>}
+                                            {created && <Button onClick={() => {navigate(routes.edit)}}>Edit Recipe</Button>}
+                                            {created && <Button onClick={handleDelete}>Delete Recipe</Button>}
                                         </div>
                                         <Typography variant="body2" color="text.secondary">
                                             Category: {recipeData?.category?.name} | Cuisine: {recipeData?.area?.name}
@@ -167,8 +173,13 @@ export default function RecipeView() {
                 <Grid spacing={2}>
                     <Card>
                         <CardContent>
-                            <Typography variant="h6" color="text.primary">
-                                {recipeData?.instructions}
+                            <Typography  variant='inherit' color="text.primary">
+                                <pre className="instructions">
+
+                                    {recipeData?.instructions}
+
+                                </pre>
+                                {console.log(recipeData?.instructions)}
                             </Typography>
                         </CardContent>
                     </Card>
