@@ -64,9 +64,9 @@ function ResponsiveAppBar() {
       console.log(error);
     });
     return 
-
+    
   };
-
+  
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -74,6 +74,7 @@ function ResponsiveAppBar() {
         {/* placeholder */}
         <Toolbar disableGutters>
           <Icon icon="mdi:fridge" href="/" style={{ fontSize: '36px' }}/>
+          <Box sx={{ flexGrow: 1, display: { xs: 1, md: 'flex' } }}>
           <Typography
             variant="h6"
             noWrap
@@ -88,29 +89,48 @@ function ResponsiveAppBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-          >
+            >
             Fridget
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <MenuItem
-                key={0}
-                onClick={() => navigate(`/home`)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+          </Box>
+          {localStorage.getItem("auth") === "false" ? 
+            
+            <Box className="dropdownbox" sx={{ flexGrow: 0, display: { xs: 1, md: 'none' } }}>
+              <DropDownMenu menu_items={[
+                {item:'Register', click:routes.signup}, 
+                {item:'Log In', click:routes.login}
+              ]}
+              />
+            </Box>
+            :
+            <Box className="dropdownbox" sx={{ flexGrow: 0, display: { xs: 1, md: 'none' } }}>
+              <DropDownMenu menu_items={[
+                {item:'My Recipes', click:'/myrecipes'}, 
+                {item:'Log Out', click: null}
+              ]}
+              />
+            </Box>
+          }
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+            
+            <MenuItem
+              key={0}
+              onClick={() => navigate(`/home`)}
+              sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                Search
-              </MenuItem>
-              <MenuItem
-                key={1}
-                onClick={() => navigate(`/about`)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                About
-              </MenuItem>
-
+              Search
+            </MenuItem>
+            <MenuItem
+              key={1}
+              onClick={() => navigate(`/about`)}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+              About
+            </MenuItem>
           </Box>
           {localStorage.getItem("auth") === "true" && 
           <Box 
-          sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
           
             <MenuItem
               key={2}
@@ -129,8 +149,9 @@ function ResponsiveAppBar() {
           {localStorage.getItem("auth") === "false" && 
           <>
           <Box
-          sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
+          sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}
           >
+            
             <MenuItem 
               key={2} 
               onClick={() => navigate(routes.signup)}
@@ -146,27 +167,6 @@ function ResponsiveAppBar() {
             </MenuItem>
           </Box>
           </>
-          }
-          {localStorage.getItem("auth") === "false" ? (
-            
-            <Box className="dropdownbox" sx={{ flexGrow: 1, display: { xs: 1, md: 'none' } }}>
-              <DropDownMenu menu_items={[
-                {item:'Register', click:routes.signup}, 
-                {item:'Log In', click:routes.login}
-              ]}
-              />
-            </Box>
-          )
-            :
-          (
-            <Box className="dropdownbox" sx={{ flexGrow: 0, display: { xs: 1, md: 'none' } }}>
-              <DropDownMenu menu_items={[
-                {item:'My Recipes', click:'/myrecipes'}, 
-                {item:'Log Out', click: null}
-              ]}
-              />
-            </Box>
-          )
           }
         </Toolbar>
       </Container>
