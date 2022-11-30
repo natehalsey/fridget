@@ -139,6 +139,9 @@ function ResponsiveAppBar() {
               >
               My Recipes
             </MenuItem>
+            <MenuItem key={4} onClick={() => navigate( `/fridget`)}>
+              My Fridget
+            </MenuItem>
             <MenuItem key={3} onClick={handleLogout}>
               Log Out
             </MenuItem>
