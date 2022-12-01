@@ -1,38 +1,40 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Input from '@mui/material/Input';
-import AddIcon from '@mui/icons-material/Add';
-import IconButton from '@mui/material/IconButton';
-import TableFooter from '@mui/material/TableFooter';
+import * as React from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Input from "@mui/material/Input";
+import AddIcon from "@mui/icons-material/Add";
+import IconButton from "@mui/material/IconButton";
+import TableFooter from "@mui/material/TableFooter";
 
-export default function IngredientsForm({recipe, change}) {
+/**
+ * It's a form that allows you to add ingredients and measurements to a recipe
+ * @returns The IngredientsForm component is being returned.
+ */
+export default function IngredientsForm({ recipe, change }) {
   const [ingredient, setIngredient] = React.useState();
   const [measurement, setMeasurement] = React.useState();
-
 
   const addIngredient = () => {
     if (ingredient && measurement) {
       change({
         ...recipe,
         ...recipe.ingredients_measurements.push({
-            ingredient: ingredient,
-            measurement: measurement,
-          })
+          ingredient: ingredient,
+          measurement: measurement,
+        }),
       });
     }
     setIngredient();
     setMeasurement();
-  }
-
+  };
 
   return (
     <>
@@ -48,8 +50,8 @@ export default function IngredientsForm({recipe, change}) {
             label="Name"
             fullWidth
             value={recipe.name}
-            onChange={(e)=>{
-              change({...recipe, name: e.target.value})
+            onChange={(e) => {
+              change({ ...recipe, name: e.target.value });
             }}
             variant="standard"
           />
@@ -64,7 +66,7 @@ export default function IngredientsForm({recipe, change}) {
             variant="standard"
             value={recipe.category}
             onChange={(e) => {
-              change({...recipe, category: e.target.value})
+              change({ ...recipe, category: e.target.value });
             }}
           />
         </Grid>
@@ -76,12 +78,11 @@ export default function IngredientsForm({recipe, change}) {
             label="Cuisine"
             fullWidth
             value={recipe.area}
-            onChange={(e)=>{
-              change({...recipe, area: e.target.value})
+            onChange={(e) => {
+              change({ ...recipe, area: e.target.value });
             }}
             variant="standard"
           />
-       
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -91,49 +92,53 @@ export default function IngredientsForm({recipe, change}) {
             label="Image URL"
             fullWidth
             value={recipe.image_url}
-            onChange={(e)=>{
-              change({...recipe, image_url: e.target.value})
+            onChange={(e) => {
+              change({ ...recipe, image_url: e.target.value });
             }}
             variant="standard"
           />
-       
         </Grid>
-        
-        
-        
-       
-        <Grid item xs={12}>
-        <TableContainer component={Paper} size="small">
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Ingredient</TableCell>
-                <TableCell>Measurement</TableCell>
-              </TableRow>
-            </TableHead>
 
-            <TableBody>
-                {recipe.ingredients_measurements?.map(({ingredient, measurement},) => (
-                  ingredient && measurement && <TableRow xs={2} sm={2} md={12} lg={12}>
-                    <TableCell xs={2} sm={2} md={12} lg={12}>{ingredient}</TableCell>
-                    <TableCell xs={2} sm={2} md={12} lg={12}>{measurement}</TableCell>
-                  </TableRow>
-                ))}
-              <TableRow xs={2} sm={2} md={12} lg={12}>
-                <TableCell xs={2} sm={2} md={12} lg={12}>
-                  <TextField
-                    className="ingredient"
-                    id="Ingredient"
-                    label="Ingredient"
-                    name="Ingredient"
-                    value={ingredient}
-                    fullWidth
-                    variant="standard"
-                    onChange={(e) => setIngredient(e.target.value)} 
-                  />
-                </TableCell>
-                <TableCell xs={2} sm={2} md={12} lg={12}>
-                  <TextField
+        <Grid item xs={12}>
+          <TableContainer component={Paper} size="small">
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Ingredient</TableCell>
+                  <TableCell>Measurement</TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {recipe.ingredients_measurements?.map(
+                  ({ ingredient, measurement }) =>
+                    ingredient &&
+                    measurement && (
+                      <TableRow xs={2} sm={2} md={12} lg={12}>
+                        <TableCell xs={2} sm={2} md={12} lg={12}>
+                          {ingredient}
+                        </TableCell>
+                        <TableCell xs={2} sm={2} md={12} lg={12}>
+                          {measurement}
+                        </TableCell>
+                      </TableRow>
+                    )
+                )}
+                <TableRow xs={2} sm={2} md={12} lg={12}>
+                  <TableCell xs={2} sm={2} md={12} lg={12}>
+                    <TextField
+                      className="ingredient"
+                      id="Ingredient"
+                      label="Ingredient"
+                      name="Ingredient"
+                      value={ingredient}
+                      fullWidth
+                      variant="standard"
+                      onChange={(e) => setIngredient(e.target.value)}
+                    />
+                  </TableCell>
+                  <TableCell xs={2} sm={2} md={12} lg={12}>
+                    <TextField
                       className="measurement"
                       id="Measurement"
                       label="Measurement"
@@ -141,21 +146,20 @@ export default function IngredientsForm({recipe, change}) {
                       value={measurement}
                       fullWidth
                       variant="standard"
-                      onChange={(e) => setMeasurement(e.target.value)} 
+                      onChange={(e) => setMeasurement(e.target.value)}
                     />
-                </TableCell>
-                <TableCell xs={2} sm={2} md={12} lg={12}>
-                  <IconButton onClick={addIngredient}>
-                    <AddIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
+                  </TableCell>
+                  <TableCell xs={2} sm={2} md={12} lg={12}>
+                    <IconButton onClick={addIngredient}>
+                      <AddIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
               </TableBody>
-          </Table>  
+            </Table>
           </TableContainer>
         </Grid>
       </Grid>
     </>
   );
 }
-
