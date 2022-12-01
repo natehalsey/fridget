@@ -46,17 +46,33 @@ export default function FridgetListItem() {
       if (newFridgetItem){ 
         axios({
           method: "post",
-          url: API_URL + addUserIngredients,
+          url: API_URL + `/users/add-ingredient/?ingredient=${newFridgetItem}`,
           headers: {"Content-Type": 'application/json'},
-          data: {
-            "ingredients": [
-              newFridgetItem
-            ],
-          }
+        })
+        .then(() => {
+          getFridgetItems()
+        })
+        .catch((error) => {
+          console.log(error);
         });
-        getFridgetItems();
       }
     };
+    
+
+    const handleDelete = (value) => {
+      axios({
+        method: "delete",
+        url: API_URL + `/users/remove-ingredient/?ingredient=${value}`,
+        headers: {"Content-Type": 'application/json'},
+      })
+      .then(() => {
+        getFridgetItems()
+      })
+      .catch((error) =>{
+        console.log(error);
+      });
+
+    }
     
     React.useEffect(() => {
       getFridgetItems();
@@ -86,13 +102,13 @@ export default function FridgetListItem() {
           <ListItem
             key={value}
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
+              <IconButton edge="end" aria-label="delete" onClick={() => {handleDelete(value)}}>
                 <DeleteIcon />
               </IconButton>
             }
             disablePadding
           >
-            <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+            <ListItemButton role={undefined} onClick={() => {handleToggle(value)}} dense>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
@@ -108,7 +124,7 @@ export default function FridgetListItem() {
         );
       })}
       <ListItem disablePadding>
-        <ListItemButton onClick={addFridgetItem} role={undefined} dense>
+        <ListItemButton onClick={() => {addFridgetItem()}} role={undefined} dense>
           <ListItemIcon>
             <AddIcon />
           </ListItemIcon>

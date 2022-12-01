@@ -11,15 +11,21 @@ router = APIRouter(
 user_controller = UserController()
 
 # this file contains views pertaining directly to a user
-@router.post("/add-ingredients")
-async def add_user_ingredients(
-    ingredients: IngredientListModel, 
+@router.post("/add-ingredient")
+async def add_user_ingredient(
+    ingredient: str, 
     current_user: User = Depends(get_current_active_user)
 ):
-    return await user_controller.add_user_ingredients(ingredients, current_user)
+    return await user_controller.add_user_ingredient(ingredient, current_user)
 
+@router.delete("/remove-ingredient")
+async def remove_ingredient(
+    ingredient: str,
+    current_user: User = Depends(get_current_active_user)
+):
+    return await user_controller.remove_ingredient(ingredient, current_user)
 
-@router.get("/get-ingredients", response_model=IngredientListModel)
+@router.get("/get-ingredients")
 async def get_user_ingredients(current_user: User = Depends(get_current_active_user)) -> IngredientListModel:
     return await user_controller.get_user_ingredients(current_user)
 
