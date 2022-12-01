@@ -9,12 +9,16 @@ from fridget.base.auth.auth import (
 from fridget.base.auth.models import OAuth2EmailPasswordRequestForm
 from asyncpg.exceptions import UniqueViolationError
 
-error_dict = {
-    "users_email_key": "Email",
-    "users_username_key": "Username"
-}
 
-class AuthController:    
+# This file controls authentication
+class AuthController:
+    def __init__(self):
+        # we need this to send useful error messages to the FE
+        self.error_dict = {
+            "users_email_key": "Email",
+            "users_username_key": "Username"
+        }
+    # logs the user in by checking the password hash and adding the token to the cookies    
     async def login_for_access_token(self, form_data: OAuth2PasswordRequestForm = Depends()):
         user = await authenticate_user(form_data.username, form_data.password)
         if not user:
@@ -25,6 +29,7 @@ class AuthController:
             )
         return create_access_token(user)
     
+    # signs a user up
     async def sign_up(self, form_data: OAuth2EmailPasswordRequestForm = Depends()):
         hashed_password = get_password_hash(form_data.password)
         try: 
@@ -35,7 +40,8 @@ class AuthController:
                 
             )
         except UniqueViolationError as e:
-            error = error_dict[e.__dict__["constraint_name"]]
+            # send a nice little error to the FE so we can simply add it as an error message for the end user
+            error = self.error_dict[e.__dict__["constraint_name"]]
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"{error} already exists.")
 
         return create_access_token(user)

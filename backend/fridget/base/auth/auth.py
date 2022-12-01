@@ -1,3 +1,4 @@
+# this file contains all of the necessary functions to make authentication possible
 import ormar
 from jose import JWTError, jwt
 from fridget.base.schema import User
@@ -15,7 +16,7 @@ from fastapi import status
 from typing import Optional
 from typing import Dict
 
-
+# define a new custom class that fetches the auth token from cookies
 class OAuth2PasswordBearerWithCookie(OAuth2):
     def __init__(
         self,
@@ -30,7 +31,7 @@ class OAuth2PasswordBearerWithCookie(OAuth2):
         super().__init__(flows=flows, scheme_name=scheme_name, auto_error=auto_error)
 
     async def __call__(self, request: Request) -> Optional[str]:
-        authorization: str = request.cookies.get("access_token")
+        authorization: str = request.cookies.get("access_token") # this line gets the access token from the cookies
 
         scheme, param = get_authorization_scheme_param(authorization)
         if not authorization or scheme.lower() != "bearer":
@@ -50,7 +51,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
-
 
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
@@ -91,7 +91,8 @@ def _create_access_token(data: dict, expires_delta: timedelta | None = None) -> 
     encoded_jwt = jwt.encode(to_encode, Settings.SECRET_KEY, algorithm=Settings.ALGORITHM)
     return encoded_jwt
 
-
+# gets the current user by decoding the auth token in oauth2_scheme (its in a cookie)
+# then it gets the username from this token and return the user object
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

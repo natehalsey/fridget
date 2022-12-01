@@ -18,10 +18,8 @@ export default function IngredientsForm({recipe, change}) {
   const [ingredient, setIngredient] = React.useState();
   const [measurement, setMeasurement] = React.useState();
 
-  console.log(recipe.ingredients_measurements);
 
   const addIngredient = () => {
-    console.log(ingredient, measurement);
     if (ingredient && measurement) {
       change({
         ...recipe,
@@ -31,7 +29,6 @@ export default function IngredientsForm({recipe, change}) {
           })
       });
     }
-    console.log(recipe);
     setIngredient();
     setMeasurement();
   }
@@ -76,11 +73,26 @@ export default function IngredientsForm({recipe, change}) {
             required
             id="area"
             name="area"
-            label="Cusisine"
+            label="Cuisine"
             fullWidth
             value={recipe.area}
             onChange={(e)=>{
               change({...recipe, area: e.target.value})
+            }}
+            variant="standard"
+          />
+       
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="img"
+            name="img"
+            label="Image URL"
+            fullWidth
+            value={recipe.image_url}
+            onChange={(e)=>{
+              change({...recipe, image_url: e.target.value})
             }}
             variant="standard"
           />
@@ -96,20 +108,17 @@ export default function IngredientsForm({recipe, change}) {
             <TableHead>
               <TableRow>
                 <TableCell>Ingredient</TableCell>
-                <TableCell align="right">Measurement</TableCell>
+                <TableCell>Measurement</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-                {recipe.ingredients_measurements?.map(({ingredient, measurement}, index) => (
-                  <TableRow>
-                    <TableCell>{ingredient}</TableCell>
-                    <TableCell align="right">{measurement}</TableCell>
+                {recipe.ingredients_measurements?.map(({ingredient, measurement},) => (
+                  ingredient && measurement && <TableRow xs={2} sm={2} md={12} lg={12}>
+                    <TableCell xs={2} sm={2} md={12} lg={12}>{ingredient}</TableCell>
+                    <TableCell xs={2} sm={2} md={12} lg={12}>{measurement}</TableCell>
                   </TableRow>
                 ))}
-            </TableBody>
-
-            <TableFooter>
               <TableRow xs={2} sm={2} md={12} lg={12}>
                 <TableCell xs={2} sm={2} md={12} lg={12}>
                   <TextField
@@ -135,13 +144,13 @@ export default function IngredientsForm({recipe, change}) {
                       onChange={(e) => setMeasurement(e.target.value)} 
                     />
                 </TableCell>
-                <TableCell align="right" xs={2} sm={2} md={12} lg={12}>
+                <TableCell xs={2} sm={2} md={12} lg={12}>
                   <IconButton onClick={addIngredient}>
                     <AddIcon />
                   </IconButton>
                 </TableCell>
               </TableRow>
-            </TableFooter>
+              </TableBody>
           </Table>  
           </TableContainer>
         </Grid>

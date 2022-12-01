@@ -37,7 +37,7 @@ export default function RecipeCreate() {
       image_url: '',
       source: ''
     });
-    console.log(recipe);
+
     const getStepContent = () => {
       switch (activeStep) {
         case 0:
@@ -65,17 +65,16 @@ export default function RecipeCreate() {
         headers: { "Content-Type": 'application/json' },
         data: { 
           name: recipe.name,
-          ingredients_measurements: recipe.ingredients_measurements.slice(1),
+          ingredients_measurements: recipe.ingredients_measurements,
           area: { name: recipe.area },
           category: { name: recipe.category },
+          image_url: recipe.image_url,
           instructions: recipe.instructions
         }
-      }).then((response) =>{
-          console.log(response?.response?.data);
       }).catch(err =>{
-        console.log(err?.response?.data);
+        console.log(err)
+        localStorage.setItem("auth", false);
       });
-      console.log(recipe)
     }
   };
 

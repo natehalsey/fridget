@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+# models associated with recipe requests and responses
 class AreaModel(BaseModel):
     name: str
 
