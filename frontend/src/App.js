@@ -14,6 +14,7 @@ import MyRecipes from './pages/MyRecipes';
 import MyFridget from './pages/MyFridget';
 import MenuTray from "./components/MenuTray";
 import { Box } from '@mui/material';
+import Create from './pages/Create';
 
 axios.defaults.withCredentials = true
 
@@ -52,10 +53,10 @@ function App() {
             <Route path={routes.about} element={<About />} />
             <Route path={routes.myrecipes} element={<MyRecipes />}/>
             <Route path='/recipe/:id' element={<RecipeView />} />
-            <Route path='/create' element={<About />} />
-            <Route path='/fridget' element={<MyFridget />} />
+            <Route path='/fridget' element={<About />} />
             <Route path='/login' element={<Login/>} />
             <Route path='/signup' element={<SignUp/>} />
+            <Route path={routes.create} element={<Create/>} />
           </Routes>
         </Router>
       </ThemeProvider>
