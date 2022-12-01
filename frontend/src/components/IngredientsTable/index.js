@@ -1,15 +1,18 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
-
-export default function BasicTable({rows}) {
-
+/**
+ * It takes in an array of objects, and returns a table with two columns, one for the ingredient and
+ * one for the measurement
+ * @returns A table with the ingredients and measurements of the recipe.
+ */
+export default function BasicTable({ rows }) {
   return (
     <TableContainer component={Paper} size="small">
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -20,17 +23,19 @@ export default function BasicTable({rows}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows ? rows?.map((row) => (
-            <TableRow
-              key={row.ingredient}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.ingredient}
-              </TableCell>
-              <TableCell align="right">{row.measurement}</TableCell>
-            </TableRow>
-          )) : null}
+          {rows
+            ? rows?.map((row) => (
+                <TableRow
+                  key={row.ingredient}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.ingredient}
+                  </TableCell>
+                  <TableCell align="right">{row.measurement}</TableCell>
+                </TableRow>
+              ))
+            : null}
         </TableBody>
       </Table>
     </TableContainer>
