@@ -19,7 +19,7 @@ Run ```yarn start```
 Go to http://localhost:3000 in your web browser.
 
 ## Frontend Development Only
-Use ```REACT_APP_API_URL="http://fridget.co:81" yarn start``` to run local frontend and use server backend
+Use ```REACT_APP_API_URL="http://fridget.co:81" yarn start``` to run local frontend and use server backend. Note Authentication does not work with this setup
 
 # Deployment
 
