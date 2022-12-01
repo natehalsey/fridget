@@ -32,6 +32,8 @@ export default function IngredientsForm({recipe, change}) {
       });
     }
     console.log(recipe);
+    setIngredient();
+    setMeasurement();
   }
 
 
@@ -74,7 +76,7 @@ export default function IngredientsForm({recipe, change}) {
             required
             id="area"
             name="area"
-            label="Recipe Area"
+            label="Cusisine"
             fullWidth
             value={recipe.area}
             onChange={(e)=>{
@@ -108,22 +110,32 @@ export default function IngredientsForm({recipe, change}) {
             </TableBody>
 
             <TableFooter>
-              <TableRow>
-                <TableCell>
-                  <Input
-                    classIngredient="ingredient"
+              <TableRow xs={2} sm={2} md={12} lg={12}>
+                <TableCell xs={2} sm={2} md={12} lg={12}>
+                  <TextField
+                    className="ingredient"
+                    id="Ingredient"
+                    label="Ingredient"
+                    name="Ingredient"
                     value={ingredient}
+                    fullWidth
+                    variant="standard"
                     onChange={(e) => setIngredient(e.target.value)} 
                   />
                 </TableCell>
-                <TableCell>
-                  <Input
+                <TableCell xs={2} sm={2} md={12} lg={12}>
+                  <TextField
                       className="measurement"
+                      id="Measurement"
+                      label="Measurement"
+                      name="Measurement"
                       value={measurement}
+                      fullWidth
+                      variant="standard"
                       onChange={(e) => setMeasurement(e.target.value)} 
                     />
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="right" xs={2} sm={2} md={12} lg={12}>
                   <IconButton onClick={addIngredient}>
                     <AddIcon />
                   </IconButton>
