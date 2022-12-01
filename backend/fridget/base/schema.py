@@ -62,7 +62,6 @@ class User(ormar.Model):
     username: str = ormar.String(max_length=200, unique=True)
     email: str = ormar.String(max_length=200, unique=True)
     hashed_password: str = ormar.String(max_length=200)
-    ingredients: list[Ingredient] = ormar.ManyToMany(Ingredient)
 
 class UserCreatedRecipe(ormar.Model):
     class Meta(BaseMeta):
@@ -79,3 +78,12 @@ class UserSavedRecipe(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
     user: User = ormar.ForeignKey(User, related_name="saved_recipes")
     recipe: Recipe = ormar.ForeignKey(Recipe, unique=True, skip_reverse=True)  
+    
+class UserIngredient(ormar.Model):
+    class Meta(BaseMeta):
+        tablename="users_ingredients"
+    
+    id: int = ormar.Integer(primary_key=True)
+    user: User = ormar.ForeignKey(User)
+    ingredient: Ingredient = ormar.ForeignKey(Ingredient)
+    

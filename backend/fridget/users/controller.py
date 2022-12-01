@@ -1,26 +1,40 @@
 import ormar
 from fastapi import status, HTTPException, Response
 from fridget.recipes.models import IngredientListModel
-from fridget.base.schema import Recipe, User, UserSavedRecipe, UserCreatedRecipe, Ingredient
+from fridget.base.schema import Recipe, User, UserSavedRecipe, UserCreatedRecipe, Ingredient, UserIngredient
 
 
 # user controller controls all user actions
 class UserController:
-    async def add_user_ingredients(
-        self,
-        ingredients: IngredientListModel, 
-        current_user: User,
-    ):
-        for ingredient in ingredients.ingredients:
-            ingredient, _ = await Ingredient.objects.get_or_create(name=ingredient)
-            await current_user.ingredients.add(ingredient)
-        
-        return Response(status_code=200)
+    async def add_user_ingredient(self, ingredient: str, current_user: User):
+        ingredient, _ = await Ingredient.objects.get_or_create(name=ingredient)
+        await UserIngredient.objects.create(
+            user=current_user,
+            ingredient=ingredient
+        )        
+        return Response(status_code=status.HTTP_201_CREATED)
 
+    async def remove_ingredient(self, ingredient: str, current_user: User):
+        ingredient = await Ingredient.objects.get(
+            name=ingredient
+        )
+        await UserIngredient.objects.delete(
+            user=current_user,
+            ingredient=ingredient
+        )
+        return Response(status_code=status.HTTP_200_OK)
+        
+    
     async def get_user_ingredients(self, current_user: User) -> IngredientListModel:
-        user = await User.objects.select_related("ingredients").get(id=current_user.id)
+        user_ingredients = await UserIngredient.objects.select_related("ingredient").fields("ingredient").filter(
+            user=current_user
+        ).all()
+        
         return IngredientListModel(
-            ingredients=[ingredient.name for ingredient in user.ingredients]
+            ingredients=[
+                user_ingredient.ingredient.name 
+                for user_ingredient in user_ingredients
+            ]
         )
     
     async def get_saved_recipes(self, current_user: User):
