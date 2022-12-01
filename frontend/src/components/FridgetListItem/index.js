@@ -48,7 +48,6 @@ export default function FridgetListItem() {
       });
   };
 
-<<<<<<< HEAD
     const addFridgetItem = () => {
       if (newFridgetItem){ 
         axios({
@@ -82,25 +81,8 @@ export default function FridgetListItem() {
     }
     
     React.useEffect(() => {
-=======
-  const addFridgetItem = () => {
-    if (newFridgetItem) {
-      axios({
-        method: "post",
-        url: API_URL + addUserIngredients,
-        headers: { "Content-Type": "application/json" },
-        data: {
-          ingredients: [newFridgetItem],
-        },
-      });
->>>>>>> main
       getFridgetItems();
-    }
-  };
-
-  React.useEffect(() => {
-    getFridgetItems();
-  }, []);
+    }, []);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -130,15 +112,7 @@ export default function FridgetListItem() {
             }
             disablePadding
           >
-<<<<<<< HEAD
             <ListItemButton role={undefined} onClick={() => {handleToggle(value)}} dense>
-=======
-            <ListItemButton
-              role={undefined}
-              onClick={handleToggle(value)}
-              dense
-            >
->>>>>>> main
               <ListItemIcon>
                 <Checkbox
                   edge="start"
