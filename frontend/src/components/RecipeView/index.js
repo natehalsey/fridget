@@ -157,8 +157,6 @@ export default function RecipeView() {
                                                    { saved ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
                                                 </IconButton>
                                             }
-                                            {created && <Button onClick={() => {navigate(routes.edit)}}>Edit Recipe</Button>}
-                                            {created && <Button onClick={handleDelete}>Delete Recipe</Button>}
                                         </div>
                                         <Typography variant="body2" color="text.secondary">
                                             Category: {recipeData?.category?.name} | Cuisine: {recipeData?.area?.name}

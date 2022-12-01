@@ -48,10 +48,14 @@ export default function RecipeCreate() {
     category: '',
     area: '',
     instructions: '',
-    ingredients_measurements: [''],
+    ingredients_measurements: [{
+      ingredient: '',
+      measurement: ''
+    }],
     image_url: '',
     source: ''
   });
+  console.log(recipe);
   const getStepContent = () => {
     switch (activeStep) {
       case 0:
@@ -68,19 +72,29 @@ export default function RecipeCreate() {
 
 
    const handleNext = async () => {
-    setActiveStep(activeStep + 1);
+    if (recipe.name === '' || recipe.category == '' || recipe.area === '') {
+      alert("Please fill in all fields");
+    } else {
+      setActiveStep(activeStep + 1);
+    }
+    
     if (activeStep===steps.length-1){
       
-      axios.post(API_URL + createRecipeURL, { params: {
-        name: recipe.name,
-        ingredients_measurements:recipe.ingredients_measurements,
-        area: recipe.area,
-        category: recipe.category,
-        instructions: recipe.instructions
-      }}).then((response) =>{
-          console.log(response.response.data);
+      axios({ 
+        method: "post",
+        url: API_URL + createRecipeURL, 
+        headers: { "Content-Type": 'application/json' },
+        data: { 
+          name: recipe.name,
+          ingredients_measurements: recipe.ingredients_measurements.slice(1),
+          area: { name: recipe.area },
+          category: { name: recipe.category },
+          instructions: recipe.instructions
+        }
+      }).then((response) =>{
+          console.log(response?.response?.data);
       }).catch(err =>{
-        console.log(err.response.data);
+        console.log(err?.response?.data);
       });
       console.log(recipe)
     }
@@ -94,28 +108,7 @@ export default function RecipeCreate() {
 
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-        
-
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Fridget Recipe Creation
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
-
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      <Container component="main"  xs={12} sm={4} md={3} lg={3}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Create Your Recipe
@@ -161,7 +154,6 @@ export default function RecipeCreate() {
         </Paper>
         <Copyright />
       </Container>
-    </ThemeProvider>
   );
 }
 

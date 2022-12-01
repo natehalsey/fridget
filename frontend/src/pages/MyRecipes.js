@@ -12,9 +12,6 @@ const MyRecipes = () => {
     <Button onClick={() => {navigate(routes.create)}}>
         Create Recipe
     </Button>
-    <Button>
-        Add Items to Fridge
-    </Button>
     <Typography variant="h4">
         Saved Recipes
     </Typography>
