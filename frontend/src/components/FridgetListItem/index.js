@@ -48,23 +48,41 @@ export default function FridgetListItem() {
       });
   };
 
-  const addFridgetItem = () => {
-    if (newFridgetItem) {
-      axios({
-        method: "post",
-        url: API_URL + addUserIngredients,
-        headers: { "Content-Type": "application/json" },
-        data: {
-          ingredients: [newFridgetItem],
-        },
-      });
-      getFridgetItems();
-    }
-  };
+    const addFridgetItem = () => {
+      if (newFridgetItem){ 
+        axios({
+          method: "post",
+          url: API_URL + `/users/add-ingredient/?ingredient=${newFridgetItem}`,
+          headers: {"Content-Type": 'application/json'},
+        })
+        .then(() => {
+          getFridgetItems()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+    };
+    
 
-  React.useEffect(() => {
-    getFridgetItems();
-  }, []);
+    const handleDelete = (value) => {
+      axios({
+        method: "delete",
+        url: API_URL + `/users/remove-ingredient/?ingredient=${value}`,
+        headers: {"Content-Type": 'application/json'},
+      })
+      .then(() => {
+        getFridgetItems()
+      })
+      .catch((error) =>{
+        console.log(error);
+      });
+
+    }
+    
+    React.useEffect(() => {
+      getFridgetItems();
+    }, []);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -88,17 +106,13 @@ export default function FridgetListItem() {
           <ListItem
             key={value}
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
+              <IconButton edge="end" aria-label="delete" onClick={() => {handleDelete(value)}}>
                 <DeleteIcon />
               </IconButton>
             }
             disablePadding
           >
-            <ListItemButton
-              role={undefined}
-              onClick={handleToggle(value)}
-              dense
-            >
+            <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
@@ -114,7 +128,7 @@ export default function FridgetListItem() {
         );
       })}
       <ListItem disablePadding>
-        <ListItemButton onClick={addFridgetItem} role={undefined} dense>
+        <ListItemButton onClick={() => {addFridgetItem()}} role={undefined} dense>
           <ListItemIcon>
             <AddIcon />
           </ListItemIcon>
