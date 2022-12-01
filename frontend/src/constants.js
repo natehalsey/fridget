@@ -42,12 +42,8 @@ export const getRecipeByIdURL = "/recipes/get-recipe-by-id";
 export const getRandomRecipes = "/recipes/get-recipes-by-random";
 export const postUserData = "/users/login";
 export const createRecipeURL = "/recipes/create-recipe";
-<<<<<<< HEAD
-export const getUserIngredients = "/users/get-ingredients"
-=======
 export const addUserIngredients = "/users/add-ingredients";
 export const getUserIngredients = "/users/get-ingredients";
->>>>>>> main
 export const searchParamName = "name";
 export const searchParamArea = "area";
 export const searchParamCategory = "category";
