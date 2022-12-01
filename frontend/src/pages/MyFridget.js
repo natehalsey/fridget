@@ -17,6 +17,7 @@ import {
   } from "../constants";
 
 const MyFridget = () => {
+
     const [searchResults, setSearchResults] = React.useState();
     const { checked } = React.useContext(AppContext);
     const navigate = useNavigate();
@@ -28,10 +29,10 @@ const MyFridget = () => {
         ).then( (response) => {
             setSearchResults(response.data)
         }).catch( (error) => {
-                console.log(error);
-                localStorage.setItem("auth", false)
-                navigate("/home")
-            });
+            console.log(error);
+            localStorage.setItem("auth", false)
+            navigate("/home")
+        });
     };
 
     React.useEffect(() => {
@@ -40,21 +41,21 @@ const MyFridget = () => {
 
     return (
         <div>
-            <Accordion>
+            <Accordion defaultExpanded>
                 <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 >
-                <Typography variant="h5">Whats in my Fridget?</Typography>
+                <Typography variant="h5">What's in my Fridget?</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FridgetListItem></FridgetListItem>
                 </AccordionDetails>
             </Accordion>
-            <Accordion>
+            <Accordion defaultExpanded>
                 <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 >
-                <Typography variant="h5">Whats can I make?</Typography>
+                <Typography variant="h5">What can I make?</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={1}>

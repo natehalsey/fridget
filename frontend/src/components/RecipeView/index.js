@@ -15,6 +15,7 @@ import "./styles.css";
 import { Button } from "@mui/material";
 import { useNavigate  } from "react-router-dom";
 
+
 export default function RecipeView() {
     const path = window.location.pathname.split('/');
     const [recipeData, setRecipeData] = React.useState();
@@ -25,14 +26,12 @@ export default function RecipeView() {
 
     React.useEffect(() => {
         getRecipe(id);
-        if (localStorage.getItem("auth") === "true") {
-            getSavedRecipes();
-        }
+        getSavedRecipes();
     },[localStorage.getItem("auth")]);
 
     React.useEffect(() => {
         getCreatedRecipes()
-    },[]);
+    },[localStorage.getItem("auth")]);
 
     const getRecipe = ( (id) => {
         axios.get(
@@ -46,11 +45,14 @@ export default function RecipeView() {
     });
 
     const handleDelete = () => {
-        removeCreatedRecipe();
-        navigate(routes.home);
+        // eslint-disable-next-line no-restricted-globals
+        const confirm_delete = confirm("Are you sure you want to delete "+recipeData?.name+"?")
+        if (confirm_delete){
+            removeCreatedRecipe();
+            navigate(routes.home);
+        }
         
     }
-    
     
     const onSave = () => {
         if (saved){
@@ -157,6 +159,7 @@ export default function RecipeView() {
                                                    { saved ? <FavoriteIcon /> : <FavoriteBorderIcon /> }
                                                 </IconButton>
                                             }
+                                            {created && <Button onClick={handleDelete}>Delete Recipe</Button>}
                                         </div>
                                         <Typography variant="body2" color="text.secondary">
                                             Category: {recipeData?.category?.name} | Cuisine: {recipeData?.area?.name}
@@ -171,13 +174,10 @@ export default function RecipeView() {
                 <Grid spacing={2}>
                     <Card>
                         <CardContent>
-                            <Typography  variant='inherit' color="text.primary">
+                            <Typography color="text.primary">
                                 <pre className="instructions">
-
                                     {recipeData?.instructions}
-
                                 </pre>
-                                {console.log(recipeData?.instructions)}
                             </Typography>
                         </CardContent>
                     </Card>

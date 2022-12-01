@@ -105,7 +105,9 @@ function ResponsiveAppBar() {
             :
             <Box className="dropdownbox" sx={{ flexGrow: 0, display: { xs: 1, md: 'none' } }}>
               <DropDownMenu menu_items={[
-                {item:'My Recipes', click:'/myrecipes'}, 
+                {item:'Create Recipe', click:'/create'},
+                {item:'My Recipes', click:'/myrecipes'},
+                {item:'My Fridget', click:'/fridget'},
                 {item:'Log Out', click: null}
               ]}
               />
@@ -141,6 +143,9 @@ function ResponsiveAppBar() {
             </MenuItem>
             <MenuItem key={4} onClick={() => navigate( `/fridget`)}>
               My Fridget
+            </MenuItem>
+            <MenuItem key={3} onClick={() => navigate(routes.create)}>
+              Create Recipe
             </MenuItem>
             <MenuItem key={3} onClick={handleLogout}>
               Log Out

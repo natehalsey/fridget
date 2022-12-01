@@ -1,9 +1,12 @@
+
 import ormar
 import databases
 import sqlalchemy
 from typing import Optional
 from pydantic import json
 from .config import Settings
+
+# the schema file contains all of the database schema logic
 
 DATABASE_URL = Settings.DATABASE_URL
 

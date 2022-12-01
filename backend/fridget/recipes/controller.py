@@ -13,16 +13,22 @@ from fridget.base.schema import (
 )
 from fridget.recipes.models import RecipeModel, IngredientMeasurementModel
 
+
+# recipe controller controls the recipe objects in the db
 class RecipeController:
 
     async def create_recipe(self, recipe_model: RecipeModel, current_user: User) -> None:
+        
+        # get or create area
         area, _ = await Area.objects.get_or_create(
             name=recipe_model.area.name
         )
+        # get or create category
         category, _ = await Category.objects.get_or_create(
             name=recipe_model.category.name
         )
-    
+
+        # create the recipe
         recipe = await Recipe.objects.create(
             name=recipe_model.name,
             category=category,
@@ -32,12 +38,14 @@ class RecipeController:
             image_url=recipe_model.image_url,
             source=recipe_model.source,
         )
+        # add a link between user and created recipe
         await UserCreatedRecipe.objects.create(
             user=current_user,
             recipe=recipe
         )
         
-        
+        # we need to take the inputted json of the ingredients_measurments and turn it into data that we can
+        # usefully retain for further use
         ingredients_measurements: list[IngredientMeasurementModel] = recipe_model.ingredients_measurements    
         for ingredient_measurement in ingredients_measurements:
             
@@ -65,7 +73,11 @@ class RecipeController:
         return await Recipe.objects.offset(random_offset).limit(n).all()
 
     async def get_recipes_by_ingredients(self, input_ingredients: list[str]) -> list[RecipeModel]:
+        # the problem is that our ingredients are in the database case sensitive
+        # ham and HAM could be connected to totally different recipes.
         
+        # if this wasn't the case, we could do a simple name__in = input_ingredients
+        # unfortunately we have to do this instead, adding a lot of complexity.
         recipes = [
             recipes for ingredient_name in input_ingredients for recipe in
             await Ingredient.objects.select_related("recipes").filter(
@@ -73,11 +85,19 @@ class RecipeController:
             ).all()
             for recipes in recipe.recipes
         ]
+        
+        # now we have a list of recipes, with some duplicates
+        
+        # count up the recipe ids
         counts = Counter([recipe.id for recipe in recipes])
+        
+        # sort by most count (because of duplicates)
         sorted_recipes = sorted(
             recipes,
             key=lambda recipe: counts[recipe.id],
             reverse=True
         )
+        
+        # the recipes with the most duplicates are exactly the recipes that have the most ingredients in the passed list
         return sorted_recipes
         
