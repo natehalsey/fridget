@@ -8,4 +8,3 @@ class UserModel(BaseModel):
     ingredients: list[str]
     created_recipes: list[RecipeModel]
     saved_recipes: list[RecipeModel]
-    
