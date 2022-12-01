@@ -1,7 +1,10 @@
+
 from pydantic import BaseModel
 from fastapi.param_functions import Form
 from typing import Optional
 
+
+# Models associated with auth/token
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -10,7 +13,7 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     username: str | None = None
     
-    
+# we need this so we can receive an email on sign up and still have security
 class OAuth2EmailPasswordRequestForm:
 
     def __init__(

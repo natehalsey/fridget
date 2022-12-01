@@ -13,6 +13,8 @@ router = APIRouter(
 
 recipe_controller = RecipeController()
 
+# this file contains views that anybody can access without authentication,
+# non user specific items
 @router.get("/get-recipes-by-name", response_model=list[RecipeModel])
 async def get_recipes_by_name(name: str) -> list[RecipeModel]:
     return await recipe_controller.get_recipes_by_name(name)

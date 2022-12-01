@@ -111,3 +111,12 @@
 .errorString {
   color:#ff0000
 }
+
+.create-recipe-button-container {
+
+}
+
+.create-recipe-button {
+  background: blue;
+  color: red;
+}

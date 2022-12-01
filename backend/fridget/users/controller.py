@@ -3,6 +3,8 @@ from fastapi import status, HTTPException, Response
 from fridget.recipes.models import IngredientListModel
 from fridget.base.schema import Recipe, User, UserSavedRecipe, UserCreatedRecipe, Ingredient
 
+
+# user controller controls all user actions
 class UserController:
     async def add_user_ingredients(
         self,

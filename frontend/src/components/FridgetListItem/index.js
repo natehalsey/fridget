@@ -77,8 +77,6 @@ export default function FridgetListItem() {
       setChecked(newChecked);
     };
 
-  console.log(checked);
-
   return (
     <List lg={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {fridgetItems?.map((value) => {
