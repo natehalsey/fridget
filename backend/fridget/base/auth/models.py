@@ -12,8 +12,10 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
-    
+
 # we need this so we can receive an email on sign up and still have security
+
+
 class OAuth2EmailPasswordRequestForm:
 
     def __init__(
