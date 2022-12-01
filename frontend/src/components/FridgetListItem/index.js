@@ -112,7 +112,7 @@ export default function FridgetListItem() {
             }
             disablePadding
           >
-            <ListItemButton role={undefined} onClick={() => {handleToggle(value)}} dense>
+            <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
