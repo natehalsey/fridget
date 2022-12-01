@@ -11,7 +11,8 @@ import { ThemeProvider, styled } from '@mui/material/styles';
 import Login from './pages/Login';
 import axios from 'axios'
 import MyRecipes from './pages/MyRecipes';
-import MenuTray from "./components/MenuTray"
+import MyFridget from './pages/MyFridget';
+import MenuTray from "./components/MenuTray";
 import { Box } from '@mui/material';
 import Create from './pages/Create';
 
@@ -22,6 +23,7 @@ function App() {
   const [searchParams, setSearchParams] = React.useState("name");
   const [showMenu, setShowMenu] = React.useState(false);
   const [menuItems, setMenuItems] = React.useState([]);
+  const [checked, setChecked] = React.useState([]);
 
   if (localStorage.getItem("auth") === null){
     localStorage.setItem("auth", false)
@@ -36,7 +38,8 @@ function App() {
         menuItems, setMenuItems, 
         showMenu, setShowMenu, 
         saved, setSaved, 
-        searchParams, setSearchParams
+        searchParams, setSearchParams,
+        checked, setChecked
       }}>
       <ThemeProvider theme={theme}>
         <Router>
