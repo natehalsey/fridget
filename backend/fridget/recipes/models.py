@@ -2,18 +2,24 @@ from pydantic import BaseModel
 from typing import Optional
 
 # models associated with recipe requests and responses
+
+
 class AreaModel(BaseModel):
     name: str
 
+
 class CategoryModel(BaseModel):
     name: str
-    
+
+
 class IngredientMeasurementModel(BaseModel):
     ingredient: str
     measurement: str
 
+
 class IngredientListModel(BaseModel):
     ingredients: list[str]
+
 
 class RecipeModel(BaseModel):
     id: Optional[str]
@@ -24,4 +30,3 @@ class RecipeModel(BaseModel):
     ingredients_measurements: Optional[list[IngredientMeasurementModel]]
     image_url: Optional[str]
     source: Optional[str]
-    

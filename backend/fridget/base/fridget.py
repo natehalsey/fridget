@@ -16,13 +16,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fridget.base.schema import database
 
 
-
 # this file contains the app set-up, middleware and db setup
 
 
 # Base ###############################
 app = FastAPI()
-
 
 
 # Routers ############################
@@ -61,4 +59,3 @@ async def startup() -> None:
 async def shutdown() -> None:
     if database.is_connected:
         await database.disconnect()
-        

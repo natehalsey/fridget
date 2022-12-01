@@ -2,7 +2,7 @@ from fridget.base.schema import User
 from fastapi import Depends, HTTPException, status, Response
 from fastapi.security import OAuth2PasswordRequestForm
 from fridget.base.auth.auth import (
-    authenticate_user, 
+    authenticate_user,
     create_access_token,
     get_password_hash
 )
@@ -18,8 +18,16 @@ class AuthController:
             "users_email_key": "Email",
             "users_username_key": "Username"
         }
-    # logs the user in by checking the password hash and adding the token to the cookies    
+
     async def login_for_access_token(self, form_data: OAuth2PasswordRequestForm = Depends()):
+        """
+        It takes a username and password, authenticates the user, and returns an access token if the
+        username and password match a user
+
+        :param form_data: OAuth2PasswordRequestForm = Depends()
+        :type form_data: OAuth2PasswordRequestForm
+        :return: A token
+        """
         user = await authenticate_user(form_data.username, form_data.password)
         if not user:
             raise HTTPException(
@@ -28,20 +36,28 @@ class AuthController:
                 headers={"WWW-Authenticate": "Bearer"},
             )
         return create_access_token(user)
-    
+
     # signs a user up
     async def sign_up(self, form_data: OAuth2EmailPasswordRequestForm = Depends()):
+        """
+        It creates a new user with the form data that was passed in, and if the email or username
+        already exists, it raises an error
+
+        :param form_data: OAuth2EmailPasswordRequestForm = Depends()
+        :type form_data: OAuth2EmailPasswordRequestForm
+        """
         hashed_password = get_password_hash(form_data.password)
-        try: 
+        try:
             user = await User.objects.create(
                 email=form_data.email,
                 username=form_data.username,
                 hashed_password=hashed_password,
-                
+
             )
         except UniqueViolationError as e:
             # send a nice little error to the FE so we can simply add it as an error message for the end user
             error = self.error_dict[e.__dict__["constraint_name"]]
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"{error} already exists.")
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT, detail=f"{error} already exists.")
 
         return create_access_token(user)
