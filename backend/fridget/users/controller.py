@@ -64,23 +64,26 @@ class UserController:
     
     async def remove_created_recipe(self, recipe_id: int, current_user: User):
         try:
-            recipe = await Recipe.objects.select_related("created_by").get(
+            recipe = await Recipe.objects.get(
                 id=recipe_id
             )
         except ormar.NoMatch:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
         
-        
-        if not recipe.created_by == current_user.id:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-        
-        await UserCreatedRecipe.objects.delete(
-            user=current_user,
-            recipe=recipe,
+        try:
+            user_created_recipe = await UserCreatedRecipe.objects.get(
+                user=current_user,
+                recipe=recipe,
         )
+            
+        except ormar.NoMatch:
+            raise HTTPException(status_code=status.HTTP_401_NOT_AUTHORIZED, detail="Not authorized")
         
-        await Recipe.objects.delete(
-            id=recipe_id
+        await user_created_recipe.delete()
+        
+        await UserSavedRecipe.objects.delete(
+            recipe=recipe
         )
+        await recipe.delete()
         
         return Response(status_code=status.HTTP_200_OK)
