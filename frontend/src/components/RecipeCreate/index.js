@@ -17,59 +17,39 @@ import Instructions from './instructions';
 import Review from './review';
 import axios from 'axios';
 import { API_URL, createRecipeURL, loginURL } from "../../constants";
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      
-        Fridget
-      {' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Grid from '@mui/material/Grid';
 
 const steps = ['Enter Details', 'Enter Instructions', 'Review'];
-
-  
-
-
-
-
-const theme = createTheme();
 
 export default function RecipeCreate() {
 
 
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [recipe, setRecipe ] = React.useState({
-    name: '',
-    category: '',
-    area: '',
-    instructions: '',
-    ingredients_measurements: [{
-      ingredient: '',
-      measurement: ''
-    }],
-    image_url: '',
-    source: ''
-  });
-  console.log(recipe);
-  const getStepContent = () => {
-    switch (activeStep) {
-      case 0:
-        return <IngredientsForm recipe={recipe} change={setRecipe}/>;
-      case 1:
-        return <Instructions recipe={recipe} change={setRecipe}/>;
-      case 2:
-        return <Review recipe={recipe} change={setRecipe}/>;
-      default:
-        throw new Error('Unknown step');
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [recipe, setRecipe ] = React.useState({
+      name: '',
+      category: '',
+      area: '',
+      instructions: '',
+      ingredients_measurements: [{
+        ingredient: '',
+        measurement: ''
+      }],
+      image_url: '',
+      source: ''
+    });
+    console.log(recipe);
+    const getStepContent = () => {
+      switch (activeStep) {
+        case 0:
+          return <IngredientsForm recipe={recipe} change={setRecipe}/>;
+        case 1:
+          return <Instructions recipe={recipe} change={setRecipe}/>;
+        case 2:
+          return <Review recipe={recipe} change={setRecipe}/>;
+        default:
+          throw new Error('Unknown step');
+      }
     }
-  }
-  
-
 
    const handleNext = async () => {
     if (recipe.name === '' || recipe.category == '' || recipe.area === '') {
@@ -79,7 +59,6 @@ export default function RecipeCreate() {
     }
     
     if (activeStep===steps.length-1){
-      
       axios({ 
         method: "post",
         url: API_URL + createRecipeURL, 
@@ -104,33 +83,30 @@ export default function RecipeCreate() {
     setActiveStep(activeStep - 1);
   };
 
-
-
-
   return (
       <Container component="main"  xs={12} sm={4} md={3} lg={3}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Create Your Recipe
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
+          <Stepper activeStep={activeStep} xs={2} sm={2} md={12} lg={12}>
+              {steps.map((label) => (
+                  <Step key={label} >
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+              ))}
           </Stepper>
 
 
           {activeStep === steps.length ? (         
-            <React.Fragment>
+            <>
               <Typography variant="h5" gutterBottom>
                Your Recipe Has Been Submitted. <br />
                Thank You.
               </Typography>              
-            </React.Fragment>
+            </>
           ) : (
-            <React.Fragment>
+            <>
               {getStepContent(activeStep)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
@@ -149,10 +125,9 @@ export default function RecipeCreate() {
                   {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                 </Button>
               </Box>
-            </React.Fragment>
+            </>
           )}
         </Paper>
-        <Copyright />
       </Container>
   );
 }
