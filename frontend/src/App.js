@@ -53,7 +53,7 @@ function App() {
             <Route path={routes.about} element={<About />} />
             <Route path={routes.myrecipes} element={<MyRecipes />}/>
             <Route path='/recipe/:id' element={<RecipeView />} />
-            <Route path='/fridget' element={<About />} />
+            <Route path='/fridget' element={<MyFridget />} />
             <Route path='/login' element={<Login/>} />
             <Route path='/signup' element={<SignUp/>} />
             <Route path={routes.create} element={<Create/>} />

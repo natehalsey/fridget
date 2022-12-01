@@ -1,26 +1,35 @@
-import { Button, Typography } from '@mui/material';
-import { color } from '@mui/system';
+import { Accordion, Button, Typography } from '@mui/material';
 import React from 'react';
 import UserSavedRecipes from '../components/UserSavedRecipes';
 import UserCreatedRecipes from '../components/UserCreatedRecipes';
-import { useNavigate } from 'react-router-dom';
-import { routes } from "../constants"
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const MyRecipes = () => {
-  let navigate = useNavigate()
-  return (<div className='MyRecipesPage'>
-    <Button onClick={() => {navigate(routes.create)}}>
-        Create Recipe
-    </Button>
-    <Typography variant="h4">
-        Saved Recipes
-    </Typography>
-    <UserSavedRecipes/>
-    <Typography variant="h4">
-        Created Recipes
-    </Typography>
-    <UserCreatedRecipes/>
-  </div>
+  return (
+    <div className='MyRecipesPage'>
+      <Accordion defaultExpanded>
+          <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          >
+          <Typography variant="h5">Saved Recipes</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+              <UserSavedRecipes/>
+          </AccordionDetails>
+      </Accordion>
+      <Accordion defaultExpanded>
+          <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          >
+          <Typography variant="h5">Created Recipes</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+              <UserCreatedRecipes/>
+          </AccordionDetails>
+      </Accordion>
+    </div>
   );
 };
 export default MyRecipes;
