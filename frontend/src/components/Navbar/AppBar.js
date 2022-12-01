@@ -105,6 +105,7 @@ function ResponsiveAppBar() {
             :
             <Box className="dropdownbox" sx={{ flexGrow: 0, display: { xs: 1, md: 'none' } }}>
               <DropDownMenu menu_items={[
+                {item:'Create Recipe', click:'/create'},
                 {item:'My Recipes', click:'/myrecipes'},
                 {item:'My Fridget', click:'/fridget'},
                 {item:'Log Out', click: null}
