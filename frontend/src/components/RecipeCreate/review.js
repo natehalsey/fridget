@@ -7,9 +7,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 
 
-
-
-
 export default function Review({recipe, change}) {
   return (
     <React.Fragment>
@@ -32,9 +29,9 @@ export default function Review({recipe, change}) {
             Ingredients
           </Typography>
           <Grid container>
-            {recipe.ingredients_measurements.map((ing) => (
-                <Grid item key={ing} xs={6}>
-                  <Typography gutterBottom key={ing}>{ing}</Typography>
+            {recipe.ingredients_measurements.map(({ingredient, measurement}) => (
+                <Grid item key={ingredient} xs={6}>
+                  <Typography gutterBottom key={ingredient}>{ingredient}</Typography>
                 </Grid>
 
             ))}
