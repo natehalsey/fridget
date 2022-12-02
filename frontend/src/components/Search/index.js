@@ -68,6 +68,7 @@ const Search = () => {
           <Input
             id="search-input"
             className="search"
+            placeholder={`Search recipes by ${searchParams === "area" ? `cuisine` : searchParams}`}
             value={searchTitle}
             onChange={(e) => setSearchTitle(e.target.value)}
             endAdornment={
