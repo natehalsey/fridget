@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import { Link, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppContext, theme, routes } from "./constants";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import SignUp from "./pages/Signup";
 import RecipeView from "./components/RecipeView";
 import { ThemeProvider, styled } from "@mui/material/styles";
@@ -63,7 +62,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path={routes.home} element={<Home />} />
-            <Route path={routes.about} element={<About />} />
             <Route path={routes.myrecipes} element={<MyRecipes />} />
             <Route path="/recipe/:id" element={<RecipeView />} />
             <Route path="/fridget" element={<MyFridget />} />
