@@ -18,26 +18,6 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 import { API_URL } from "../../constants";
 
-const navbarElements = [
-  {
-    key: 0,
-    name: "Search",
-    link: "/home",
-    hide: 1,
-  },
-  {
-    key: 1,
-    name: "My Recipes",
-    link: "/about",
-    hide: 0,
-  },
-  {
-    key: 2,
-    name: "About",
-    link: "/about",
-    hide: 1,
-  },
-];
 
 /**
  * This function renders the app bar at the top of the page. It has a dropdown menu for mobile devices
@@ -129,19 +109,12 @@ function ResponsiveAppBar() {
             >
               Search
             </MenuItem>
-            <MenuItem
-              key={1}
-              onClick={() => navigate(`/about`)}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              About
-            </MenuItem>
           </Box>
           {localStorage.getItem("auth") === "true" && (
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
               <MenuItem
                 key={2}
-                onClick={() => navigate(`/myrecipes`)}
+                onClick={() => navigate(routes.myrecipes)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 My Recipes
