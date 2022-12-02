@@ -106,7 +106,7 @@ export default function RecipeCreate() {
         {activeStep === steps.length ? (
           <>
             <Typography variant="h5" gutterBottom>
-              Your Recipe Has Been Submitted. <br />
+              Your Recipe Has Been Saved. <br />
               Thank You.
             </Typography>
           </>
