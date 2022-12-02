@@ -101,7 +101,7 @@ export default function IngredientsForm({ recipe, change }) {
 
         <Grid item xs={12}>
           <TableContainer component={Paper} size="small">
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 300 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>Ingredient</TableCell>
