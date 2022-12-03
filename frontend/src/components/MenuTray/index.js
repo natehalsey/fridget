@@ -37,15 +37,6 @@ const MenuTray = () => {
           Search
         </MenuItem>
       )}
-      {showMenu && (
-        <MenuItem
-          onClick={() => {
-            navigate(routes.about);
-          }}
-        >
-          About
-        </MenuItem>
-      )}
       {showMenu &&
         menuItems.menu_items.map((menu_item) => {
           return (
