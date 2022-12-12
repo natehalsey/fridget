@@ -1,35 +1,20 @@
-# Imports ############################
-# Base
 from fastapi import FastAPI
-
-# Routers
 from fridget.users.views import router as UserRouter
 from fridget.recipes.views import router as RecipeRouter
 from fridget.base.auth.views import router as AuthRouter
-
-# Middleware
 import time
 from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
-
-# DB
 from fridget.base.schema import database
 
-
-# this file contains the app set-up, middleware and db setup
-
-
-# Base ###############################
 app = FastAPI()
 
 
-# Routers ############################
 app.include_router(RecipeRouter)
 app.include_router(UserRouter)
 app.include_router(AuthRouter)
 
 
-# Middleware ########################
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://fridget.co"],
@@ -47,8 +32,6 @@ async def add_process_time_header(request: Request, call_next):
     response.headers["X-Process-Time"] = str(process_time)
     return response
 
-
-# DB ##################################
 @app.on_event("startup")
 async def startup() -> None:
     if not database.is_connected:
