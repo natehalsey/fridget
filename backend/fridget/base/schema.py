@@ -4,11 +4,11 @@ import databases
 import sqlalchemy
 from typing import Optional
 from pydantic import json
-from .config import Settings
+from .config import settings
 
 # the schema file contains all of the database schema logic
 
-DATABASE_URL = Settings.DATABASE_URL
+DATABASE_URL = settings.DATABASE_URL
 
 database = databases.Database(DATABASE_URL)
 metadata = sqlalchemy.MetaData()

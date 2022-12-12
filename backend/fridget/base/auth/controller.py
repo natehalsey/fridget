@@ -20,14 +20,6 @@ class AuthController:
         }
 
     async def login_for_access_token(self, form_data: OAuth2PasswordRequestForm = Depends()):
-        """
-        It takes a username and password, authenticates the user, and returns an access token if the
-        username and password match a user
-
-        :param form_data: OAuth2PasswordRequestForm = Depends()
-        :type form_data: OAuth2PasswordRequestForm
-        :return: A token
-        """
         user = await authenticate_user(form_data.username, form_data.password)
         if not user:
             raise HTTPException(
@@ -39,13 +31,6 @@ class AuthController:
 
     # signs a user up
     async def sign_up(self, form_data: OAuth2EmailPasswordRequestForm = Depends()):
-        """
-        It creates a new user with the form data that was passed in, and if the email or username
-        already exists, it raises an error
-
-        :param form_data: OAuth2EmailPasswordRequestForm = Depends()
-        :type form_data: OAuth2EmailPasswordRequestForm
-        """
         hashed_password = get_password_hash(form_data.password)
         try:
             user = await User.objects.create(
@@ -58,6 +43,19 @@ class AuthController:
             # send a nice little error to the FE so we can simply add it as an error message for the end user
             error = self.error_dict[e.__dict__["constraint_name"]]
             raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT, detail=f"{error} already exists.")
-
+                status_code=status.HTTP_409_CONFLICT, 
+                detail=f"{error} already exists.",
+            )
         return create_access_token(user)
+
+    def set_jwt_cookie(self, response: Response, access_token: str | None = None):
+        if access_token is None:
+            response.set_cookie(key="access_token", value="")
+        response.set_cookie(
+            key="access_token", 
+            value=f"Bearer {access_token}", 
+            httponly=True, 
+            samesite=None
+        )
+        
+        
