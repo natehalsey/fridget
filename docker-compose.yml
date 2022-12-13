@@ -6,6 +6,9 @@ services:
       context: ./backend/
       dockerfile: Dockerfile
     restart: always
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - AUTH_TOKEN_API_KEY=${AUTH_TOKEN_API_KEY}
     ports:
       - "81:81"
   nginx:
