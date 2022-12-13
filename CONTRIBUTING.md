@@ -30,9 +30,12 @@ run `docker compose build && docker compose up -d` to redeploy server
 
 # Database
 
+## Access
+
+Access can be given to trusted individuals to a test database containing some sample recipes. 
+
 ## Migrations 
 
-#### WARNING WE ARE EDITING OUR LIVE DATABASE DURING LOCAL ONLY RUN AFTER SCHEMA CHANGES ####
 Run: ```. script/dbupgrade "upgrade message"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
 
 ## Viewing database tables
