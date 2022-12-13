@@ -32,9 +32,8 @@ run `docker compose build && docker compose up -d` to redeploy server
 
 ## Migrations 
 
-#### WARNING WE ARE EDITING OUR LIVE DATABASE DURING LOCAL ONLY RUN AFTER SCHEMA CHANGES ####
 Run: ```. script/dbupgrade "upgrade message"``` to autogenerate a revision file. Afterward run the migrations with ```alembic upgrade head```.
 
 ## Viewing database tables
 
-Download DBeaver, contact for database access. 
+Download DBeaver, contact for test database access. 
